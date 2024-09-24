@@ -1,0 +1,48 @@
+version: 2.1
+orbs:
+  node: circleci/node@5.1.0
+  coveralls: coveralls/coveralls@2.2.1
+
+jobs:
+  test_and_build:
+    executor:
+      name: node/default
+      tag: 20.8.0
+      resource_class: medium
+    steps:
+      - checkout
+      - run:
+          name: Install Yarn 4.0.0 using Corepack
+          command: |
+            sudo corepack enable
+            sudo corepack prepare yarn@4.0.0 --activate
+      - node/install-packages:
+          pkg-manager: yarn
+          with-cache: true
+          override-ci-command: yarn install --immutable
+      - run:
+          name: Lint the Source Code
+          command: yarn lint
+      - run:
+          name: Test the Library
+          command: yarn test
+      - run:
+          name: Generate the API Documents
+          command: yarn doc
+      - run:
+          name: Build the Library in Development Mode
+          command: yarn build:dev
+      - run:
+          name: Build the Library in Production Mode
+          command: yarn build
+      - coveralls/upload:
+          coverage_format: lcov
+          coverage_file: coverage/lcov.info
+
+workflows:
+  build_workflow:
+    jobs:
+      - test_and_build:
+          filters:
+            branches:
+              only: master
