@@ -238,14 +238,12 @@ const httpImpl = {
    *     待转换的响应数据。
    * @param {object} headers
    *     响应头。
-   * @param {number} status
-   *     响应状态码。
    * @return {any}
    *     转换后的响应数据。
    * @private
    * @author 胡海星
    */
-  transformResponseData(data, headers, status) {
+  transformResponseData(data, headers) {
     const contentType = headers['Content-Type'];
     if (isString(data) && contentType?.startsWith('application/json')) {
       // 使用自定义的JSON Parser重新解析响应数据为 JSON 对象，从而提供对64位整数的支持
