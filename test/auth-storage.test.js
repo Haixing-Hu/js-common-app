@@ -7,7 +7,8 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 import Cookies from 'js-cookie';
-import { AuthStorage } from '../src';
+import Json from '@haixing_hu/json';
+import { AuthStorage, config } from '../src';
 
 const APP_CODE = 'auto-storage-test';
 
@@ -54,8 +55,8 @@ jest.mock('js-cookie', () => {
   };
 });
 
-
-const authStorage = new AuthStorage(APP_CODE);
+AuthStorage.setAppCode(APP_CODE);
+const authStorage = AuthStorage.getInstance();
 
 describe('Test AuthStorage', () => {
   beforeEach(() => {
@@ -198,17 +199,12 @@ describe('Test AuthStorage', () => {
     };
     // 设置 Cookies.get 的模拟实现
     authStorage.storeToken(token);
-    expect(Cookies.set).toHaveBeenCalledTimes(4); // 因为你保存了四个值
+    expect(Cookies.set).toHaveBeenCalledTimes(1);
     const loadedToken = authStorage.loadToken();
     expect(loadedToken).toEqual(token);
     authStorage.removeToken();
-    expect(Cookies.remove).toHaveBeenCalledTimes(4); // 因为你保存了四个值
-    expect(authStorage.loadToken()).toEqual({
-      value: undefined,
-      createTime: undefined,
-      maxAge: undefined,
-      previousValue: undefined,
-    });
+    expect(Cookies.remove).toHaveBeenCalledTimes(1);
+    expect(authStorage.loadToken()).toBeUndefined();
   });
 
   test('hasTokenValue()', () => {
@@ -220,10 +216,23 @@ describe('Test AuthStorage', () => {
     };
     // 设置 Cookies.get 的模拟实现
     authStorage.storeToken(token);
-    expect(Cookies.set).toHaveBeenCalledTimes(4); // 因为你保存了四个值
+    expect(Cookies.set).toHaveBeenCalledTimes(1);
     expect(authStorage.hasTokenValue()).toEqual(true);
     authStorage.removeToken();
-    expect(Cookies.remove).toHaveBeenCalledTimes(4); // 因为你保存了四个值
+    expect(Cookies.remove).toHaveBeenCalledTimes(1);
+    expect(authStorage.hasTokenValue()).toBe(false);
+  });
+
+  test('hasTokenValue(), with empty token value', () => {
+    const token = {
+      value: '',
+      createTime: '2020-01-01T00:00:00Z',
+      maxAge: '3600',
+      previousValue: 'previous-token-value',
+    };
+    // 设置 Cookies.get 的模拟实现
+    authStorage.storeToken(token);
+    expect(Cookies.set).toHaveBeenCalledTimes(1);
     expect(authStorage.hasTokenValue()).toBe(false);
   });
 
@@ -236,11 +245,29 @@ describe('Test AuthStorage', () => {
     };
     // 设置 Cookies.get 的模拟实现
     authStorage.storeToken(token);
-    expect(Cookies.set).toHaveBeenCalledTimes(4); // 因为你保存了四个值
+    expect(Cookies.set).toHaveBeenCalledTimes(1);
     let value = authStorage.loadTokenValue();
     expect(value).toBe('token-value');
     authStorage.removeToken();
-    expect(Cookies.remove).toHaveBeenCalledTimes(4); // 因为你保存了四个值
+    expect(Cookies.remove).toHaveBeenCalledTimes(1);
+    value = authStorage.loadTokenValue();
+    expect(value).toBe(undefined);
+  });
+
+  test('loadTokenValue(), with empty token value', () => {
+    const token = {
+      value: '',
+      createTime: '2020-01-01T00:00:00Z',
+      maxAge: '3600',
+      previousValue: 'previous-token-value',
+    };
+    // 设置 Cookies.get 的模拟实现
+    authStorage.storeToken(token);
+    expect(Cookies.set).toHaveBeenCalledTimes(1);
+    let value = authStorage.loadTokenValue();
+    expect(value).toBe('');
+    authStorage.removeToken();
+    expect(Cookies.remove).toHaveBeenCalledTimes(1);
     value = authStorage.loadTokenValue();
     expect(value).toBe(undefined);
   });
@@ -343,7 +370,7 @@ describe('Test AuthStorage', () => {
     expect(loaded.roles).toEqual(loginResponse.roles);
 
     authStorage.removeLoginResponse();
-    expect(Cookies.remove).toHaveBeenCalledTimes(4); // 因为你保存了四个值
+    expect(Cookies.remove).toHaveBeenCalledTimes(1);
     expect(authStorage.loadLoginResponse()).toEqual({
       user: {
         id: undefined,
@@ -354,12 +381,7 @@ describe('Test AuthStorage', () => {
         gender: undefined,
         mobile: undefined,
       },
-      token: {
-        value: undefined,
-        createTime: undefined,
-        maxAge: undefined,
-        previousValue: undefined,
-      },
+      token: undefined,
       privileges: undefined,
       roles: undefined,
     });
@@ -378,39 +400,57 @@ describe('Test AuthStorage', () => {
         gender: undefined,
         mobile: undefined,
       },
-      token: {
-        value: undefined,
-        createTime: undefined,
-        maxAge: undefined,
-        previousValue: undefined,
-      },
+      token: undefined,
       privileges: undefined,
       roles: undefined,
     });
   });
 
-  test('should throw error if no "appCode" is provided to the constructor', () => {
-    expect(() => new AuthStorage())
-      .toThrowError('The appCode is required.');
-  });
-
   test('should use specified accessTokenExpiresDays', () => {
-    const auth = new AuthStorage(APP_CODE, 1);
-    expect(auth.ACCESS_TOKEN_EXPIRES_DAYS).toBe(1);
+    config.set('access_token_expires_days', 1);
+    const token = {
+      value: 'token123',
+      createTime: '2021-01-01T00:00:00Z',
+      maxAge: '3600',
+      previousValue: 'token122',
+    };
+    authStorage.storeToken(token);
+    expect(Cookies.set).toHaveBeenCalledWith(`${APP_CODE}.token`, Json.stringify(token), { expires: 1 });
+    config.remove('access_token_expires_days');
   });
 
   test('should use default accessTokenExpiresDays', () => {
-    const auth = new AuthStorage(APP_CODE);
-    expect(auth.ACCESS_TOKEN_EXPIRES_DAYS).toBe(1000);
+    const token = {
+      value: 'token123',
+      createTime: '2021-01-01T00:00:00Z',
+      maxAge: '3600',
+      previousValue: 'token122',
+    };
+    authStorage.storeToken(token);
+    expect(Cookies.set).toHaveBeenCalledWith(`${APP_CODE}.token`, Json.stringify(token), { expires: 1000 });
   });
 
-  test('should use default accessTokenExpiresDays, if provide an undefined accessTokenExpiresDays', () => {
-    const auth = new AuthStorage(APP_CODE, undefined);
-    expect(auth.ACCESS_TOKEN_EXPIRES_DAYS).toBe(1000);
+  test('should throw error if call the constructor directly', () => {
+    expect(() => new AuthStorage())
+      .toThrowError('The `AuthStorage` instance can only be get by the static method `AuthStorage.getInstance()`.');
   });
 
-  test('should use default accessTokenExpiresDays, if provide a null accessTokenExpiresDays', () => {
-    const auth = new AuthStorage(APP_CODE, null);
-    expect(auth.ACCESS_TOKEN_EXPIRES_DAYS).toBe(1000);
+  test('should throw error if app code is not set', () => {
+    AuthStorage.unsetAppCode();
+    expect(() => AuthStorage.getInstance())
+      .toThrowError('The appCode has not been set. You must call `AuthStorage.setAppCode()` first.');
+    AuthStorage.setAppCode(APP_CODE);
+  });
+
+  test('should throw error if set an nullish app code', () => {
+    AuthStorage.unsetAppCode();
+    expect(() => AuthStorage.setAppCode(null)).toThrowError('The appCode is required.');
+    expect(() => AuthStorage.setAppCode(undefined)).toThrowError('The appCode is required.');
+    expect(() => AuthStorage.setAppCode('')).toThrowError('The appCode is required.');
+    AuthStorage.setAppCode(APP_CODE);
+  });
+
+  test('should throw error if set app code twice', () => {
+    expect(() => AuthStorage.setAppCode('xxx')).toThrowError('The appCode has already been set.');
   });
 });
