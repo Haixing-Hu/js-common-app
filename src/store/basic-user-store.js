@@ -93,14 +93,14 @@ class BasicUserStore {
   /**
    * 当前用户的权限。
    *
-   * @type {[string]}
+   * @type {array<string>}
    */
   privileges = [];
 
   /**
    * 当前用户的角色。
    *
-   * @type {[string]}
+   * @type {array<string>}
    */
   roles = [];
 
@@ -370,7 +370,6 @@ class BasicUserStore {
       return null;
     }
   }
-
 
   loginByUsername(username, password, saveLogin) {
     logger.debug('Login: username = %s, saveLogin = %s', username, saveLogin);
