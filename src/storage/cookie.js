@@ -19,7 +19,6 @@ import Json from '@haixing_hu/json';
  * @author 胡海星
  */
 const Cookie = {
-
   /**
    * 将一个指定的键值存入 Cookie 。
    *

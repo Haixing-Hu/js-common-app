@@ -13,7 +13,8 @@ import { http } from '../src';
 import {
   DEFAULT_HTTP_HEADER_CONTENT_TYPE,
   DEFAULT_HTTP_HEADER_ACCEPT,
-  httpImpl, DEFAULT_APP_TOKEN_NAME, DEFAULT_ACCESS_TOKEN_NAME,
+  DEFAULT_APP_TOKEN_NAME,
+  DEFAULT_ACCESS_TOKEN_NAME,
 } from '../src/impl/http-impl';
 import HttpImplState from './impl/http-impl-state';
 
