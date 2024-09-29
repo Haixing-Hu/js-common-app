@@ -12,6 +12,7 @@ import SessionStorage from './storage/session-storage';
 import AuthStorage from './auth-storage';
 import config from './config';
 import http from './http';
+import BasicUserStore from './store/basic-user-store';
 
 export {
   Cookie,
@@ -20,4 +21,5 @@ export {
   AuthStorage,
   config,
   http,
+  BasicUserStore,
 };
