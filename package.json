@@ -28,7 +28,10 @@
   "sideEffects": false,
   "files": [
     "dist/**/*",
-    "doc/**/*"
+    "doc/**/*",
+    "LICENSE",
+    "README.md",
+    "README.zh_CN.md"
   ],
   "scripts": {
     "clean": "rm -rvf dist doc",
