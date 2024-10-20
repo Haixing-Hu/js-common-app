@@ -275,11 +275,11 @@ describe('transformRequestData', () => {
     expect(result).toBe('{"key":"value","bigint":12345678901234567890}');
   });
 
-  it('should remove empty fields of JSON data before stringify', () => {
+  it('should not remove empty fields of JSON data before stringify', () => {
     const data = { key: 'value', empty: '' };
     const headers = { 'Content-Type': 'application/json' };
     const result = httpImpl.transformRequestData(data, headers);
-    expect(result).toBe('{"key":"value"}');
+    expect(result).toBe('{"key":"value","empty":""}');
   });
 });
 

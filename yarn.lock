@@ -1509,7 +1509,6 @@ __metadata:
     "@babel/preset-typescript": "npm:^7.24.1"
     "@babel/runtime": "npm:^7.23.6"
     "@haixing_hu/clone": "npm:^1.11.1"
-    "@haixing_hu/common-decorator": "npm:^2.8.0"
     "@haixing_hu/common-ui": "npm:^1.4.0"
     "@haixing_hu/common-util": "npm:^5.1.0"
     "@haixing_hu/common-validation-rule": "npm:^1.2.1"
@@ -1565,23 +1564,6 @@ __metadata:
     axios: ^1.7.7
   languageName: unknown
   linkType: soft
-
-"@haixing_hu/common-decorator@npm:^2.8.0":
-  version: 2.8.0
-  resolution: "@haixing_hu/common-decorator@npm:2.8.0"
-  peerDependencies:
-    "@babel/runtime": ^7.24.0
-    "@haixing_hu/clone": ^1.7.1
-    "@haixing_hu/common-util": ^4.8.1
-    "@haixing_hu/common-validation-rule": ^1.1.0
-    "@haixing_hu/json": ^1.0.3
-    "@haixing_hu/logging": ^1.3.3
-    "@haixing_hu/naming-style": ^1.3.0
-    "@haixing_hu/type-detect": ^1.1.0
-    "@haixing_hu/typeinfo": ^3.0.0
-  checksum: 261b2083fa4275722a247786f5bb400e88e403d83e214fbf77459ae53f00b994454d3eb7fa1e4fb1812df69e10d994f4bfe26a9e03cd047c86a948b28bed2357
-  languageName: node
-  linkType: hard
 
 "@haixing_hu/common-ui@npm:^1.4.0":
   version: 1.4.0
