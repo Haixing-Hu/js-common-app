@@ -10,7 +10,6 @@ import Logger from '@haixing_hu/logging';
 import Json from '@haixing_hu/json';
 import { isString } from '@haixing_hu/type-detect';
 import { loading, alert, confirm } from '@haixing_hu/common-ui';
-import { removeEmptyFields } from '@haixing_hu/common-util';
 import config from '../config';
 
 /**
@@ -225,8 +224,7 @@ const httpImpl = {
   transformRequestData(data, headers) {
     const contentType = headers['Content-Type'];
     if (contentType?.startsWith('application/json')) {
-      const obj = removeEmptyFields(data);    // 移除请求数据中的空字段
-      return Json.stringify(obj);             // 使用自定义的JSON Stringifier重新序列化请求数据
+      return Json.stringify(data);         // 使用自定义的JSON Stringifier重新序列化请求数据
     }
     return data;
   },
