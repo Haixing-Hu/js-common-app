@@ -68,13 +68,30 @@ describe('http.interceptors.request', () => {
     const response = { success: true, name: 'John Doe' };
     mock.onPost('/data').reply((cfg) => {
       const headers = cfg.headers;
-      expect(headers['Content-Type']).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
-      expect(headers['Accept']).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
-      expect(headers[DEFAULT_APP_TOKEN_NAME]).toBe(state.appToken.value);
-      expect(headers[DEFAULT_ACCESS_TOKEN_NAME]).toBe(state.accessToken.value);
+      expect(headers.get('Content-Type')).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
+      expect(headers.get('Accept')).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
+      expect(headers.get(DEFAULT_APP_TOKEN_NAME)).toBe(state.appToken.value);
+      expect(headers.get(DEFAULT_ACCESS_TOKEN_NAME)).toBe(state.accessToken.value);
       const data = cfg.data;
       expect(data).toBe('{"id":12345678901234567890,"name":"John"}');
-      return [200, response];  // 模拟成功响应
+      return [200, Json.stringify(response), { 'Content-Type': 'application/json' }];
+    });
+    const result = await http.post('/data', params);
+    expect(result).toEqual(response);
+  });
+
+  it('should successfully parse the response with lower-case content-type header', async () => {
+    const params = { id: 12345678901234567890n, name: 'John' };
+    const response = { success: true, name: 'John Doe' };
+    mock.onPost('/data').reply((cfg) => {
+      const headers = cfg.headers;
+      expect(headers.get('Content-Type')).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
+      expect(headers.get('Accept')).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
+      expect(headers.get(DEFAULT_APP_TOKEN_NAME)).toBe(state.appToken.value);
+      expect(headers.get(DEFAULT_ACCESS_TOKEN_NAME)).toBe(state.accessToken.value);
+      const data = cfg.data;
+      expect(data).toBe('{"id":12345678901234567890,"name":"John"}');
+      return [200, Json.stringify(response), { 'content-type': 'application/json' }];
     });
     const result = await http.post('/data', params);
     expect(result).toEqual(response);
@@ -126,10 +143,10 @@ describe('http.interceptors.response', () => {
     const spy = jest.spyOn(confirm, 'show');
     mock.onPost('/data').reply((cfg) => {
       const headers = cfg.headers;
-      expect(headers['Content-Type']).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
-      expect(headers['Accept']).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
-      expect(headers[DEFAULT_APP_TOKEN_NAME]).toBe(state.appToken.value);
-      expect(headers[DEFAULT_ACCESS_TOKEN_NAME]).toBe(state.accessToken.value);
+      expect(headers.get('Content-Type')).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
+      expect(headers.get('Accept')).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
+      expect(headers.get(DEFAULT_APP_TOKEN_NAME)).toBe(state.appToken.value);
+      expect(headers.get(DEFAULT_ACCESS_TOKEN_NAME)).toBe(state.accessToken.value);
       const data = cfg.data;
       expect(data).toBe('{"id":12345678901234567890,"name":"John"}');
       return [401, error];  // 模拟登录错误响应
@@ -160,10 +177,10 @@ describe('http.interceptors.response', () => {
     const spy = jest.spyOn(confirm, 'show');
     mock.onPost('/data').reply((cfg) => {
       const headers = cfg.headers;
-      expect(headers['Content-Type']).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
-      expect(headers['Accept']).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
-      expect(headers[DEFAULT_APP_TOKEN_NAME]).toBe(state.appToken.value);
-      expect(headers[DEFAULT_ACCESS_TOKEN_NAME]).toBe(state.accessToken.value);
+      expect(headers.get('Content-Type')).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
+      expect(headers.get('Accept')).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
+      expect(headers.get(DEFAULT_APP_TOKEN_NAME)).toBe(state.appToken.value);
+      expect(headers.get(DEFAULT_ACCESS_TOKEN_NAME)).toBe(state.accessToken.value);
       const data = cfg.data;
       expect(data).toBe('{"id":12345678901234567890,"name":"John"}');
       return [401, error];  // 模拟登录错误响应
@@ -190,10 +207,10 @@ describe('http.interceptors.response', () => {
     };
     mock.onPost('/data').reply((cfg) => {
       const headers = cfg.headers;
-      expect(headers['Content-Type']).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
-      expect(headers['Accept']).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
-      expect(headers[DEFAULT_APP_TOKEN_NAME]).toBe(state.appToken.value);
-      expect(headers[DEFAULT_ACCESS_TOKEN_NAME]).toBe(state.accessToken.value);
+      expect(headers.get('Content-Type')).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
+      expect(headers.get('Accept')).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
+      expect(headers.get(DEFAULT_APP_TOKEN_NAME)).toBe(state.appToken.value);
+      expect(headers.get(DEFAULT_ACCESS_TOKEN_NAME)).toBe(state.accessToken.value);
       const data = cfg.data;
       expect(data).toBe('{"id":12345678901234567890,"name":"John"}');
       return [401, error];  // 模拟登录错误响应
@@ -227,10 +244,10 @@ describe('http.interceptors.response', () => {
     };
     mock.onPost('/data').reply((cfg) => {
       const headers = cfg.headers;
-      expect(headers['Content-Type']).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
-      expect(headers['Accept']).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
-      expect(headers[DEFAULT_APP_TOKEN_NAME]).toBe(state.appToken.value);
-      expect(headers[DEFAULT_ACCESS_TOKEN_NAME]).toBe(state.accessToken.value);
+      expect(headers.get('Content-Type')).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
+      expect(headers.get('Accept')).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
+      expect(headers.get(DEFAULT_APP_TOKEN_NAME)).toBe(state.appToken.value);
+      expect(headers.get(DEFAULT_ACCESS_TOKEN_NAME)).toBe(state.accessToken.value);
       const data = cfg.data;
       expect(data).toBe('{"id":12345678901234567890,"name":"John"}');
       return [401, error];  // 模拟登录错误响应
@@ -258,10 +275,10 @@ describe('http.interceptors.response', () => {
     };
     mock.onPost('/data').reply((cfg) => {
       const headers = cfg.headers;
-      expect(headers['Content-Type']).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
-      expect(headers['Accept']).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
-      expect(headers[DEFAULT_APP_TOKEN_NAME]).toBe(state.appToken.value);
-      expect(headers[DEFAULT_ACCESS_TOKEN_NAME]).toBe(state.accessToken.value);
+      expect(headers.get('Content-Type')).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
+      expect(headers.get('Accept')).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
+      expect(headers.get(DEFAULT_APP_TOKEN_NAME)).toBe(state.appToken.value);
+      expect(headers.get(DEFAULT_ACCESS_TOKEN_NAME)).toBe(state.accessToken.value);
       const data = cfg.data;
       expect(data).toBe('{"id":12345678901234567890,"name":"John"}');
       return [401, error];  // 模拟登录错误响应
@@ -295,10 +312,10 @@ describe('http.interceptors.response', () => {
     };
     mock.onPost('/data').reply((cfg) => {
       const headers = cfg.headers;
-      expect(headers['Content-Type']).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
-      expect(headers['Accept']).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
-      expect(headers[DEFAULT_APP_TOKEN_NAME]).toBe(state.appToken.value);
-      expect(headers[DEFAULT_ACCESS_TOKEN_NAME]).toBe(state.accessToken.value);
+      expect(headers.get('Content-Type')).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
+      expect(headers.get('Accept')).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
+      expect(headers.get(DEFAULT_APP_TOKEN_NAME)).toBe(state.appToken.value);
+      expect(headers.get(DEFAULT_ACCESS_TOKEN_NAME)).toBe(state.accessToken.value);
       const data = cfg.data;
       expect(data).toBe('{"id":12345678901234567890,"name":"John"}');
       return [401, error];  // 模拟登录错误响应
@@ -326,10 +343,10 @@ describe('http.interceptors.response', () => {
     };
     mock.onPost('/data').reply((cfg) => {
       const headers = cfg.headers;
-      expect(headers['Content-Type']).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
-      expect(headers['Accept']).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
-      expect(headers[DEFAULT_APP_TOKEN_NAME]).toBe(state.appToken.value);
-      expect(headers[DEFAULT_ACCESS_TOKEN_NAME]).toBe(state.accessToken.value);
+      expect(headers.get('Content-Type')).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
+      expect(headers.get('Accept')).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
+      expect(headers.get(DEFAULT_APP_TOKEN_NAME)).toBe(state.appToken.value);
+      expect(headers.get(DEFAULT_ACCESS_TOKEN_NAME)).toBe(state.accessToken.value);
       const data = cfg.data;
       expect(data).toBe('{"id":12345678901234567890,"name":"John"}');
       return [401, error];  // 模拟登录错误响应
@@ -364,10 +381,10 @@ describe('http.interceptors.response', () => {
     };
     mock.onPost('/data').reply((cfg) => {
       const headers = cfg.headers;
-      expect(headers['Content-Type']).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
-      expect(headers['Accept']).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
-      expect(headers[DEFAULT_APP_TOKEN_NAME]).toBe(state.appToken.value);
-      expect(headers[DEFAULT_ACCESS_TOKEN_NAME]).toBe(state.accessToken.value);
+      expect(headers.get('Content-Type')).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
+      expect(headers.get('Accept')).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
+      expect(headers.get(DEFAULT_APP_TOKEN_NAME)).toBe(state.appToken.value);
+      expect(headers.get(DEFAULT_ACCESS_TOKEN_NAME)).toBe(state.accessToken.value);
       const data = cfg.data;
       expect(data).toBe('{"id":12345678901234567890,"name":"John"}');
       return [401, error];  // 模拟登录错误响应
@@ -398,10 +415,10 @@ describe('http.interceptors.response', () => {
     };
     mock.onPost('/data').reply((cfg) => {
       const headers = cfg.headers;
-      expect(headers['Content-Type']).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
-      expect(headers['Accept']).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
-      expect(headers[DEFAULT_APP_TOKEN_NAME]).toBe(state.appToken.value);
-      expect(headers[DEFAULT_ACCESS_TOKEN_NAME]).toBe(state.accessToken.value);
+      expect(headers.get('Content-Type')).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
+      expect(headers.get('Accept')).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
+      expect(headers.get(DEFAULT_APP_TOKEN_NAME)).toBe(state.appToken.value);
+      expect(headers.get(DEFAULT_ACCESS_TOKEN_NAME)).toBe(state.accessToken.value);
       const data = cfg.data;
       expect(data).toBe('{"id":12345678901234567890,"name":"John"}');
       return [401, error];  // 模拟登录错误响应
@@ -438,10 +455,10 @@ describe('http.interceptors.response', () => {
     };
     mock.onPost('/data').reply((cfg) => {
       const headers = cfg.headers;
-      expect(headers['Content-Type']).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
-      expect(headers['Accept']).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
-      expect(headers[DEFAULT_APP_TOKEN_NAME]).toBe(state.appToken.value);
-      expect(headers[DEFAULT_ACCESS_TOKEN_NAME]).toBe(state.accessToken.value);
+      expect(headers.get('Content-Type')).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
+      expect(headers.get('Accept')).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
+      expect(headers.get(DEFAULT_APP_TOKEN_NAME)).toBe(state.appToken.value);
+      expect(headers.get(DEFAULT_ACCESS_TOKEN_NAME)).toBe(state.accessToken.value);
       const data = cfg.data;
       expect(data).toBe('{"id":12345678901234567890,"name":"John"}');
       return [401, error];  // 模拟登录错误响应
@@ -472,10 +489,10 @@ describe('http.interceptors.response', () => {
     };
     mock.onPost('/data').reply((cfg) => {
       const headers = cfg.headers;
-      expect(headers['Content-Type']).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
-      expect(headers['Accept']).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
-      expect(headers[DEFAULT_APP_TOKEN_NAME]).toBe(state.appToken.value);
-      expect(headers[DEFAULT_ACCESS_TOKEN_NAME]).toBe(state.accessToken.value);
+      expect(headers.get('Content-Type')).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
+      expect(headers.get('Accept')).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
+      expect(headers.get(DEFAULT_APP_TOKEN_NAME)).toBe(state.appToken.value);
+      expect(headers.get(DEFAULT_ACCESS_TOKEN_NAME)).toBe(state.accessToken.value);
       const data = cfg.data;
       expect(data).toBe('{"id":12345678901234567890,"name":"John"}');
       return [401, error];  // 模拟登录错误响应
@@ -514,10 +531,10 @@ describe('http.interceptors.response', () => {
     };
     mock.onPost('/data').reply((cfg) => {
       const headers = cfg.headers;
-      expect(headers['Content-Type']).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
-      expect(headers['Accept']).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
-      expect(headers[DEFAULT_APP_TOKEN_NAME]).toBe(state.appToken.value);
-      expect(headers[DEFAULT_ACCESS_TOKEN_NAME]).toBe(state.accessToken.value);
+      expect(headers.get('Content-Type')).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
+      expect(headers.get('Accept')).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
+      expect(headers.get(DEFAULT_APP_TOKEN_NAME)).toBe(state.appToken.value);
+      expect(headers.get(DEFAULT_ACCESS_TOKEN_NAME)).toBe(state.accessToken.value);
       const data = cfg.data;
       expect(data).toBe('{"id":12345678901234567890,"name":"John"}');
       return [401, error];  // 模拟登录错误响应
@@ -545,10 +562,10 @@ describe('http.interceptors.response', () => {
     };
     mock.onPost('/data').reply((cfg) => {
       const headers = cfg.headers;
-      expect(headers['Content-Type']).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
-      expect(headers['Accept']).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
-      expect(headers[DEFAULT_APP_TOKEN_NAME]).toBe(state.appToken.value);
-      expect(headers[DEFAULT_ACCESS_TOKEN_NAME]).toBe(state.accessToken.value);
+      expect(headers.get('Content-Type')).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
+      expect(headers.get('Accept')).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
+      expect(headers.get(DEFAULT_APP_TOKEN_NAME)).toBe(state.appToken.value);
+      expect(headers.get(DEFAULT_ACCESS_TOKEN_NAME)).toBe(state.accessToken.value);
       const data = cfg.data;
       expect(data).toBe('{"id":12345678901234567890,"name":"John"}');
       return [401, error];  // 模拟登录错误响应
@@ -583,10 +600,10 @@ describe('http.interceptors.response', () => {
     };
     mock.onPost('/data').reply((cfg) => {
       const headers = cfg.headers;
-      expect(headers['Content-Type']).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
-      expect(headers['Accept']).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
-      expect(headers[DEFAULT_APP_TOKEN_NAME]).toBe(state.appToken.value);
-      expect(headers[DEFAULT_ACCESS_TOKEN_NAME]).toBe(state.accessToken.value);
+      expect(headers.get('Content-Type')).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
+      expect(headers.get('Accept')).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
+      expect(headers.get(DEFAULT_APP_TOKEN_NAME)).toBe(state.appToken.value);
+      expect(headers.get(DEFAULT_ACCESS_TOKEN_NAME)).toBe(state.accessToken.value);
       const data = cfg.data;
       expect(data).toBe('{"id":12345678901234567890,"name":"John"}');
       return [401, error];  // 模拟登录错误响应
@@ -610,10 +627,10 @@ describe('http.interceptors.response', () => {
     };
     mock.onPost('/data').reply((cfg) => {
       const headers = cfg.headers;
-      expect(headers['Content-Type']).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
-      expect(headers['Accept']).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
-      expect(headers[DEFAULT_APP_TOKEN_NAME]).toBe(state.appToken.value);
-      expect(headers[DEFAULT_ACCESS_TOKEN_NAME]).toBe(state.accessToken.value);
+      expect(headers.get('Content-Type')).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
+      expect(headers.get('Accept')).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
+      expect(headers.get(DEFAULT_APP_TOKEN_NAME)).toBe(state.appToken.value);
+      expect(headers.get(DEFAULT_ACCESS_TOKEN_NAME)).toBe(state.accessToken.value);
       const data = cfg.data;
       expect(data).toBe('{"id":12345678901234567890,"name":"John"}');
       return [401, error];  // 模拟登录错误响应
@@ -643,10 +660,10 @@ describe('http.interceptors.response', () => {
     };
     mock.onPost('/data').reply((cfg) => {
       const headers = cfg.headers;
-      expect(headers['Content-Type']).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
-      expect(headers['Accept']).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
-      expect(headers[DEFAULT_APP_TOKEN_NAME]).toBe(state.appToken.value);
-      expect(headers[DEFAULT_ACCESS_TOKEN_NAME]).toBe(state.accessToken.value);
+      expect(headers.get('Content-Type')).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
+      expect(headers.get('Accept')).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
+      expect(headers.get(DEFAULT_APP_TOKEN_NAME)).toBe(state.appToken.value);
+      expect(headers.get(DEFAULT_ACCESS_TOKEN_NAME)).toBe(state.accessToken.value);
       const data = cfg.data;
       expect(data).toBe('{"id":12345678901234567890,"name":"John"}');
       return [401, error];  // 模拟登录错误响应
@@ -670,10 +687,10 @@ describe('http.interceptors.response', () => {
     };
     mock.onPost('/data').reply((cfg) => {
       const headers = cfg.headers;
-      expect(headers['Content-Type']).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
-      expect(headers['Accept']).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
-      expect(headers[DEFAULT_APP_TOKEN_NAME]).toBe(state.appToken.value);
-      expect(headers[DEFAULT_ACCESS_TOKEN_NAME]).toBe(state.accessToken.value);
+      expect(headers.get('Content-Type')).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
+      expect(headers.get('Accept')).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
+      expect(headers.get(DEFAULT_APP_TOKEN_NAME)).toBe(state.appToken.value);
+      expect(headers.get(DEFAULT_ACCESS_TOKEN_NAME)).toBe(state.accessToken.value);
       const data = cfg.data;
       expect(data).toBe('{"id":12345678901234567890,"name":"John"}');
       return [401, error];  // 模拟登录错误响应
@@ -703,10 +720,10 @@ describe('http.interceptors.response', () => {
     };
     mock.onPost('/data').reply((cfg) => {
       const headers = cfg.headers;
-      expect(headers['Content-Type']).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
-      expect(headers['Accept']).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
-      expect(headers[DEFAULT_APP_TOKEN_NAME]).toBe(state.appToken.value);
-      expect(headers[DEFAULT_ACCESS_TOKEN_NAME]).toBe(state.accessToken.value);
+      expect(headers.get('Content-Type')).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
+      expect(headers.get('Accept')).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
+      expect(headers.get(DEFAULT_APP_TOKEN_NAME)).toBe(state.appToken.value);
+      expect(headers.get(DEFAULT_ACCESS_TOKEN_NAME)).toBe(state.accessToken.value);
       const data = cfg.data;
       expect(data).toBe('{"id":12345678901234567890,"name":"John"}');
       return [401, error];  // 模拟登录错误响应
@@ -729,10 +746,10 @@ describe('http.interceptors.response', () => {
     };
     mock.onPost('/data').reply((cfg) => {
       const headers = cfg.headers;
-      expect(headers['Content-Type']).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
-      expect(headers['Accept']).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
-      expect(headers[DEFAULT_APP_TOKEN_NAME]).toBe(state.appToken.value);
-      expect(headers[DEFAULT_ACCESS_TOKEN_NAME]).toBe(state.accessToken.value);
+      expect(headers.get('Content-Type')).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
+      expect(headers.get('Accept')).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
+      expect(headers.get(DEFAULT_APP_TOKEN_NAME)).toBe(state.appToken.value);
+      expect(headers.get(DEFAULT_ACCESS_TOKEN_NAME)).toBe(state.accessToken.value);
       const data = cfg.data;
       expect(data).toBe('{"id":12345678901234567890,"name":"John"}');
       return [401, error];  // 模拟登录错误响应
@@ -761,10 +778,10 @@ describe('http.interceptors.response', () => {
     };
     mock.onPost('/data').reply((cfg) => {
       const headers = cfg.headers;
-      expect(headers['Content-Type']).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
-      expect(headers['Accept']).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
-      expect(headers[DEFAULT_APP_TOKEN_NAME]).toBe(state.appToken.value);
-      expect(headers[DEFAULT_ACCESS_TOKEN_NAME]).toBe(state.accessToken.value);
+      expect(headers.get('Content-Type')).toBe(DEFAULT_HTTP_HEADER_CONTENT_TYPE);
+      expect(headers.get('Accept')).toBe(DEFAULT_HTTP_HEADER_ACCEPT);
+      expect(headers.get(DEFAULT_APP_TOKEN_NAME)).toBe(state.appToken.value);
+      expect(headers.get(DEFAULT_ACCESS_TOKEN_NAME)).toBe(state.accessToken.value);
       const data = cfg.data;
       expect(data).toBe('{"id":12345678901234567890,"name":"John"}');
       return [401, error];  // 模拟登录错误响应

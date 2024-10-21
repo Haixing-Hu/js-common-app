@@ -55,6 +55,13 @@ const DEFAULT_ACCESS_TOKEN_NAME = 'X-Auth-User-Token';
 const DEFAULT_LOGIN_PAGE = 'Login';
 
 /**
+ * JSON 内容类型的前缀。
+ *
+ * @type {string}
+ */
+const JSON_CONTENT_TYPE_PREFIX = 'application/json';
+
+/**
  * 此模块使用的全局 logger。
  *
  * @type {Logger}
@@ -222,8 +229,9 @@ const httpImpl = {
    * @author 胡海星
    */
   transformRequestData(data, headers) {
-    const contentType = headers['Content-Type'];
-    if (contentType?.startsWith('application/json')) {
+    // 注意：headers 是一个 AxiosHeaders 对象，必须用 get 方法获取值，不能直接用下标，否则大小写不同的键名会被认为是不同的键
+    const contentType = headers.get('Content-Type');
+    if (contentType?.startsWith(JSON_CONTENT_TYPE_PREFIX)) {
       return Json.stringify(data);         // 使用自定义的JSON Stringifier重新序列化请求数据
     }
     return data;
@@ -242,8 +250,9 @@ const httpImpl = {
    * @author 胡海星
    */
   transformResponseData(data, headers) {
-    const contentType = headers['Content-Type'];
-    if (isString(data) && contentType?.startsWith('application/json')) {
+    // 注意：headers 是一个 AxiosHeaders 对象，必须用 get 方法获取值，不能直接用下标，否则大小写不同的键名会被认为是不同的键
+    const contentType = headers.get('Content-Type');
+    if (isString(data) && contentType?.startsWith(JSON_CONTENT_TYPE_PREFIX)) {
       // 使用自定义的JSON Parser重新解析响应数据为 JSON 对象，从而提供对64位整数的支持
       return Json.parse(data);
     }

@@ -8,6 +8,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 import Json from '@haixing_hu/json';
 import { loading, alert, confirm } from '@haixing_hu/common-ui';
+import { AxiosHeaders } from 'axios';
 import { config, http } from '../../src';
 import {
   DEFAULT_HTTP_HEADER_CONTENT_TYPE,
@@ -256,28 +257,28 @@ describe('fixDataTransformers', () => {
 describe('transformRequestData', () => {
   it('should return input data for non-JSON content-type', () => {
     const data = '123';
-    const headers = { 'Content-Type': 'text/plain' };
+    const headers = AxiosHeaders.from({ 'Content-Type': 'text/plain' });
     const result = httpImpl.transformRequestData(data, headers);
     expect(result).toBe(data);
   });
 
   it('should stringify JSON data with JSON stringifier supporting bigint', () => {
     const data = { key: 'value', bigint: 12345678901234567890n };
-    const headers = { 'Content-Type': 'application/json' };
+    const headers = AxiosHeaders.from({ 'Content-Type': 'application/json' });
     const result = httpImpl.transformRequestData(data, headers);
     expect(result).toBe('{"key":"value","bigint":12345678901234567890}');
   });
 
   it('should stringify UTF-8 JSON data with JSON stringifier supporting bigint', () => {
     const data = { key: 'value', bigint: 12345678901234567890n };
-    const headers = { 'Content-Type': 'application/json;charset=UTF-8' };
+    const headers = AxiosHeaders.from({ 'Content-Type': 'application/json;charset=UTF-8' });
     const result = httpImpl.transformRequestData(data, headers);
     expect(result).toBe('{"key":"value","bigint":12345678901234567890}');
   });
 
   it('should not remove empty fields of JSON data before stringify', () => {
     const data = { key: 'value', empty: '' };
-    const headers = { 'Content-Type': 'application/json' };
+    const headers = AxiosHeaders.from({ 'Content-Type': 'application/json' });
     const result = httpImpl.transformRequestData(data, headers);
     expect(result).toBe('{"key":"value","empty":""}');
   });
@@ -289,28 +290,28 @@ describe('transformRequestData', () => {
 describe('transformResponseData', () => {
   it('should return input data for non-json content-type', () => {
     const data = '123';
-    const headers = { 'Content-Type': 'text/plain' };
+    const headers = AxiosHeaders.from({ 'Content-Type': 'text/plain' });
     const result = httpImpl.transformResponseData(data, headers);
     expect(result).toBe(data);
   });
 
   it('should parse JSON string with JSON stringifier supporting bigint', () => {
     const data = '{"key":"value","bigint":12345678901234567890}';
-    const headers = { 'Content-Type': 'application/json' };
+    const headers = AxiosHeaders.from({ 'Content-Type': 'application/json' });
     const result = httpImpl.transformResponseData(data, headers);
     expect(result).toEqual({ key: 'value', bigint: 12345678901234567890n });
   });
 
   it('should parse UTF-8 JSON string with JSON stringifier supporting bigint', () => {
     const data = '{"key":"value","bigint":12345678901234567890}';
-    const headers = { 'Content-Type': 'application/json;charset=UTF-8' };
+    const headers = AxiosHeaders.from({ 'Content-Type': 'application/json;charset=UTF-8' });
     const result = httpImpl.transformResponseData(data, headers);
     expect(result).toEqual({ key: 'value', bigint: 12345678901234567890n });
   });
 
   it('should return input data for JSON content-type but non-string value', () => {
     const data = 123;
-    const headers = { 'Content-Type': 'application/json' };
+    const headers = AxiosHeaders.from({ 'Content-Type': 'application/json' });
     const result = httpImpl.transformResponseData(data, headers);
     expect(result).toBe(data);
   });
