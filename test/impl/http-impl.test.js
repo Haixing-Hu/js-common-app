@@ -7,7 +7,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 import { AxiosHeaders } from 'axios';
-import Json from '@haixing_hu/json';
+import { Json } from '@haixing_hu/json';
 import config from '@haixing_hu/config';
 import { loading, alert, confirm } from '@haixing_hu/common-ui';
 import { http } from '../../src';

@@ -44,9 +44,6 @@
     "es5": "check-es-version -e 5 -s true",
     "deploy": "npm run lint && npm run test && npm run build:all && npm publish --registry='https://registry.npmjs.com/' --access public"
   },
-  "dependencies": {
-    "js-cookie": "^3.0.5"
-  },
   "peerDependencies": {
     "@babel/runtime": "^7.23.6",
     "@haixing_hu/common-ui": "^1.4.0",

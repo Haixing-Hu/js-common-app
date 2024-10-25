@@ -149,7 +149,6 @@ class AuthStorage {
   }
 
   storeUserId(id) {
-    const s = LocalStorage;
     LocalStorage.set(KEY_USER_ID, id);
   }
 
@@ -279,8 +278,7 @@ class AuthStorage {
    */
   storeToken(token) {
     const expiresDays = config.get('cookie.expires_days.access_token', DEFAULT_ACCESS_TOKEN_EXPIRES_DAYS);
-    const c = Cookie;
-    c.set(KEY_ACCESS_TOKEN, token, {
+    Cookie.set(KEY_ACCESS_TOKEN, token, {
       expires: expiresDays,
     });
   }

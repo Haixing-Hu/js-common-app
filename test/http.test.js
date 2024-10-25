@@ -7,7 +7,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 import AxiosMockAdapter from 'axios-mock-adapter';
-import Json from '@haixing_hu/json';
+import { Json } from '@haixing_hu/json';
 import Logger from '@haixing_hu/logging';
 import { alert, confirm } from '@haixing_hu/common-ui';
 import { http } from '../src';

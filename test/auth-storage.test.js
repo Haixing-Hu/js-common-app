@@ -8,7 +8,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 import CookieEngine from 'js-cookie';
 import config from '@haixing_hu/config';
-import Json from '@haixing_hu/json';
 import { AuthStorage } from '../src';
 
 const APP_CODE = 'auto-storage-test';

@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import Json from '@haixing_hu/json';
+import { Json } from '@haixing_hu/json';
 import Logger from '@haixing_hu/logging';
 import config from '@haixing_hu/config';
 import { isString } from '@haixing_hu/type-detect';
