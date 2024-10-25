@@ -6,11 +6,11 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import Logger from '@haixing_hu/logging';
 import Json from '@haixing_hu/json';
+import Logger from '@haixing_hu/logging';
+import config from '@haixing_hu/config';
 import { isString } from '@haixing_hu/type-detect';
 import { loading, alert, confirm } from '@haixing_hu/common-ui';
-import config from '../config';
 
 /**
  * 默认的 HTTP 请求头的 Content-Type 键值。

@@ -6,10 +6,11 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import Json from '@haixing_hu/json';
-import { loading, alert, confirm } from '@haixing_hu/common-ui';
 import { AxiosHeaders } from 'axios';
-import { config, http } from '../../src';
+import Json from '@haixing_hu/json';
+import config from '@haixing_hu/config';
+import { loading, alert, confirm } from '@haixing_hu/common-ui';
+import { http } from '../../src';
 import {
   DEFAULT_HTTP_HEADER_CONTENT_TYPE,
   DEFAULT_HTTP_HEADER_ACCEPT,

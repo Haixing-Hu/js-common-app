@@ -6,10 +6,10 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import { Logger } from '@haixing_hu/logging';
+import Logger from '@haixing_hu/logging';
+import config from '@haixing_hu/config';
 import { RawField } from '@haixing_hu/pinia-decorator';
 import AuthStorage from '../auth-storage';
-import config from '../config';
 import {
   ensureUserExist,
   refreshAvatar,

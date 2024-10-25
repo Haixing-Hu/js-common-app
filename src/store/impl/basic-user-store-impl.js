@@ -6,8 +6,8 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import { Logger } from '@haixing_hu/logging';
-import config from '../../config';
+import Logger from '@haixing_hu/logging';
+import config from '@haixing_hu/config';
 import AuthStorage from '../../auth-storage';
 
 const logger = Logger.getLogger('store.user');

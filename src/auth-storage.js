@@ -6,9 +6,8 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import Cookie from './storage/cookie';
-import LocalStorage from './storage/local-storage';
-import config from './config';
+import config from '@haixing_hu/config';
+import { Cookie, LocalStorage } from '@haixing_hu/storage';
 
 /**
  * 默认的访问令牌的过期时间（天数）。
@@ -150,6 +149,7 @@ class AuthStorage {
   }
 
   storeUserId(id) {
+    const s = LocalStorage;
     LocalStorage.set(KEY_USER_ID, id);
   }
 
@@ -278,8 +278,9 @@ class AuthStorage {
    *     访问令牌对象。
    */
   storeToken(token) {
-    const expiresDays = config.get('access_token_expires_days', DEFAULT_ACCESS_TOKEN_EXPIRES_DAYS);
-    Cookie.set(KEY_ACCESS_TOKEN, token, {
+    const expiresDays = config.get('cookie.expires_days.access_token', DEFAULT_ACCESS_TOKEN_EXPIRES_DAYS);
+    const c = Cookie;
+    c.set(KEY_ACCESS_TOKEN, token, {
       expires: expiresDays,
     });
   }
