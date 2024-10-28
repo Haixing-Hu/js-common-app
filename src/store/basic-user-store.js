@@ -27,10 +27,27 @@ class BasicUserStore {
   /**
    * 用于处理登录认证的API对象。
    *
-   * @type {obj}
+   * @type {object}
    */
   @RawField
-  api = null;
+  _api = null;
+
+  /**
+   * 当前应用程序的代码，用于设置`Cookies`、`LocalStorage`和`SessionStorage`中存储
+   * 的数据项的键值前缀。
+   *
+   * @type {string}
+   */
+  @RawField
+  _appCode = '';
+
+  /**
+   * 用于存储用户认证信息的存储对象。
+   *
+   * @type {AuthStorage}
+   */
+  @RawField
+  _authStorage = null;
 
   /**
    * 当前用户信息。
@@ -119,21 +136,38 @@ class BasicUserStore {
    *
    * @param {object} api
    *     用于处理登录认证的API对象。
+   * @param {string} appCode
+   *     当前应用程序的代码，用于设置`Cookies`、`LocalStorage`和`SessionStorage`中存储
+   *     的数据项的键值前缀。
    */
-  constructor(api) {
+  constructor(api, appCode) {
     if (!api) {
       throw new Error('The API object is required.');
     }
-    this.api = api;
-    const authStorage = AuthStorage.getInstance();
-    this.user = authStorage.loadUserInfo() ?? null;
-    this.password = authStorage.loadPassword() ?? '';
-    this.saveLogin = authStorage.loadSaveLogin() ?? false;
+    if (!appCode) {
+      throw new Error('The `appCode` is required.');
+    }
+    this._api = api;
+    this._appCode = appCode;
+    this._authStorage = new AuthStorage(appCode);
+    this.user = this._authStorage.loadUserInfo() ?? null;
+    this.password = this._authStorage.loadPassword() ?? '';
+    this.saveLogin = this._authStorage.loadSaveLogin() ?? false;
     this.socialNetwork = config.get('social_network') ?? null;
     this.appId = config.get('social_network_app_id') ?? null;
-    this.token = authStorage.loadToken() ?? null;
-    this.privileges = authStorage.loadPrivileges() ?? [];
-    this.roles = authStorage.loadRoles() ?? [];
+    this.token = this._authStorage.loadToken() ?? null;
+    this.privileges = this._authStorage.loadPrivileges() ?? [];
+    this.roles = this._authStorage.loadRoles() ?? [];
+  }
+
+  /**
+   * 用于存储用户认证信息的存储对象。
+   *
+   * @return {AuthStorage}
+   *     用于存储用户认证信息的存储对象。
+   */
+  get authStorage() {
+    return this._authStorage;
   }
 
   /**
@@ -163,8 +197,7 @@ class BasicUserStore {
   setUserInfo(user) {
     this.user = { ...user };
     if (this.saveLogin) {
-      const authStorage = AuthStorage.getInstance();
-      authStorage.storeUserInfo(this.user);
+      this._authStorage.storeUserInfo(this.user);
     }
   }
 
@@ -177,11 +210,10 @@ class BasicUserStore {
   setUserId(userId) {
     const user = ensureUserExist(this);
     user.id = userId;
-    const authStorage = AuthStorage.getInstance();
     if (this.saveLogin) {
-      authStorage.storeUserId(userId);
+      this._authStorage.storeUserId(userId);
     } else {
-      authStorage.removeUserId();
+      this._authStorage.removeUserId();
     }
   }
 
@@ -194,11 +226,10 @@ class BasicUserStore {
   setUsername(username) {
     const user = ensureUserExist(this);
     user.username = username;
-    const authStorage = AuthStorage.getInstance();
     if (this.saveLogin) {
-      authStorage.storeUsername(username);
+      this._authStorage.storeUsername(username);
     } else {
-      authStorage.removeUsername();
+      this._authStorage.removeUsername();
     }
   }
 
@@ -210,11 +241,10 @@ class BasicUserStore {
    */
   setPassword(password) {
     this.password = password;
-    const authStorage = AuthStorage.getInstance();
     if (this.saveLogin) {
-      authStorage.storePassword(password);
+      this._authStorage.storePassword(password);
     } else {
-      authStorage.removePassword();
+      this._authStorage.removePassword();
     }
   }
 
@@ -227,11 +257,10 @@ class BasicUserStore {
   setMobile(mobile) {
     const user = ensureUserExist(this);
     user.mobile = mobile;
-    const authStorage = AuthStorage.getInstance();
     if (this.saveLogin) {
-      authStorage.storeMobile(mobile);
+      this._authStorage.storeMobile(mobile);
     } else {
-      authStorage.removeMobile();
+      this._authStorage.removeMobile();
     }
   }
 
@@ -244,8 +273,7 @@ class BasicUserStore {
   setAvatar(avatar) {
     const user = ensureUserExist(this);
     user.avatar = avatar ?? '';
-    const authStorage = AuthStorage.getInstance();
-    authStorage.storeAvatar(avatar);
+    this._authStorage.storeAvatar(avatar);
   }
 
   /**
@@ -256,8 +284,7 @@ class BasicUserStore {
    */
   setSaveLogin(saveLogin) {
     this.saveLogin = saveLogin;
-    const authStorage = AuthStorage.getInstance();
-    authStorage.storeSaveLogin(saveLogin);
+    this._authStorage.storeSaveLogin(saveLogin);
   }
 
   /**
@@ -268,11 +295,10 @@ class BasicUserStore {
    */
   setToken(token) {
     this.token = { ...token };
-    const authStorage = AuthStorage.getInstance();
     if (this.saveLogin) {
-      authStorage.storeToken(token);
+      this._authStorage.storeToken(token);
     } else {
-      authStorage.removeToken();
+      this._authStorage.removeToken();
     }
   }
 
@@ -282,8 +308,7 @@ class BasicUserStore {
   removeToken() {
     logger.debug('Remove user access token.');
     this.token = null;
-    const authStorage = AuthStorage.getInstance();
-    authStorage.removeToken();
+    this._authStorage.removeToken();
   }
 
   /**
@@ -305,8 +330,7 @@ class BasicUserStore {
    */
   setPrivileges(privileges) {
     this.privileges = privileges ?? [];
-    const authStorage = AuthStorage.getInstance();
-    authStorage.storePrivileges(this.privileges);
+    this._authStorage.storePrivileges(this.privileges);
   }
 
   /**
@@ -317,8 +341,7 @@ class BasicUserStore {
    */
   setRoles(roles) {
     this.roles = roles ?? [];
-    const authStorage = AuthStorage.getInstance();
-    authStorage.storeRoles(this.roles);
+    this._authStorage.storeRoles(this.roles);
   }
 
   /**

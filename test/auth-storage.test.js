@@ -55,8 +55,7 @@ jest.mock('js-cookie', () => {
   };
 });
 
-AuthStorage.setAppCode(APP_CODE);
-const authStorage = AuthStorage.getInstance();
+const authStorage = new AuthStorage(APP_CODE);
 
 describe('Test AuthStorage', () => {
   beforeEach(() => {
@@ -432,27 +431,14 @@ describe('Test AuthStorage', () => {
     // expect(CookieEngine.set).toHaveBeenCalledWith(`${APP_CODE}.token`, Json.stringify(token), { expires: 1000 });
   });
 
-  test('should throw error if call the constructor directly', () => {
+  test('should throw error if app code is not provided', () => {
     expect(() => new AuthStorage())
-      .toThrowError('The `AuthStorage` instance can only be get by the static method `AuthStorage.getInstance()`.');
-  });
-
-  test('should throw error if app code is not set', () => {
-    AuthStorage.unsetAppCode();
-    expect(() => AuthStorage.getInstance())
-      .toThrowError('The appCode has not been set. You must call `AuthStorage.setAppCode()` first.');
-    AuthStorage.setAppCode(APP_CODE);
+      .toThrowError('The `AuthStorage` instance must be constructed with a `appCode`.');
   });
 
   test('should throw error if set an nullish app code', () => {
-    AuthStorage.unsetAppCode();
-    expect(() => AuthStorage.setAppCode(null)).toThrowError('The appCode is required.');
-    expect(() => AuthStorage.setAppCode(undefined)).toThrowError('The appCode is required.');
-    expect(() => AuthStorage.setAppCode('')).toThrowError('The appCode is required.');
-    AuthStorage.setAppCode(APP_CODE);
-  });
-
-  test('should throw error if set app code twice', () => {
-    expect(() => AuthStorage.setAppCode('xxx')).toThrowError('The appCode has already been set.');
+    expect(() => new AuthStorage(null)).toThrowError('The `AuthStorage` instance must be constructed with a `appCode`.');
+    expect(() => new AuthStorage(undefined)).toThrowError('The `AuthStorage` instance must be constructed with a `appCode`.');
+    expect(() => new AuthStorage('')).toThrowError('The `AuthStorage` instance must be constructed with a `appCode`.');
   });
 });
