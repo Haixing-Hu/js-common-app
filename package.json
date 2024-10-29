@@ -1,6 +1,6 @@
 {
   "name": "@haixing_hu/common-app",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "A JavaScript library of utilities for developing web apps.",
   "author": "Haixing Hu (starfish.hu@gmail.com)",
   "license": "Apache-2.0",
@@ -17,12 +17,12 @@
     "utility",
     "webapp"
   ],
-  "main": "dist/common-app.cjs.min.js",
-  "module": "dist/common-app.esm.min.mjs",
+  "main": "dist/common-app.min.cjs",
+  "module": "dist/common-app.min.mjs",
   "exports": {
     ".": {
-      "require": "./dist/common-app.cjs.min.js",
-      "import": "./dist/common-app.esm.min.mjs"
+      "require": "./dist/common-app.min.cjs",
+      "import": "./dist/common-app.min.mjs"
     }
   },
   "sideEffects": false,
@@ -46,15 +46,14 @@
   },
   "peerDependencies": {
     "@babel/runtime": "^7.23.6",
-    "@haixing_hu/common-ui": "^1.4.0",
-    "@haixing_hu/config": "^1.0.0",
-    "@haixing_hu/json": "^1.0.3",
-    "@haixing_hu/logging": "^1.3.3",
-    "@haixing_hu/pinia-decorator": "^3.1.0",
-    "@haixing_hu/storage": "^1.2.0",
-    "@haixing_hu/type-detect": "^1.1.0",
-    "axios": "^1.7.7",
-    "js-cookie": "^3.0.5"
+    "@haixing_hu/common-ui": "^1.5.0",
+    "@haixing_hu/config": "^1.1.0",
+    "@haixing_hu/json": "^1.1.0",
+    "@haixing_hu/logging": "^1.4.1",
+    "@haixing_hu/pinia-decorator": "^3.3.0",
+    "@haixing_hu/storage": "^1.3.0",
+    "@haixing_hu/type-detect": "^1.2.0",
+    "axios": "^1.7.7"
   },
   "devDependencies": {
     "@babel/core": "^7.23.6",
@@ -64,22 +63,22 @@
     "@babel/preset-env": "^7.23.6",
     "@babel/preset-typescript": "^7.24.1",
     "@babel/runtime": "^7.23.6",
-    "@haixing_hu/clone": "^1.11.1",
-    "@haixing_hu/common-ui": "^1.4.0",
-    "@haixing_hu/common-util": "^5.1.0",
-    "@haixing_hu/common-validation-rule": "^1.2.1",
-    "@haixing_hu/config": "^1.0.0",
+    "@haixing_hu/clone": "^1.12.0",
+    "@haixing_hu/common-ui": "^1.5.0",
+    "@haixing_hu/common-util": "^5.2.0",
+    "@haixing_hu/common-validation-rule": "^1.3.0",
+    "@haixing_hu/config": "^1.1.0",
     "@haixing_hu/eslint-config": "^1.3.3",
     "@haixing_hu/jsdoc-minami": "^1.5.1",
-    "@haixing_hu/json": "^1.0.3",
-    "@haixing_hu/logging": "^1.3.3",
-    "@haixing_hu/naming-style": "^1.3.0",
-    "@haixing_hu/pinia-decorator": "^3.1.0",
-    "@haixing_hu/rollup-builder": "^1.6.5",
-    "@haixing_hu/storage": "^1.2.0",
-    "@haixing_hu/type-detect": "^1.1.0",
-    "@haixing_hu/typeinfo": "^3.0.0",
-    "@haixing_hu/vue3-class-component": "^2.1.0",
+    "@haixing_hu/json": "^1.1.0",
+    "@haixing_hu/logging": "^1.4.1",
+    "@haixing_hu/naming-style": "^1.3.1",
+    "@haixing_hu/pinia-decorator": "^3.3.0",
+    "@haixing_hu/rollup-builder": "^1.8.2",
+    "@haixing_hu/storage": "^1.3.0",
+    "@haixing_hu/type-detect": "^1.2.0",
+    "@haixing_hu/typeinfo": "^3.1.0",
+    "@haixing_hu/vue3-class-component": "^2.3.0",
     "@jest/core": "^29.7.0",
     "@rollup/plugin-alias": "^5.0.1",
     "@rollup/plugin-babel": "^6.0.4",
@@ -109,5 +108,5 @@
     "rollup-plugin-visualizer": "^5.12.0",
     "vue": "^3.5.10"
   },
-  "packageManager": "yarn@4.0.0"
+  "packageManager": "yarn@4.5.0"
 }
