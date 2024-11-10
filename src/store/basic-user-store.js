@@ -25,12 +25,32 @@ const logger = Logger.getLogger('store.user');
  */
 class BasicUserStore {
   /**
-   * 用于处理登录认证的API对象。
+   * 用于处理用户登录认证的API对象。
+   *
+   * 此对象必须有以下接口：
+   *
+   * - `loginByUsername(username, password)`: 使用用户名和密码登录；
+   * - `loginByMobile(mobile, verifyCode)`: 使用手机号码和验证码登录；
+   * - `loginByOpenId(socialNetwork, appId, openId)`: 使用Open ID登录；
+   * - `bindOpenId(socialNetwork, appId, openId)`: 绑定Open ID；
+   * - `logout()`: 登出；
+   * - `getLoginInfo()`: 获取登录用户的信息；
+   * - `checkToken(userId, tokenValue)`: 检查用户的Token的值是否合法。
    *
    * @type {object}
    */
   @RawField
-  _api = null;
+  _userAuthenticateApi = null;
+
+  /**
+   * 用于处理发送验证码的API对象。
+   *
+   * 此对象必须有一个`sendBySms(mobile, scene)`方法，用于发送短信验证码。
+   *
+   * @type {object}
+   */
+  @RawField
+  _verifyCodeApi = null;
 
   /**
    * 当前应用程序的代码，用于设置`Cookies`、`LocalStorage`和`SessionStorage`中存储
@@ -124,30 +144,39 @@ class BasicUserStore {
   /**
    * 构造一个新的`BasicUserStore`对象。
    *
-   * 该函数需要一个用于处理登录认证的API对象。此API对象需要提供以下接口：
-   * - `loginByUsername(username, password)`: 使用用户名和密码登录；
-   * - `loginByMobile(mobile, verifyCode)`: 使用手机号码和验证码登录；
-   * - `loginByOpenId(socialNetwork, appId, openId)`: 使用Open ID登录；
-   * - `bindOpenId(socialNetwork, appId, openId)`: 绑定Open ID；
-   * - `logout()`: 登出；
-   * - `getLoginInfo()`: 获取登录用户的信息；
+   * 该函数需要一个用于处理登录认证的API对象。
    * - `sendBySms(mobile, type)`: 发送短信验证码；
-   * - `checkToken(userId, tokenValue)`: 检查用户的Token的值是否合法。
    *
-   * @param {object} api
-   *     用于处理登录认证的API对象。
+   * @param {object} userAuthenticateApi
+   *     用于处理用户登录认证的API对象。此API对象需要提供以下接口：
+   *
+   *     - `loginByUsername(username, password)`: 使用用户名和密码登录；
+   *     - `loginByMobile(mobile, verifyCode)`: 使用手机号码和验证码登录；
+   *     - `loginByOpenId(socialNetwork, appId, openId)`: 使用Open ID登录；
+   *     - `bindOpenId(socialNetwork, appId, openId)`: 绑定Open ID；
+   *     - `logout()`: 登出；
+   *     - `getLoginInfo()`: 获取登录用户的信息；
+   *     - `checkToken(userId, tokenValue)`: 检查用户的Token的值是否合法。
+   * @param {object} verifyCodeApi
+   *     用于处理发送验证码的API对象。
+   *
+   *     - `endBySms(mobile, scene)`：发送短信验证码。
    * @param {string} appCode
    *     当前应用程序的代码，用于设置`Cookies`、`LocalStorage`和`SessionStorage`中存储
    *     的数据项的键值前缀。
    */
-  constructor(api, appCode) {
-    if (!api) {
-      throw new Error('The API object is required.');
+  constructor(userAuthenticateApi, verifyCodeApi, appCode) {
+    if (!userAuthenticateApi) {
+      throw new Error('The API object for authenticating users is required.');
+    }
+    if (!verifyCodeApi) {
+      throw new Error('The API object for sending verify code is required.');
     }
     if (!appCode) {
-      throw new Error('The `appCode` is required.');
+      throw new Error('The app code is required.');
     }
-    this._api = api;
+    this._userAuthenticateApi = userAuthenticateApi;
+    this._verifyCodeApi = verifyCodeApi;
     this._appCode = appCode;
     this._authStorage = new AuthStorage(appCode);
     this.user = this._authStorage.loadUserInfo() ?? null;
@@ -395,12 +424,12 @@ class BasicUserStore {
   }
 
   loginByUsername(username, password, saveLogin) {
-    logger.debug('Login: username = %s, saveLogin = %s', username, saveLogin);
+    logger.info('Login: username = %s, saveLogin = %s', username, saveLogin);
     this.setSaveLogin(saveLogin);
     this.setUsername(username);
     this.setPassword(password);
     this.removeToken();           // 注意调用login API时必须先清除已保存的Access Token
-    return this.api.loginByUsername(username, password).then((response) => {
+    return this._userAuthenticateApi.loginByUsername(username, password).then((response) => {
       logger.debug('Successfully logged in with:', response);
       this.setLoginResponse(response);
       return response;
@@ -412,7 +441,7 @@ class BasicUserStore {
     this.setSaveLogin(saveLogin);
     this.setMobile(mobile);
     this.removeToken();           // 注意调用login API时必须先清除已保存的Access Token
-    return this.api.loginByMobile(mobile, verifyCode).then((response) => {
+    return this._userAuthenticateApi.loginByMobile(mobile, verifyCode).then((response) => {
       logger.debug('Successfully logged in with:', response);
       this.setLoginResponse(response);
       return response;
@@ -422,7 +451,7 @@ class BasicUserStore {
   loginByOpenId(socialNetwork, appId, openId) {
     logger.debug('Login: socialNetwork = %s, appId = %s, openId = %s', socialNetwork, appId, openId);
     this.removeToken();           // 注意调用login API时必须先清除已保存的Access Token
-    return this.api.loginByOpenId(socialNetwork, appId, openId).then((response) => {
+    return this._userAuthenticateApi.loginByOpenId(socialNetwork, appId, openId).then((response) => {
       logger.debug('Successfully logged in with:', response);
       this.setOpenId(socialNetwork, appId, openId);
       this.setLoginResponse(response);
@@ -433,14 +462,14 @@ class BasicUserStore {
   bindOpenId() {
     logger.debug('Bind the Open ID for the current user: socialNetwork = %s, '
       + 'appId = %s, openId = %s', this.socialNetwork, this.appId, this.openId);
-    return this.api.bindOpenId(this.socialNetwork, this.appId, this.openId).then(() => {
+    return this._userAuthenticateApi.bindOpenId(this.socialNetwork, this.appId, this.openId).then(() => {
       logger.debug('Successfully bind the Open ID for the current user.');
     });
   }
 
   logout() {
     logger.debug('Logout.');
-    return this.api.logout().then(() => {
+    return this._userAuthenticateApi.logout().then(() => {
       this.removeToken(); // must remove  token  first
       this.resetState();
     });
@@ -448,7 +477,7 @@ class BasicUserStore {
 
   refreshLoginInfo() {
     logger.debug('Loading the user information for the current user.');
-    return this.api.getLoginInfo().then((response) => {
+    return this._userAuthenticateApi.getLoginInfo().then((response) => {
       logger.debug('Successfully get the login information of the current user:', response);
       this.setLoginResponse(response);
       return response;
@@ -463,9 +492,32 @@ class BasicUserStore {
    */
   sendLoginVerifyCode(mobile) {
     logger.debug('Sending login verify code to %s.', mobile);
-    return this.api.sendBySms(mobile, 'LOGIN').then(() => {
+    return this._verifyCodeApi.sendBySms(mobile, 'LOGIN').then(() => {
       logger.info('Successfully sent the login verify code to:', mobile);
     });
+  }
+
+  /**
+   * 检查指定的 Token 的值对于指定的用户是否依然合法。
+   *
+   * @param {string} userId
+   *     用户的ID。
+   * @param {string} tokenValue
+   *     Token的值。
+   * @returns {Promise<boolean>}
+   *     如果Token的值对于指定的用户依然合法，则返回`true`；否则返回`false`。
+   */
+  async isTokenValid(userId, tokenValue) {
+    try {
+      logger.info('Checking the whether token value for the user %s is valid:', userId, tokenValue);
+      const token = await this._userAuthenticateApi.checkToken(userId, tokenValue);
+      const valid = !!token;
+      logger.info('The validity of the token value is:', valid);
+      return valid;
+    } catch (error) {
+      logger.info('The token value is invalid.');
+      return false;
+    }
   }
 }
 
