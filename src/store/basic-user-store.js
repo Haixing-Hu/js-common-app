@@ -423,6 +423,19 @@ class BasicUserStore {
     }
   }
 
+  /**
+   * 使用用户名和密码登录。
+   *
+   * @param {string} username
+   *     用户名。
+   * @param {string} password
+   *     密码。
+   * @param {boolean} saveLogin
+   *     是否保存登录信息。
+   * @return {Promise<LoginResponse|ErrorInfo>}
+   *     此 HTTP 请求的 Promise，若操作成功，解析成功并返回一个`LoginResponse`对象，包含
+   *     了指定用户的登录信息；若操作失败，解析失败并返回一个`ErrorInfo`对象。
+   */
   loginByUsername(username, password, saveLogin) {
     logger.info('Login: username = %s, saveLogin = %s', username, saveLogin);
     this.setSaveLogin(saveLogin);
@@ -436,6 +449,19 @@ class BasicUserStore {
     });
   }
 
+  /**
+   * 使用手机号码和验证码登录。
+   *
+   * @param {string} mobile
+   *     手机号码。
+   * @param {string} verifyCode
+   *     该手机收到的验证码。
+   * @param {boolean} saveLogin
+   *     是否保存登录信息。
+   * @return {Promise<LoginResponse|ErrorInfo>}
+   *     此 HTTP 请求的 Promise，若操作成功，解析成功并返回一个`LoginResponse`对象，包含
+   *     了指定用户的登录信息；若操作失败，解析失败并返回一个`ErrorInfo`对象。
+   */
   loginByMobile(mobile, verifyCode, saveLogin) {
     logger.debug('Login: mobile = %s, verifyCode = %s, saveLogin = %s', mobile, verifyCode, saveLogin);
     this.setSaveLogin(saveLogin);
@@ -448,6 +474,19 @@ class BasicUserStore {
     });
   }
 
+  /**
+   * 使用社交网络的Open ID登录。
+   *
+   * @param {SocialNetwork} socialNetwork
+   *     指定的社交网络枚举名称。
+   * @param {string} appId
+   *     该社交网络下的APP（公众号）的ID。
+   * @param {string} openId
+   *     用户在该社交网络指定的APP（公众号）下的Open ID。
+   * @return {Promise<LoginResponse|ErrorInfo>}
+   *     此 HTTP 请求的 Promise，若操作成功，解析成功并返回一个`LoginResponse`对象，包含
+   *     了指定用户的登录信息；若操作失败，解析失败并返回一个`ErrorInfo`对象。
+   */
   loginByOpenId(socialNetwork, appId, openId) {
     logger.debug('Login: socialNetwork = %s, appId = %s, openId = %s', socialNetwork, appId, openId);
     this.removeToken();           // 注意调用login API时必须先清除已保存的Access Token
@@ -459,14 +498,35 @@ class BasicUserStore {
     });
   }
 
-  bindOpenId() {
+  /**
+   * 将当前登录用户的账号绑定到指定的Open ID。
+   *
+   * @param {SocialNetwork} socialNetwork
+   *     指定的社交网络枚举名称。
+   * @param {string} appId
+   *     该社交网络下的APP（公众号）的ID。
+   * @param {string} openId
+   *     用户在该社交网络指定的APP（公众号）下的Open ID。
+   * @return
+   *     此 HTTP 请求的 Promise。若操作成功，解析成功且没有返回值；若操作失败，解析失败并
+   *     返回一个`ErrorInfo`对象。
+   */
+  bindOpenId(socialNetwork, appId, openId) {
     logger.debug('Bind the Open ID for the current user: socialNetwork = %s, '
-      + 'appId = %s, openId = %s', this.socialNetwork, this.appId, this.openId);
-    return this._userAuthenticateApi.bindOpenId(this.socialNetwork, this.appId, this.openId).then(() => {
+      + 'appId = %s, openId = %s', socialNetwork, appId, openId);
+    return this._userAuthenticateApi.bindOpenId(socialNetwork, appId, openId).then(() => {
       logger.debug('Successfully bind the Open ID for the current user.');
+      this.setOpenId(socialNetwork, appId, openId);
     });
   }
 
+  /**
+   * 用户注销登录。
+   *
+   * @return {Promise<void|ErrorInfo>}
+   *     此 HTTP 请求的 Promise；若操作成功，解析成功且没有返回值；若操作失败，解析失败并返
+   *     回一个`ErrorInfo`对象。
+   */
   logout() {
     logger.debug('Logout.');
     return this._userAuthenticateApi.logout().then(() => {
@@ -475,6 +535,13 @@ class BasicUserStore {
     });
   }
 
+  /**
+   * 刷新当前已登录用户的登录信息。
+   *
+   * @return {Promise<LoginResponse|ErrorInfo>}
+   *     此 HTTP 请求的 Promise，若操作成功，解析成功并返回一个`LoginResponse`对象，包含
+   *     了指定用户的登录信息；若操作失败，解析失败并返回一个`ErrorInfo`对象。
+   */
   refreshLoginInfo() {
     logger.debug('Loading the user information for the current user.');
     return this._userAuthenticateApi.getLoginInfo().then((response) => {
@@ -504,8 +571,9 @@ class BasicUserStore {
    *     用户的ID。
    * @param {string} tokenValue
    *     Token的值。
-   * @returns {Promise<boolean>}
-   *     如果Token的值对于指定的用户依然合法，则返回`true`；否则返回`false`。
+   * @returns {Promise<boolean|ErrorInfo>}
+   *     此 HTTP 请求的 Promise，若操作成功，解析成功，如果Token的值对于指定的用户依然合法，
+   *     则返回`true`；否则返回`false`；若操作失败，解析失败并返回一个`ErrorInfo`对象。
    */
   async isTokenValid(userId, tokenValue) {
     try {
