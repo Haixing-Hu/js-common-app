@@ -50,6 +50,20 @@ describe('http.interceptors.request', () => {
     expect(result).toEqual(response);
   });
 
+  it('should not stringify empty posted data', async () => {
+    const params = {};
+    const response = { success: true, name: 'John Doe' };
+    const spy = jest.spyOn(Json, 'stringify');
+    mock.onPost('/data').reply((cfg) => {
+      expect(spy).toHaveBeenCalledWith(params);
+      spy.mockRestore();
+      expect(cfg.data).toEqual('{}');
+      return [200, response];  // 模拟成功响应
+    });
+    const result = await http.post('/data', params);
+    expect(result).toEqual(response);
+  });
+
   it('should not stringify posted data for non-JSON content-type', async () => {
     const params = 'hello world';
     const response = { success: true, name: 'John Doe' };
@@ -119,6 +133,25 @@ describe('http.interceptors.response', () => {
     spy.mockRestore();
     expect(result).toEqual(response);
   });
+
+  it('should parse response of empty string', async () => {
+    const params = { id: 12345678901234567890n, name: 'John' };
+    const response = '';
+    const responseText = '';
+    const responseHeaders = {
+      'Content-Type': DEFAULT_HTTP_HEADER_CONTENT_TYPE,
+    };
+    const spy = jest.spyOn(Json, 'parse');
+    mock.onPost('/data').reply((cfg) => {
+      expect(cfg.data).toEqual('{"id":12345678901234567890,"name":"John"}');
+      return [200, responseText, responseHeaders];  // 模拟成功响应
+    });
+    const result = await http.post('/data', params);
+    expect(spy).not.toHaveBeenCalled();
+    spy.mockRestore();
+    expect(result).toEqual(response);
+  });
+
 
   it('should not parse response for non-JSON content-type', async () => {
     const params = { id: 12345678901234567890n, name: 'John' };
