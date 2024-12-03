@@ -6,15 +6,10 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import Logger from '@haixing_hu/logging';
-import config from '@haixing_hu/config';
+import { Logger, Log } from '@haixing_hu/logging';
 import { RawField } from '@haixing_hu/pinia-decorator';
+import config from '@haixing_hu/config';
 import AuthStorage from '../auth-storage';
-import {
-  ensureUserExist,
-  refreshAvatar,
-  loadTokenFromAuthStorage,
-} from './impl/basic-user-store-impl';
 
 const logger = Logger.getLogger('store.user');
 
@@ -144,12 +139,10 @@ class BasicUserStore {
   /**
    * 构造一个新的`BasicUserStore`对象。
    *
-   * 该函数需要一个用于处理登录认证的API对象。
-   * - `sendBySms(mobile, type)`: 发送短信验证码；
+   * 该函数需要一个用于处理登录认证的API对象和一个用于发送验证码的API对象。
    *
    * @param {object} userAuthenticateApi
    *     用于处理用户登录认证的API对象。此API对象需要提供以下接口：
-   *
    *     - `loginByUsername(username, password)`: 使用用户名和密码登录；
    *     - `loginByMobile(mobile, verifyCode)`: 使用手机号码和验证码登录；
    *     - `loginByOpenId(socialNetwork, appId, openId)`: 使用Open ID登录；
@@ -159,8 +152,7 @@ class BasicUserStore {
    *     - `checkToken(userId, tokenValue)`: 检查用户的Token的值是否合法。
    * @param {object} verifyCodeApi
    *     用于处理发送验证码的API对象。
-   *
-   *     - `endBySms(mobile, scene)`：发送短信验证码。
+   *     - `sendBySms(mobile, scene)`：发送短信验证码。
    * @param {string} appCode
    *     当前应用程序的代码，用于设置`Cookies`、`LocalStorage`和`SessionStorage`中存储
    *     的数据项的键值前缀。
@@ -182,8 +174,8 @@ class BasicUserStore {
     this.user = this._authStorage.loadUserInfo() ?? null;
     this.password = this._authStorage.loadPassword() ?? '';
     this.saveLogin = this._authStorage.loadSaveLogin() ?? false;
-    this.socialNetwork = config.get('social_network') ?? null;
-    this.appId = config.get('social_network_app_id') ?? null;
+    this.socialNetwork = config.get('social_network', null);
+    this.appId = config.get('social_network_app_id', null);
     this.token = this._authStorage.loadToken() ?? null;
     this.privileges = this._authStorage.loadPrivileges() ?? [];
     this.roles = this._authStorage.loadRoles() ?? [];
@@ -210,8 +202,31 @@ class BasicUserStore {
   }
 
   /**
+   * 确保当前用户信息对象存在。
+   *
+   * @return {object}
+   *     当前用户信息对象。
+   */
+  @Log
+  ensureUserExist() {
+    if (!this.user) {
+      this.user = {
+        id: null,
+        username: '',
+        nickname: '',
+        avatar: '',
+        name: '',
+        gender: '',
+        mobile: '',
+      };
+    }
+    return this.user;
+  }
+
+  /**
    * 重置状态。
    */
+  @Log
   resetState() {
     this.$reset();
     logger.debug('state was reset to:', this.$state);
@@ -223,6 +238,7 @@ class BasicUserStore {
    * @param {object} user
    *     用户基本信息。
    */
+  @Log
   setUserInfo(user) {
     this.user = { ...user };
     if (this.saveLogin) {
@@ -236,8 +252,9 @@ class BasicUserStore {
    * @param {number|bigint|string} userId
    *     用户ID。
    */
+  @Log
   setUserId(userId) {
-    const user = ensureUserExist(this);
+    const user = this.ensureUserExist();
     user.id = userId;
     if (this.saveLogin) {
       this._authStorage.storeUserId(userId);
@@ -252,8 +269,9 @@ class BasicUserStore {
    * @param {string} username
    *     用户名。
    */
+  @Log
   setUsername(username) {
-    const user = ensureUserExist(this);
+    const user = this.ensureUserExist();
     user.username = username;
     if (this.saveLogin) {
       this._authStorage.storeUsername(username);
@@ -268,6 +286,7 @@ class BasicUserStore {
    * @param {string} password
    *     用户密码。
    */
+  @Log
   setPassword(password) {
     this.password = password;
     if (this.saveLogin) {
@@ -283,8 +302,9 @@ class BasicUserStore {
    * @param {string} mobile
    *     用户手机号码。
    */
+  @Log
   setMobile(mobile) {
-    const user = ensureUserExist(this);
+    const user = this.ensureUserExist();
     user.mobile = mobile;
     if (this.saveLogin) {
       this._authStorage.storeMobile(mobile);
@@ -299,8 +319,9 @@ class BasicUserStore {
    * @param {string} avatar
    *     用户头像。
    */
+  @Log
   setAvatar(avatar) {
-    const user = ensureUserExist(this);
+    const user = this.ensureUserExist();
     user.avatar = avatar ?? '';
     this._authStorage.storeAvatar(avatar);
   }
@@ -311,6 +332,7 @@ class BasicUserStore {
    * @param {boolean} saveLogin
    *     用户是否保存登录信息。
    */
+  @Log
   setSaveLogin(saveLogin) {
     this.saveLogin = saveLogin;
     this._authStorage.storeSaveLogin(saveLogin);
@@ -322,6 +344,7 @@ class BasicUserStore {
    * @param {object} token
    *     用户的登录令牌。
    */
+  @Log
   setToken(token) {
     this.token = { ...token };
     if (this.saveLogin) {
@@ -334,8 +357,8 @@ class BasicUserStore {
   /**
    * 移除用户的登录令牌。
    */
+  @Log
   removeToken() {
-    logger.debug('Remove user access token.');
     this.token = null;
     this._authStorage.removeToken();
   }
@@ -345,8 +368,8 @@ class BasicUserStore {
    *
    * 此函数将删除用户的Token值，并重置用户的状态。
    */
+  @Log
   resetToken() {
-    logger.debug('Reset user access token.');
     this.removeToken();  // must remove  token  first
     this.resetState();
   }
@@ -357,6 +380,7 @@ class BasicUserStore {
    * @param {array<string>} privileges
    *     用户的权限列表。
    */
+  @Log
   setPrivileges(privileges) {
     this.privileges = privileges ?? [];
     this._authStorage.storePrivileges(this.privileges);
@@ -368,6 +392,7 @@ class BasicUserStore {
    * @param {array<string>} roles
    *     用户的角色列表。
    */
+  @Log
   setRoles(roles) {
     this.roles = roles ?? [];
     this._authStorage.storeRoles(this.roles);
@@ -383,6 +408,7 @@ class BasicUserStore {
    * @param {string} openId
    *     Open ID。
    */
+  @Log
   setOpenId(socialNetwork, appId, openId) {
     this.socialNetwork = socialNetwork;
     this.appId = appId;
@@ -397,13 +423,68 @@ class BasicUserStore {
    * @param {object} response
    *     用户登录后服务器返回的响应数据。
    */
+  @Log
   setLoginResponse(response) {
     logger.debug('Set the login response:', response);
     this.setUserInfo(response.user);
     this.setToken(response.token);
     this.setPrivileges(response.privileges);
     this.setRoles(response.roles);
-    refreshAvatar(this);
+    this.refreshAvatar();
+  }
+
+  /**
+   * 刷新用户的头像。
+   */
+  @Log
+  refreshAvatar() {
+    const user = this.ensureUserExist();
+    if (!user.avatar && user.gender) {
+      switch (user.gender) {
+        case 'MALE':
+          this.setAvatar(config.get('default_avatar_male', ''));
+          break;
+        case 'FEMALE':
+          this.setAvatar(config.get('default_avatar_female', ''));
+          break;
+        default:
+          this.setAvatar('');
+          break;
+      }
+    }
+  }
+
+  /**
+   * 合并用户信息。
+   *
+   * @param {object} info
+   *     待合并的用户信息。
+   */
+  @Log
+  mergeUserInfo(info) {
+    const user = this.ensureUserExist();
+    if (!user.username && info.username) {
+      user.username = info.username;
+    }
+    if (!user.name && info.name) {
+      user.name = info.name;
+    }
+    if (!user.nickname && info.nickname) {
+      user.nickname = info.nickname;
+    }
+    if (!user.gender && info.gender) {
+      user.gender = info.gender;
+    }
+    if (!user.avatar && info.avatar) {
+      user.avatar = info.avatar;
+    }
+    if (!user.mobile && info.mobile) {
+      user.mobile = info.mobile;
+    }
+    this.refreshAvatar();
+    if (this.saveLogin) {
+      this._authStorage.storeUserInfo(user);
+    }
   }
 
   /**
@@ -412,15 +493,69 @@ class BasicUserStore {
    * @returns {Promise<object|null>}
    *     如果成功获取用户的Token值，则返回该值；否则返回`null`。
    */
+  @Log
   async loadToken() {
-    logger.debug('Getting the user token...');
-    if (await loadTokenFromAuthStorage(this)) {
-      logger.debug('The user token value is:', this.token.value);
+    if ((await this.loadTokenFromDevice())
+        || (await this.loadTokenFromAuthStorage())) {
+      logger.info('The user token value is:', this.token.value);
       await this.refreshLoginInfo();
       return this.token;
     } else {
       return null;
     }
+  }
+
+  /**
+   * 从本地存储中获取当前绑定用户的登录信息。
+   *
+   * @return {Promise<boolean>}
+   *     如果成功获取用户的登录信息，则保存userId和token并返回`true`；否则返回`false`。
+   */
+  async loadTokenFromAuthStorage() {
+    const user = this._authStorage.loadUserInfo();
+    if (user?.username) {       // 如果有用户信息，则保存用户信息，以便于后继登录自动填写用户名和手机号码
+      logger.debug('Found user information in the local storage:', user);
+      this.setUserInfo(user);
+    }
+    const password = this._authStorage.loadPassword();
+    if (password) {             // 如果有密码，则保存密码，以便于后继登录自动填写密码
+      logger.debug('Found password in the local storage:', password);
+      this.setPassword(password);
+    }
+    const saveLogin = this._authStorage.loadSaveLogin();
+    if (saveLogin) {  // 如果有保存登录信息，则保存保存登录信息标志
+      logger.debug('Found save login information in the local storage:', saveLogin);
+      this.setSaveLogin(saveLogin);
+    }
+    const token = this._authStorage.loadToken();
+    if (user?.id && token?.value) {
+      logger.debug('Successfully load access token from the local storage:', token);
+      if (await this.isTokenValid(user.id, token.value)) {
+        this.setUserId(user.id);
+        this.setToken(token);
+        return true;
+      } else {
+        logger.info('The access token is invalid or expired, remove it:', token);
+        this._authStorage.removeLoginResponse();
+        return false;
+      }
+    } else {
+      logger.error('No access token found in local storage.');
+      return false;
+    }
+  }
+
+  /**
+   * 从底层设备的存储中获取当前绑定用户的登录信息。
+   *
+   * **注意：** 此方法的默认实现总是返回`false`。派生类可以重写此方法以实现从设备获取用户登录
+   * 信息的业务逻辑。
+   *
+   * @return {Promise<boolean>}
+   *     如果成功获取用户的登录信息，则保存userId和token并返回`true`；否则返回`false`。
+   */
+  async loadTokenFromDevice() {
+    return false;
   }
 
   /**
@@ -436,8 +571,8 @@ class BasicUserStore {
    *     此 HTTP 请求的 Promise，若操作成功，解析成功并返回一个`LoginResponse`对象，包含
    *     了指定用户的登录信息；若操作失败，解析失败并返回一个`ErrorInfo`对象。
    */
+  @Log
   loginByUsername(username, password, saveLogin) {
-    logger.info('Login: username = %s, saveLogin = %s', username, saveLogin);
     this.setSaveLogin(saveLogin);
     this.setUsername(username);
     this.setPassword(password);
@@ -462,8 +597,8 @@ class BasicUserStore {
    *     此 HTTP 请求的 Promise，若操作成功，解析成功并返回一个`LoginResponse`对象，包含
    *     了指定用户的登录信息；若操作失败，解析失败并返回一个`ErrorInfo`对象。
    */
+  @Log
   loginByMobile(mobile, verifyCode, saveLogin) {
-    logger.debug('Login: mobile = %s, verifyCode = %s, saveLogin = %s', mobile, verifyCode, saveLogin);
     this.setSaveLogin(saveLogin);
     this.setMobile(mobile);
     this.removeToken();           // 注意调用login API时必须先清除已保存的Access Token
@@ -487,8 +622,8 @@ class BasicUserStore {
    *     此 HTTP 请求的 Promise，若操作成功，解析成功并返回一个`LoginResponse`对象，包含
    *     了指定用户的登录信息；若操作失败，解析失败并返回一个`ErrorInfo`对象。
    */
+  @Log
   loginByOpenId(socialNetwork, appId, openId) {
-    logger.debug('Login: socialNetwork = %s, appId = %s, openId = %s', socialNetwork, appId, openId);
     this.removeToken();           // 注意调用login API时必须先清除已保存的Access Token
     return this._userAuthenticateApi.loginByOpenId(socialNetwork, appId, openId).then((response) => {
       logger.debug('Successfully logged in with:', response);
@@ -511,9 +646,8 @@ class BasicUserStore {
    *     此 HTTP 请求的 Promise。若操作成功，解析成功且没有返回值；若操作失败，解析失败并
    *     返回一个`ErrorInfo`对象。
    */
+  @Log
   bindOpenId(socialNetwork, appId, openId) {
-    logger.debug('Bind the Open ID for the current user: socialNetwork = %s, '
-      + 'appId = %s, openId = %s', socialNetwork, appId, openId);
     return this._userAuthenticateApi.bindOpenId(socialNetwork, appId, openId).then(() => {
       logger.debug('Successfully bind the Open ID for the current user.');
       this.setOpenId(socialNetwork, appId, openId);
@@ -527,8 +661,8 @@ class BasicUserStore {
    *     此 HTTP 请求的 Promise；若操作成功，解析成功且没有返回值；若操作失败，解析失败并返
    *     回一个`ErrorInfo`对象。
    */
+  @Log
   logout() {
-    logger.debug('Logout.');
     return this._userAuthenticateApi.logout().then(() => {
       this.removeToken(); // must remove  token  first
       this.resetState();
@@ -542,8 +676,8 @@ class BasicUserStore {
    *     此 HTTP 请求的 Promise，若操作成功，解析成功并返回一个`LoginResponse`对象，包含
    *     了指定用户的登录信息；若操作失败，解析失败并返回一个`ErrorInfo`对象。
    */
+  @Log
   refreshLoginInfo() {
-    logger.debug('Loading the user information for the current user.');
     return this._userAuthenticateApi.getLoginInfo().then((response) => {
       logger.debug('Successfully get the login information of the current user:', response);
       this.setLoginResponse(response);
@@ -557,8 +691,8 @@ class BasicUserStore {
    * @param {string} mobile
    *     登录用户的手机号码。
    */
+  @Log
   sendLoginVerifyCode(mobile) {
-    logger.debug('Sending login verify code to %s.', mobile);
     return this._verifyCodeApi.sendBySms(mobile, 'LOGIN').then(() => {
       logger.info('Successfully sent the login verify code to:', mobile);
     });
@@ -575,6 +709,7 @@ class BasicUserStore {
    *     此 HTTP 请求的 Promise，若操作成功，解析成功，如果Token的值对于指定的用户依然合法，
    *     则返回`true`；否则返回`false`；若操作失败，解析失败并返回一个`ErrorInfo`对象。
    */
+  @Log
   async isTokenValid(userId, tokenValue) {
     try {
       logger.info('Checking the whether token value for the user %s is valid:', userId, tokenValue);
