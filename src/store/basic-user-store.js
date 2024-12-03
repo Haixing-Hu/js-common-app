@@ -8,8 +8,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 import { Logger, Log } from '@haixing_hu/logging';
 import { RawField } from '@haixing_hu/pinia-decorator';
+import { confirm } from '@haixing_hu/common-ui';
 import config from '@haixing_hu/config';
 import AuthStorage from '../auth-storage';
+import http from '../http';
+import { DEFAULT_LOGIN_PAGE } from '../impl/http-impl';
 
 const logger = Logger.getLogger('store.user');
 
@@ -721,6 +724,30 @@ class BasicUserStore {
       logger.info('The token value is invalid.');
       return false;
     }
+  }
+
+  /**
+   * 对于未登录用户，显示提示框提示其重新登录。
+   */
+  @Log
+  confirmLogin() {
+    return confirm.info(
+      '是否重新登录',
+      '您尚未登录或者已经登出，请选择重新登录，或者选择放弃停留在本页面',
+      '重新登录',
+      '放弃',
+    ).then(() => {
+      this.resetToken();
+      logger.info('Redirect to user login page ...');
+      // FIXME: 这里重复用了代码，是否需要抽象出一个公共方法？参见 http-impl.js
+      const router = http.getRouter();
+      if (typeof router?.push !== 'function') {
+        throw new Error('`http.getRouter`方法的返回值不是一个`VueRouter`对象，无法调用`push`方法');
+      }
+      const loginPage = config.get('login_page', DEFAULT_LOGIN_PAGE);
+      logger.info('Redirect to user login page:', loginPage);
+      return router.push({ name: loginPage });
+    });
   }
 }
 

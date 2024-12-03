@@ -342,6 +342,7 @@ const httpImpl = {
       if (typeof http.getRouter !== 'function') {
         throw new Error('未设置`http.getRouter`方法，必须调用`http.getRouter = function() {...}`进行设置');
       }
+      // FIXME: 这里重复用了代码，是否需要抽象出一个公共方法？参见 basic-user-store.js
       const router = http.getRouter();
       if (typeof router?.push !== 'function') {
         throw new Error('`http.getRouter`方法的返回值不是一个`VueRouter`对象，无法调用`push`方法');
