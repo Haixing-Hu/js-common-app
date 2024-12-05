@@ -442,6 +442,7 @@ class AuthStorage {
   @Log
   removeLoginResponse() {
     this.removeUserInfo();
+    this.removePassword();
     this.removeToken();
     this.removePrivileges();
     this.removeRoles();
