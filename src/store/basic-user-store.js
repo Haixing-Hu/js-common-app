@@ -533,7 +533,7 @@ class BasicUserStore {
     const token = this._authStorage.loadToken();
     if (user?.id && token?.value) {
       logger.debug('Successfully load access token from the local storage:', token);
-      if (await this.isTokenValid(user.id, token.value)) {
+      if (await this.isTokenValid(user.id, token)) {
         this.setUserId(user.id);
         this.setToken(token);
         return true;
@@ -702,22 +702,22 @@ class BasicUserStore {
   }
 
   /**
-   * 检查指定的 Token 的值对于指定的用户是否依然合法。
+   * 检查指定用户的令牌是否依然合法。
    *
    * @param {string} userId
    *     用户的ID。
-   * @param {string} tokenValue
-   *     Token的值。
+   * @param {Token|object} token
+   *     用户的令牌。
    * @returns {Promise<boolean|ErrorInfo>}
    *     此 HTTP 请求的 Promise，若操作成功，解析成功，如果Token的值对于指定的用户依然合法，
    *     则返回`true`；否则返回`false`；若操作失败，解析失败并返回一个`ErrorInfo`对象。
    */
   @Log
-  async isTokenValid(userId, tokenValue) {
+  async isTokenValid(userId, token) {
     try {
-      logger.info('Checking the whether token value for the user %s is valid:', userId, tokenValue);
-      const token = await this._userAuthenticateApi.checkToken(userId, tokenValue);
-      const valid = !!token;
+      logger.info('Checking the whether token value for the user %s is valid:', userId, token);
+      const existToken = await this._userAuthenticateApi.checkToken(userId, token);
+      const valid = !!existToken;
       logger.info('The validity of the token value is:', valid);
       return valid;
     } catch (error) {
