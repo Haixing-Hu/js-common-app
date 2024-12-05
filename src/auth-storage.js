@@ -8,6 +8,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 import config from '@haixing_hu/config';
 import { Cookie, LocalStorage } from '@haixing_hu/storage';
+import { Log } from '@haixing_hu/logging';
 
 /**
  * 默认的访问令牌的过期时间（天数）。
@@ -52,110 +53,137 @@ class AuthStorage {
     this.KEY_ACCESS_TOKEN = `${appCode}.token`;
   }
 
+  @Log
   loadUserId() {
     return LocalStorage.get(this.KEY_USER_ID);
   }
 
+  @Log
   storeUserId(id) {
     LocalStorage.set(this.KEY_USER_ID, id);
   }
 
+  @Log
   removeUserId() {
     LocalStorage.remove(this.KEY_USER_ID);
   }
 
+  @Log
   loadUsername() {
     return LocalStorage.get(this.KEY_USERNAME);
   }
 
+  @Log
   storeUsername(username) {
     LocalStorage.set(this.KEY_USERNAME, username);
   }
 
+  @Log
   removeUsername() {
     LocalStorage.remove(this.KEY_USERNAME);
   }
 
+  @Log
   loadPassword() {
     return LocalStorage.get(this.KEY_PASSWORD);
   }
 
+  @Log
   storePassword(password) {
     LocalStorage.set(this.KEY_PASSWORD, password);
   }
 
+  @Log
   removePassword() {
     LocalStorage.remove(this.KEY_PASSWORD);
   }
 
+  @Log
   loadSaveLogin() {
     return LocalStorage.get(this.KEY_SAVE_LOGIN);
   }
 
+  @Log
   storeSaveLogin(saveLogin) {
     LocalStorage.set(this.KEY_SAVE_LOGIN, saveLogin);
   }
 
+  @Log
   removeSaveLogin() {
     LocalStorage.remove(this.KEY_SAVE_LOGIN);
   }
 
+  @Log
   loadNickname() {
     return LocalStorage.get(this.KEY_NICKNAME);
   }
 
+  @Log
   storeNickname(nickname) {
     LocalStorage.set(this.KEY_NICKNAME, nickname);
   }
 
+  @Log
   removeNickname() {
     LocalStorage.remove(this.KEY_NICKNAME);
   }
 
+  @Log
   loadName() {
     return LocalStorage.get(this.KEY_NAME);
   }
 
+  @Log
   storeName(name) {
     LocalStorage.set(this.KEY_NAME, name);
   }
 
+  @Log
   removeName() {
     LocalStorage.remove(this.KEY_NAME);
   }
 
+  @Log
   loadGender() {
     return LocalStorage.get(this.KEY_GENDER);
   }
 
+  @Log
   storeGender(gender) {
     LocalStorage.set(this.KEY_GENDER, gender);
   }
 
+  @Log
   removeGender() {
     LocalStorage.remove(this.KEY_GENDER);
   }
 
+  @Log
   loadMobile() {
     return LocalStorage.get(this.KEY_MOBILE);
   }
 
+  @Log
   storeMobile(mobile) {
     LocalStorage.set(this.KEY_MOBILE, mobile);
   }
 
+  @Log
   removeMobile() {
     LocalStorage.remove(this.KEY_MOBILE);
   }
 
+  @Log
   loadAvatar() {
     return LocalStorage.get(this.KEY_AVATAR);
   }
 
+  @Log
   storeAvatar(avatar) {
     LocalStorage.set(this.KEY_AVATAR, avatar);
   }
 
+  @Log
   removeAvatar() {
     LocalStorage.remove(this.KEY_AVATAR);
   }
@@ -166,6 +194,7 @@ class AuthStorage {
    * @returns {object}
    *     加载的访问令牌。
    */
+  @Log
   loadToken() {
     return Cookie.get(this.KEY_ACCESS_TOKEN);
   }
@@ -184,6 +213,7 @@ class AuthStorage {
    * @param {object} token
    *     访问令牌对象。
    */
+  @Log
   storeToken(token) {
     const expiresDays = config.get('cookie.expires_days.access_token', DEFAULT_ACCESS_TOKEN_EXPIRES_DAYS);
     Cookie.set(this.KEY_ACCESS_TOKEN, token, {
@@ -194,6 +224,7 @@ class AuthStorage {
   /**
    * 从本地存储中清除访问令牌。
    */
+  @Log
   removeToken() {
     Cookie.remove(this.KEY_ACCESS_TOKEN);
   }
@@ -204,6 +235,7 @@ class AuthStorage {
    * @return {boolean}
    *     如果存在则返回`true`，否则返回`false`。
    */
+  @Log
   hasTokenValue() {
     const token = Cookie.get(this.KEY_ACCESS_TOKEN);
     const value = token?.value;
@@ -216,6 +248,7 @@ class AuthStorage {
    * @returns {string}
    *     加载的访问令牌的值。
    */
+  @Log
   loadTokenValue() {
     const token = Cookie.get(this.KEY_ACCESS_TOKEN);
     return token?.value;
@@ -229,6 +262,7 @@ class AuthStorage {
    * @param {null|array<string>} privileges
    *     用户权限列表。
    */
+  @Log
   storePrivileges(privileges) {
     LocalStorage.set(this.KEY_PRIVILEGES, privileges);
   }
@@ -241,6 +275,7 @@ class AuthStorage {
    * @return {array<string>}
    *     用户权限列表；若不存在则返回一个空数组。
    */
+  @Log
   loadPrivileges() {
     return LocalStorage.get(this.KEY_PRIVILEGES);
   }
@@ -248,6 +283,7 @@ class AuthStorage {
   /**
    * 从本地存储中清除用户权限列表。
    */
+  @Log
   removePrivileges() {
     LocalStorage.remove(this.KEY_PRIVILEGES);
   }
@@ -260,6 +296,7 @@ class AuthStorage {
    * @param {null|array<string>} roles
    *     用户角色列表。
    */
+  @Log
   storeRoles(roles) {
     LocalStorage.set(this.KEY_ROLES, roles);
   }
@@ -272,6 +309,7 @@ class AuthStorage {
    * @return {array<string>}
    *     用户角色列表；若不存在则返回一个空数组。
    */
+  @Log
   loadRoles() {
     return LocalStorage.get(this.KEY_ROLES);
   }
@@ -279,6 +317,7 @@ class AuthStorage {
   /**
    * 从本地存储中清除用户角色列表。
    */
+  @Log
   removeRoles() {
     LocalStorage.remove(this.KEY_ROLES);
   }
@@ -298,6 +337,7 @@ class AuthStorage {
    * @param {object} user
    *     用户信息。
    */
+  @Log
   storeUserInfo(user) {
     if (user) {
       this.storeUserId(user.id);
@@ -325,6 +365,7 @@ class AuthStorage {
    * @return {object}
    *     用户信息对象。
    */
+  @Log
   loadUserInfo() {
     return {
       id: this.loadUserId(),
@@ -340,6 +381,7 @@ class AuthStorage {
   /**
    * 从本地存储中清除用户信息。
    */
+  @Log
   removeUserInfo() {
     this.removeUserId();
     this.removeUsername();
@@ -362,6 +404,7 @@ class AuthStorage {
    * @param {object} response
    *     用户登录信息。
    */
+  @Log
   storeLoginResponse(response) {
     if (response) {
       this.storeUserInfo(response.user);
@@ -383,6 +426,7 @@ class AuthStorage {
    * @returns {object}
    *     从本地存储中获取的用户登录信息。
    */
+  @Log
   loadLoginResponse() {
     return {
       user: this.loadUserInfo(),
@@ -395,6 +439,7 @@ class AuthStorage {
   /**
    * 从本地存储中清除用户登录信息。
    */
+  @Log
   removeLoginResponse() {
     this.removeUserInfo();
     this.removeToken();
