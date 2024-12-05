@@ -1,6 +1,6 @@
 {
   "name": "@haixing_hu/common-app",
-  "version": "1.9.1",
+  "version": "1.9.2",
   "description": "A JavaScript library of utilities for developing web apps.",
   "author": "Haixing Hu (starfish.hu@gmail.com)",
   "license": "Apache-2.0",

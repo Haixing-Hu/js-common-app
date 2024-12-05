@@ -221,7 +221,7 @@ const httpImpl = {
    *
    * @param {object} data
    *     待转换的请求数据。
-   * @param {object} headers
+   * @param {AxiosHeaders} headers
    *     请求头。
    * @return {any}
    *     转换后的请求数据。
@@ -242,7 +242,7 @@ const httpImpl = {
    *
    * @param {any} data
    *     待转换的响应数据。
-   * @param {object} headers
+   * @param {AxiosHeaders} headers
    *     响应头。
    * @return {any}
    *     转换后的响应数据。

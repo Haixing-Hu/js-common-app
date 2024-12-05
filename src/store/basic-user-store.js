@@ -721,7 +721,7 @@ class BasicUserStore {
       logger.info('The validity of the token value is:', valid);
       return valid;
     } catch (error) {
-      logger.info('The token value is invalid.');
+      logger.info('The token value is invalid:', error);
       return false;
     }
   }
