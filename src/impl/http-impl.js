@@ -6,6 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
+import { AxiosHeaders } from 'axios';
 import { Json } from '@haixing_hu/json';
 import Logger from '@haixing_hu/logging';
 import config from '@haixing_hu/config';
@@ -91,36 +92,39 @@ const httpImpl = {
    */
   fixRequestHeader(http, cfg) {
     logger.debug('HTTP headers before fixing:', cfg.headers);
-    // 设置所有HTTP请求头的 Content-Type 和 Accept 键值
-    const headers = {
+    // 设置所有HTTP请求头默认的 Content-Type 和 Accept 键值
+    const defaultHeaders = {
       'Content-Type': config.get('http_header_content_type', DEFAULT_HTTP_HEADER_CONTENT_TYPE),
       'Accept': config.get('http_header_accept', DEFAULT_HTTP_HEADER_ACCEPT),
     };
-    // 所有 HTTP 请求头带上 App Token 键值
+    // 所有 HTTP 请求头默认带上 App Token 键值
     const appTokenName = config.get('app_token_name', DEFAULT_APP_TOKEN_NAME);
     const appTokenValue = config.get('app_token_value');
     if (appTokenValue) {
       logger.debug('Add App Token to HTTP headers:', appTokenName, '=', appTokenValue);
-      headers[appTokenName] = appTokenValue;
+      defaultHeaders[appTokenName] = appTokenValue;
     }
-    // 所有 HTTP 请求头带上 Access Token 键值
+    // 所有 HTTP 请求头默认带上 Access Token 键值
     const accessTokenName = config.get('access_token_name', DEFAULT_ACCESS_TOKEN_NAME);
     if (typeof http.getAccessToken === 'function') {
       const accessToken = http.getAccessToken();
       logger.debug('Get the access Token:', accessToken);
       if (accessToken?.value) {
         logger.debug('Add Access Token to HTTP headers:', accessTokenName, '=', accessToken.value);
-        headers[accessTokenName] = accessToken.value;
+        defaultHeaders[accessTokenName] = accessToken.value;
       }
     } else {
       logger.warn('未设置`http.getAccessToken`方法，必须调用`http.getAccessToken = function() {...}`进行设置');
     }
-    // 合并配置对象的请求头和上面设置的请求头
-    cfg.headers = cfg.headers ?? {};    // 注意：cfg.headers 可能为 null 或 undefined
-    for (const key of Object.keys(headers)) {
-      // 如果配置对象的请求头没有设置，则使用上面设置的请求头; 否则保留配置对象的请求头
-      cfg.headers[key] = cfg.headers[key] ?? headers[key];
+    // 合并配置对象的请求头和上面设置的默认请求头，使用 AxiosHeaders 避免大小写问题
+    const cfgHeaders = new AxiosHeaders(cfg.headers ?? {});    // 注意：cfg.headers 可能为 null 或 undefined
+    for (const key of Object.keys(defaultHeaders)) {
+      // 如果配置对象的请求头没有设置，则使用上面设置的默认请求头; 否则保留配置对象的请求头
+      if (!cfgHeaders.has(key)) {
+        cfgHeaders.set(key, defaultHeaders[key]);
+      }
     }
+    cfg.headers = cfgHeaders.toJSON();
     logger.debug('HTTP headers after fixing:', cfg.headers);
     return cfg;
   },
