@@ -53,7 +53,10 @@ describe('http.download', () => {
   };
 
   it('should download the file and return file info', async () => {
-    mock.onGet(url).reply(200, response.data, response.headers);
+    mock.onGet(url).reply((cfg) => {
+      expect(cfg.headers.getAccept()).toBe('application/pdf');
+      return [200, response.data, response.headers];
+    });
     const result = await http.download(url, params, mimeType, true);
     expect(result).toEqual({
       blob: response.data,
@@ -107,6 +110,23 @@ describe('http.download', () => {
       filename: 'test.pdf',
       mimeType,
     });
+  });
+
+  it('should use the */* mime type if not provided ', async () => {
+    mock.onGet(url).reply((cfg) => {
+      expect(cfg.headers.getAccept()).toBe('*/*');
+      return [200, response.data, response.headers];
+    });
+    const result = await http.download(url, params, null, true);
+    expect(result).toEqual({
+      blob: response.data,
+      filename: 'test.pdf',
+      mimeType,
+    });
+    expect(window.URL.createObjectURL).toHaveBeenCalledWith(response.data);
+    expect(window.URL.revokeObjectURL).toHaveBeenCalled();
+    expect(document.body.appendChild).toHaveBeenCalled();
+    expect(document.body.removeChild).toHaveBeenCalled();
   });
 
   it('should throw error if request fails', async () => {

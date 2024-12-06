@@ -495,8 +495,11 @@ const httpImpl = {
   download(url, params = {}, mimeType = null, autoDownload = true) {
     return this.get(url, {
       params,
-      responseType: 'blob',
       returnResponse: true,    // 返回原始的响应对象而非解析后的数据
+      responseType: 'blob',
+      headers: {
+        Accept: mimeType ?? '*/*',
+      },
     }).then((response) => {
       // 获取返回的 Content-Type 头，注意，response.headers 是一个 AxiosHeaders 对象，
       // 必须用 get 方法获取值，不能直接用下标，否则大小写不同的键名会被认为是不同的键
