@@ -22,7 +22,7 @@ import {
 } from '../../src/impl/http-impl';
 import HttpImplState from './http-impl-state';
 
-const state = new HttpImplState();
+const state = new HttpImplState(http);
 
 beforeEach(() => {
   state.reset();
@@ -315,6 +315,20 @@ describe('transformResponseData', () => {
     const headers = AxiosHeaders.from({ 'Content-Type': 'application/json' });
     const result = httpImpl.transformResponseData(data, headers);
     expect(result).toBe(data);
+  });
+
+  it('should return null for empty response.data', () => {
+    const data = '';
+    const headers = AxiosHeaders.from({ 'Content-Type': 'text/plain' });
+    const result = httpImpl.transformResponseData(data, headers);
+    expect(result).toBeNull();
+  });
+
+  it('should return null for empty response.data of JSON format', () => {
+    const data = '';
+    const headers = AxiosHeaders.from({ 'Content-Type': 'application/json;charset=UTF-8' });
+    const result = httpImpl.transformResponseData(data, headers);
+    expect(result).toBeNull();
   });
 });
 
@@ -1017,6 +1031,18 @@ describe('responseSuccessInterceptor', () => {
     const response = {};
     const result = httpImpl.responseSuccessInterceptor(http, response);
     expect(result).toBeNull();
+  });
+
+  it('should return empty string if response.data is empty string', () => {
+    const response = { data: '' };
+    const result = httpImpl.responseSuccessInterceptor(http, response);
+    expect(result).toBe('');
+  });
+
+  it('should return raw response if response.cfg.returnResponse is true', () => {
+    const response = { data: '', config: { returnResponse: true } };
+    const result = httpImpl.responseSuccessInterceptor(http, response);
+    expect(result).toBe(response);
   });
 });
 

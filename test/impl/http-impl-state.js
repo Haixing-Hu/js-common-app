@@ -11,7 +11,6 @@ import { loading, alert, confirm } from '@haixing_hu/common-ui';
 import MockLoadingImpl from '../mock/mock-loading-impl';
 import MockAlertImpl from '../mock/mock-alert-impl';
 import MockConfirmImpl from '../mock/mock-confirm-impl';
-import { http } from '../../src';
 
 /**
  * The state object for testing the `http` object.
@@ -19,6 +18,8 @@ import { http } from '../../src';
  * @author Haixing Hu
  */
 class HttpImplState {
+  http = null;
+
   loadingImpl = new MockLoadingImpl();
 
   alertImpl = new MockAlertImpl();
@@ -68,7 +69,8 @@ class HttpImplState {
     push: this.pushRouter,
   }));
 
-  constructor() {
+  constructor(http) {
+    this.http = http;
     this.reset();
   }
 
@@ -87,9 +89,9 @@ class HttpImplState {
     config.set('app_token_value', this.appToken.value);
     config.remove('access_token_name');
     config.remove('login_page');
-    http.getAccessToken = this.getAccessToken;
-    http.resetAccessToken = this.resetAccessToken;
-    http.getRouter = this.getRouter;
+    this.http.getAccessToken = this.getAccessToken;
+    this.http.resetAccessToken = this.resetAccessToken;
+    this.http.getRouter = this.getRouter;
     loading.setImpl(this.loadingImpl);
     alert.setImpl(this.alertImpl);
     confirm.setImpl(this.confirmImpl);

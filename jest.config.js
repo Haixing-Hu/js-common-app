@@ -13,6 +13,8 @@ module.exports = {
   testEnvironment: 'jest-environment-jsdom-global',
   testEnvironmentOptions: {
     customExportConditions: ['node', 'node-addons'],
+    resources: 'usable',
+    runScripts: 'dangerously',
   },
   moduleFileExtensions: ['js'],
   transform: {

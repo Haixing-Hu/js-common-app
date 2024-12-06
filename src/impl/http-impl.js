@@ -12,6 +12,8 @@ import Logger from '@haixing_hu/logging';
 import config from '@haixing_hu/config';
 import { isString } from '@haixing_hu/type-detect';
 import { loading, alert, confirm } from '@haixing_hu/common-ui';
+import extractContentDispositionFilename
+  from './extract-content-disposition-filename';
 
 /**
  * 默认的 HTTP 请求头的 Content-Type 键值。
@@ -256,9 +258,14 @@ const httpImpl = {
   transformResponseData(data, headers) {
     // 注意：headers 是一个 AxiosHeaders 对象，必须用 get 方法获取值，不能直接用下标，否则大小写不同的键名会被认为是不同的键
     const contentType = headers.get('Content-Type');
-    if (isString(data) && (data.length > 0) && contentType?.startsWith(JSON_CONTENT_TYPE_PREFIX)) {
-      // 使用自定义的JSON Parser重新解析响应数据为 JSON 对象，从而提供对64位整数的支持
-      return Json.parse(data);
+    if (isString(data)) {
+      if (data.length === 0) {
+        return null;
+      }
+      if (contentType?.startsWith(JSON_CONTENT_TYPE_PREFIX)) {
+        // 使用自定义的JSON Parser重新解析响应数据为 JSON 对象，从而提供对64位整数的支持
+        return Json.parse(data);
+      }
     }
     return data;
   },
@@ -315,13 +322,21 @@ const httpImpl = {
    * @param {object} response
    *     HTTP响应对象。
    * @return {object}
-   *     HTTP响应数据对象。
+   *     HTTP响应中解析出的JSON对象（即`response.data`），或者响应对象。当且仅当
+   *     `response.config.returnResponse`为`true`时，返回响应对象。
    */
   responseSuccessInterceptor(http, response) {
     loading.clear();  // 清除载入提示遮盖层
     logger.debug('Request success: response =', response);
-    // 对于成功响应，直接返回响应数据；该数据应该已被在 transformResponse 中注册的函数转换为JSON对象
-    return response.data ?? null;
+    if (response.config?.returnResponse === true) {
+      // 如果请求配置中设置了 returnResponse 为 true，则返回响应对象；注意此时
+      // response.data 已经被 transformResponse 中注册的函数转换过了
+      return response;
+    } else {
+      // 对于其他成功响应，直接返回响应体的数据；
+      // 该数据应该已被在 transformResponse 中注册的函数转换过了
+      return response.data ?? null;
+    }
   },
 
   /**
@@ -453,6 +468,66 @@ const httpImpl = {
           .then(() => Promise.reject(errorInfo));
       }
     }
+  },
+
+  /**
+   * 下载指定的文件。
+   *
+   * @param {string} url
+   *    获取待下载文件的URL。函数将通过HTTP GET操作访问该URL。
+   * @param {object|null|undefined} params
+   *    HTTP请求的参数，其中属性将以查询字符串的形式，自动编码后附加到URL后。默认值为`{}`。
+   * @param {string} mimeType
+   *    文件的MIME类型。如不提供则自动从响应头中解析获取。
+   * @param {boolean} autoDownload
+   *    是否自动下载文件。默认值为`true`。如此参数为`false`，则返回一个包含下载的文件的信息
+   *    的对象，详见返回值说明。
+   * @return {Promise<object|ErrorInfo>}
+   *    此HTTP请求的`Promise`对象。若操作成功，则解析成功，并返回一个包含下载的文件的信息的
+   *    对象，其中包含以下属性：
+   *    - `blob: Blob` 下载的文件的二进制数据；
+   *    - `filename: string` 下载的文件的名称；
+   *    - `mimeType: string` 下载的文件的MIME类型；
+   *
+   *    如果操作失败，则解析失败并返回一个`ErrorInfo`对象。如果操作成功且`autoDownload`
+   *    设置为`true`，浏览器会自动开始下载文件。
+   */
+  download(url, params = {}, mimeType = null, autoDownload = true) {
+    return this.get(url, {
+      params,
+      responseType: 'blob',
+      returnResponse: true,    // 返回原始的响应对象而非解析后的数据
+    }).then((response) => {
+      // 获取返回的 Content-Type 头，注意，response.headers 是一个 AxiosHeaders 对象，
+      // 必须用 get 方法获取值，不能直接用下标，否则大小写不同的键名会被认为是不同的键
+      const contentType = mimeType ?? response.headers.get('Content-Type');
+      // 从响应头中解析文件名（可选，后端需提供文件名）
+      const contentDisposition = response.headers.get('Content-Disposition');
+      const filename = extractContentDispositionFilename(contentDisposition)
+        ?? 'downloaded_file';
+      // 获取返回的 Blob 数据
+      const blob = new Blob([response.data], { type: contentType });
+      if (autoDownload) {
+        // 创建一个临时 URL
+        const url = window.URL.createObjectURL(blob);
+        // 创建一个隐藏的 <a> 元素触发下载
+        const a = window.document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = decodeURIComponent(filename);
+        // 将 <a> 元素添加到 DOM，触发点击事件，然后移除
+        window.document.body.appendChild(a);
+        a.click();
+        window.document.body.removeChild(a);
+        // 释放 URL
+        window.URL.revokeObjectURL(url);
+      }
+      return {
+        blob,
+        filename,
+        mimeType: contentType,
+      };
+    });
   },
 };
 

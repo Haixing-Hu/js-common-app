@@ -19,7 +19,7 @@ import {
 } from '../src/impl/http-impl';
 import HttpImplState from './impl/http-impl-state';
 
-const state = new HttpImplState();
+const state = new HttpImplState(http);
 
 const mock = new AxiosMockAdapter(http);
 
@@ -134,9 +134,8 @@ describe('http.interceptors.response', () => {
     expect(result).toEqual(response);
   });
 
-  it('should parse response of empty string', async () => {
+  it('should return null for response of empty string', async () => {
     const params = { id: 12345678901234567890n, name: 'John' };
-    const response = '';
     const responseText = '';
     const responseHeaders = {
       'Content-Type': DEFAULT_HTTP_HEADER_CONTENT_TYPE,
@@ -149,9 +148,8 @@ describe('http.interceptors.response', () => {
     const result = await http.post('/data', params);
     expect(spy).not.toHaveBeenCalled();
     spy.mockRestore();
-    expect(result).toEqual(response);
+    expect(result).toBeNull();
   });
-
 
   it('should not parse response for non-JSON content-type', async () => {
     const params = { id: 12345678901234567890n, name: 'John' };
