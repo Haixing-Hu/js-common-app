@@ -1447,7 +1447,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.24.0, @babel/runtime@npm:^7.26.0":
+"@babel/runtime@npm:^7.26.0":
   version: 7.26.0
   resolution: "@babel/runtime@npm:7.26.0"
   dependencies:
@@ -1560,14 +1560,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@haixing_hu/clone@npm:^1.12.0":
-  version: 1.12.0
-  resolution: "@haixing_hu/clone@npm:1.12.0"
+"@haixing_hu/clone@npm:^1.12.2":
+  version: 1.12.2
+  resolution: "@haixing_hu/clone@npm:1.12.2"
   peerDependencies:
-    "@babel/runtime": ^7.23.0
-    "@haixing_hu/naming-style": ^1.3.1
-    "@haixing_hu/typeinfo": ^3.1.0
-  checksum: 10c0/98b45a14809fe531c2a2ece8230ec9d1964e8bdfedb1430e1f9922f203f1da088dd3dc892f5a717963fc71da200742110661c13bdb0c79e3d29ac029c3a10287
+    "@babel/runtime": ^7.26.0
+    "@haixing_hu/naming-style": ^1.3.3
+    "@haixing_hu/typeinfo": ^3.1.2
+  checksum: 10c0/92609fed58aca809d20a0ee5e601b4986f3af7cc8a9bf984fa983122226eded0c09643d6732f5d25b4dbd1cdc25800360e83fb22728eb8f3cbacb4a87f6fc0c5
   languageName: node
   linkType: hard
 
@@ -1582,22 +1582,22 @@ __metadata:
     "@babel/preset-env": "npm:^7.26.0"
     "@babel/preset-typescript": "npm:^7.26.0"
     "@babel/runtime": "npm:^7.26.0"
-    "@haixing_hu/clone": "npm:^1.12.0"
-    "@haixing_hu/common-ui": "npm:^1.6.0"
-    "@haixing_hu/common-util": "npm:^5.3.0"
-    "@haixing_hu/common-validation-rule": "npm:^1.4.2"
-    "@haixing_hu/config": "npm:^1.1.0"
+    "@haixing_hu/clone": "npm:^1.12.2"
+    "@haixing_hu/common-ui": "npm:^1.6.2"
+    "@haixing_hu/common-util": "npm:^5.3.3"
+    "@haixing_hu/common-validation-rule": "npm:^1.4.3"
+    "@haixing_hu/config": "npm:^1.1.1"
     "@haixing_hu/eslint-config": "npm:^1.3.3"
     "@haixing_hu/jsdoc-minami": "npm:^1.5.1"
-    "@haixing_hu/json": "npm:^1.1.0"
-    "@haixing_hu/logging": "npm:^1.4.1"
-    "@haixing_hu/naming-style": "npm:^1.3.1"
-    "@haixing_hu/pinia-decorator": "npm:^3.3.0"
-    "@haixing_hu/rollup-builder": "npm:^1.8.2"
-    "@haixing_hu/storage": "npm:^1.3.0"
-    "@haixing_hu/type-detect": "npm:^1.2.0"
-    "@haixing_hu/typeinfo": "npm:^3.1.0"
-    "@haixing_hu/vue3-class-component": "npm:^2.3.0"
+    "@haixing_hu/json": "npm:^1.1.2"
+    "@haixing_hu/logging": "npm:^1.4.3"
+    "@haixing_hu/naming-style": "npm:^1.3.3"
+    "@haixing_hu/pinia-decorator": "npm:^3.3.1"
+    "@haixing_hu/rollup-builder": "npm:^1.8.3"
+    "@haixing_hu/storage": "npm:^1.3.1"
+    "@haixing_hu/type-detect": "npm:^1.2.2"
+    "@haixing_hu/typeinfo": "npm:^3.1.2"
+    "@haixing_hu/vue3-class-component": "npm:^2.3.1"
     "@jest/core": "npm:^29.7.0"
     "@rollup/plugin-alias": "npm:^5.1.1"
     "@rollup/plugin-babel": "npm:^6.0.4"
@@ -1622,7 +1622,7 @@ __metadata:
     js-cookie: "npm:^3.0.5"
     jsdoc: "npm:^4.0.4"
     pinia: "npm:^2.3.0"
-    rollup: "npm:^4.28.0"
+    rollup: "npm:^4.28.1"
     rollup-plugin-analyzer: "npm:^4.0.0"
     rollup-plugin-visualizer: "npm:^5.12.0"
     vue: "npm:^3.5.13"
@@ -1639,52 +1639,52 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@haixing_hu/common-ui@npm:^1.6.0":
-  version: 1.6.0
-  resolution: "@haixing_hu/common-ui@npm:1.6.0"
+"@haixing_hu/common-ui@npm:^1.6.2":
+  version: 1.6.2
+  resolution: "@haixing_hu/common-ui@npm:1.6.2"
   peerDependencies:
-    "@babel/runtime": ^7.23.6
-    "@haixing_hu/logging": ^1.4.1
-  checksum: 10c0/3fe1fbf95ef18e524292a684a2b3af5062488615290359f464092213be4036e9b9f10a128663966fafde9b7122037710229972873320a5384473079432cfa109
+    "@babel/runtime": ^7.26.0
+    "@haixing_hu/logging": ^1.4.3
+  checksum: 10c0/34eb099c82b1fbce9dd6cf9727bd48707c5fa0077db320826fc7bd0a9312e529553e6e4ee64611cca568a8740d79853dcd5da79eda2d62d576e56ab131304b5b
   languageName: node
   linkType: hard
 
-"@haixing_hu/common-util@npm:^5.3.0":
-  version: 5.3.0
-  resolution: "@haixing_hu/common-util@npm:5.3.0"
+"@haixing_hu/common-util@npm:^5.3.3":
+  version: 5.3.3
+  resolution: "@haixing_hu/common-util@npm:5.3.3"
   dependencies:
-    deep-equal: "npm:^2.0.5"
+    deep-equal: "npm:^2.2.3"
     json-beautify: "npm:^1.1.1"
-    query-string: "npm:^8.1.0"
+    query-string: "npm:^8.2.0"
   peerDependencies:
-    "@babel/runtime": ^7.23.2
-    "@haixing_hu/typeinfo": ^3.1.0
-  checksum: 10c0/98a88b738df2888cc4944355eb248d93a1bb3d27952a547dc8efe401c560d2148279160c4061536cf4b1b5b81ca32e30b540b71f14fcf53061f48b6c30f19b97
+    "@babel/runtime": ^7.26.0
+    "@haixing_hu/typeinfo": ^3.1.2
+  checksum: 10c0/92ff87e7161b3094b71a2f9e141d65d22c142d5688841b060eae6622c97bfa5eea3f5f21ea52253bc4119d72d6f656ddec8c83584a798c9975f15b2c4e8ffc82
   languageName: node
   linkType: hard
 
-"@haixing_hu/common-validation-rule@npm:^1.4.2":
-  version: 1.4.2
-  resolution: "@haixing_hu/common-validation-rule@npm:1.4.2"
+"@haixing_hu/common-validation-rule@npm:^1.4.3":
+  version: 1.4.3
+  resolution: "@haixing_hu/common-validation-rule@npm:1.4.3"
   dependencies:
     email-validator: "npm:^2.0.4"
     node-uri: "npm:^1.1.2"
   peerDependencies:
-    "@babel/runtime": ^7.23.0
-  checksum: 10c0/ae5cc89d7facb6f9ef4498dd1e3cf986e3abc89af201e475933476611ea0322c3eb03b2cd84b2dcc75382c35e768e55c637c81ec77603d174cbd6f43aa9a1ed2
+    "@babel/runtime": ^7.26.0
+  checksum: 10c0/5835f3348d9b1a264d362ed1d80563a5ea011f4068b2b12d175459ef3422b503832a27a44311250185d543cbeba38c094e291d6d8f954bb835aa27f27c8918e7
   languageName: node
   linkType: hard
 
-"@haixing_hu/config@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "@haixing_hu/config@npm:1.1.0"
+"@haixing_hu/config@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "@haixing_hu/config@npm:1.1.1"
   peerDependencies:
-    "@babel/runtime": ^7.23.6
-    "@haixing_hu/clone": ^1.12.0
-    "@haixing_hu/common-util": ^5.2.0
-    "@haixing_hu/common-validation-rule": ^1.3.0
-    "@haixing_hu/naming-style": ^1.3.1
-  checksum: 10c0/2505a8aab0c82bc5b34394c310adf289da03a650ad372b03d6452a6a7ba71e446ce0c12bc1966609260abff6594d3ea67cc9e7b0f53ccc6fab99a479dd530eac
+    "@babel/runtime": ^7.26.0
+    "@haixing_hu/clone": ^1.12.2
+    "@haixing_hu/common-util": ^5.3.3
+    "@haixing_hu/common-validation-rule": ^1.4.3
+    "@haixing_hu/naming-style": ^1.3.3
+  checksum: 10c0/82a10231f37d6c95c401cf8055a8bf7c72f237c73824baa41f47f2e2b70dac7450e2cca47d88810bbfc2f5d691ee4fdd224f386c2f041bb2b0fd59b7006cc116
   languageName: node
   linkType: hard
 
@@ -1709,50 +1709,50 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@haixing_hu/json@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "@haixing_hu/json@npm:1.1.0"
+"@haixing_hu/json@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "@haixing_hu/json@npm:1.1.2"
   dependencies:
     json-custom-numbers: "npm:^3.1.1"
   peerDependencies:
-    "@babel/runtime": ^7.23.0
-  checksum: 10c0/691bb591bd3b2a70e74ced7846c89c73a1e2c43d9696cfbb92f43472a60eaabd40a96377bd435cc46b13485698a0a16533c6c78679fd596e96b4b62861b3f277
+    "@babel/runtime": ^7.26.0
+  checksum: 10c0/9406b4310a50ba534cd3074f7ac1f32290c89ecd0d66cd7dd1f6dffc2625e271f6f0a75259baeeb7762301e054e49e839c16cd4953aa75dbcb24811b670aeefd
   languageName: node
   linkType: hard
 
-"@haixing_hu/logging@npm:^1.4.1":
-  version: 1.4.1
-  resolution: "@haixing_hu/logging@npm:1.4.1"
+"@haixing_hu/logging@npm:^1.4.3":
+  version: 1.4.3
+  resolution: "@haixing_hu/logging@npm:1.4.3"
   dependencies:
-    "@babel/runtime": "npm:^7.24.0"
-  checksum: 10c0/77b0c1b2a4a1b2ef2516c844f1575fc55c3b88da051015fabb19433e606e9e3c28a24d46a82c13e27641442b9e3ae20e190e88557b98e22f03e2c957e2c3cb76
+    "@babel/runtime": "npm:^7.26.0"
+  checksum: 10c0/26c40d91a4cd26c2dc9e6b836b05030fd213399f283c6f1ca4f646624156fa3b88856da76012270ad21f98013944f99d9b4360211c40b4ba1346c168199b68dc
   languageName: node
   linkType: hard
 
-"@haixing_hu/naming-style@npm:^1.3.1":
-  version: 1.3.1
-  resolution: "@haixing_hu/naming-style@npm:1.3.1"
+"@haixing_hu/naming-style@npm:^1.3.3":
+  version: 1.3.3
+  resolution: "@haixing_hu/naming-style@npm:1.3.3"
   peerDependencies:
-    "@babel/runtime": ^7.23.0
-  checksum: 10c0/dbc532a5f42b041d73e94cbf947300c4f1878505fb19c0e5d236cba60d4fa895887d2c6f8ffedd10f73142231577478fc9621e690d163bff6012a58f6954c553
+    "@babel/runtime": ^7.26.0
+  checksum: 10c0/78e378908ed96f5ac9313843872be97cff4ac00ffd253311e4431bc5794dd48496c50c77d09db8027c07983869f7d22e924f0d7289ac58a81264189168af9b31
   languageName: node
   linkType: hard
 
-"@haixing_hu/pinia-decorator@npm:^3.3.0":
-  version: 3.3.0
-  resolution: "@haixing_hu/pinia-decorator@npm:3.3.0"
+"@haixing_hu/pinia-decorator@npm:^3.3.1":
+  version: 3.3.1
+  resolution: "@haixing_hu/pinia-decorator@npm:3.3.1"
   peerDependencies:
-    "@babel/runtime": ^7.24.0
-    "@haixing_hu/vue3-class-component": ^2.3.0
-    pinia: ^2.0.0
-    vue: ^3.0.0
-  checksum: 10c0/3a66f824df56630e72c729a0905c3f66add9a019b47f61ea83aff75d23e002169fe6f2f7feb986cbf464947856b3b9daefecd53fdc26b1f4caf8e8f00b78e38a
+    "@babel/runtime": ^7.26.0
+    "@haixing_hu/vue3-class-component": ^2.3.1
+    pinia: ^2.3.0
+    vue: ^3.5.13
+  checksum: 10c0/18791350ef885d7ccd48fcac53f3f408a7168b24a156a465f06de8e8847001c41b75d464f7ffeab44dcb564fbbec27d9aa3770ccad6999a59997ee5997332ccd
   languageName: node
   linkType: hard
 
-"@haixing_hu/rollup-builder@npm:^1.8.2":
-  version: 1.8.2
-  resolution: "@haixing_hu/rollup-builder@npm:1.8.2"
+"@haixing_hu/rollup-builder@npm:^1.8.3":
+  version: 1.8.3
+  resolution: "@haixing_hu/rollup-builder@npm:1.8.3"
   peerDependencies:
     "@babel/core": ^7.23.2
     "@babel/plugin-transform-runtime": ^7.23.2
@@ -1767,49 +1767,49 @@ __metadata:
     rollup: ^4.1.4
     rollup-plugin-analyzer: ^4.0.0
     rollup-plugin-visualizer: ^5.12.0
-  checksum: 10c0/bd2cce6e6d9dbea2c41b4d31eae2a32c072e67c90e4cc9fa853ae159b9339fb598a6c5082677de94500ddc8d3ccbba9bd182cc7a3464879dae7f2bcce671a557
+  checksum: 10c0/6fee2000545331075b05f68cfcbe1f7717296fef1016a7be22752265861485a9ac68b79a1aaf03e71d63d013d7bf14cb57375ba14fa704a2a0e9519eeff899d1
   languageName: node
   linkType: hard
 
-"@haixing_hu/storage@npm:^1.3.0":
-  version: 1.3.0
-  resolution: "@haixing_hu/storage@npm:1.3.0"
+"@haixing_hu/storage@npm:^1.3.1":
+  version: 1.3.1
+  resolution: "@haixing_hu/storage@npm:1.3.1"
   dependencies:
     js-cookie: "npm:^3.0.5"
   peerDependencies:
-    "@babel/runtime": ^7.23.6
-    "@haixing_hu/json": ^1.1.0
-  checksum: 10c0/5caeb24459436584472a1085b0cd902de47086783774ff24cc13a5727172793386e55a67623d16120eacd7a25e3c3220245b5e90d160e1ac223b2839754c650d
+    "@babel/runtime": ^7.26.0
+    "@haixing_hu/json": ^1.1.2
+  checksum: 10c0/988c7afe4c571b6bd4fa5c18eca418f6d82408b191fea0c20236ec9942f42eb722d57f523a6a1c78b7818791ed24ec9ce61eff80bc2228dd4eafffb48a27f58e
   languageName: node
   linkType: hard
 
-"@haixing_hu/type-detect@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "@haixing_hu/type-detect@npm:1.2.0"
+"@haixing_hu/type-detect@npm:^1.2.2":
+  version: 1.2.2
+  resolution: "@haixing_hu/type-detect@npm:1.2.2"
   peerDependencies:
-    "@babel/runtime": ^7.23.0
-  checksum: 10c0/5ca93b07a076c7a2ca482eeede5e8ac381a728a1eda00f0d0e3ba1fbc05ddc74bae241d81df4cd2fb91069ddbf03c5b08f716ba08f7353c5c7ee7ffd43960ef2
+    "@babel/runtime": ^7.26.0
+  checksum: 10c0/909e16b0e4f6a2416e550244207021bda4da368a2fd15c5926392a586516bde6cbcfdae476206bdc7db4d963302109bc6ce40112c87baaf9a4c0926817db122d
   languageName: node
   linkType: hard
 
-"@haixing_hu/typeinfo@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "@haixing_hu/typeinfo@npm:3.1.0"
+"@haixing_hu/typeinfo@npm:^3.1.2":
+  version: 3.1.2
+  resolution: "@haixing_hu/typeinfo@npm:3.1.2"
   peerDependencies:
-    "@babel/runtime": ^7.23.0
-    "@haixing_hu/type-detect": ^1.2.0
-  checksum: 10c0/5b1fb6a016eaca633361cf564de9b4fce4470fe63164ebb63d16762be17b809b786cdc1e3fc4fd790d13638f9d0203801d10ec6d3ab4de2ccb4a67f71c64ebbb
+    "@babel/runtime": ^7.26.0
+    "@haixing_hu/type-detect": ^1.2.2
+  checksum: 10c0/5ab1bf2c16dd4aa00284d6d7030eac1b62b5efb6f7e6e411bf26a77cd3431225887dfb7a15dac346ac334489874e6dea5f4a14a19e776c71bfdc3a012691944d
   languageName: node
   linkType: hard
 
-"@haixing_hu/vue3-class-component@npm:^2.3.0":
-  version: 2.3.0
-  resolution: "@haixing_hu/vue3-class-component@npm:2.3.0"
+"@haixing_hu/vue3-class-component@npm:^2.3.1":
+  version: 2.3.1
+  resolution: "@haixing_hu/vue3-class-component@npm:2.3.1"
   peerDependencies:
-    "@babel/runtime": ^7.24.0
-    "@haixing_hu/clone": ^1.12.0
-    vue: ^3.3.4
-  checksum: 10c0/b4db1d9e637f98edc1a3c502453c8b9c7464e3e00ea7db4628346745d2a9349f5ed4a9d6d7f1727c5752d7fc7530a9cc21053dd29b02e7cd593798d7dceca772
+    "@babel/runtime": ^7.26.0
+    "@haixing_hu/clone": ^1.12.2
+    vue: ^3.5.13
+  checksum: 10c0/1451d111dd263898f12f647c8ff866c8aa4dca6aed2c8899a80760643ab35f0a8bb00b86ebc544111f4dc06d925ebcc1bb7f92e3528708fb3bbcd1420b66e14e
   languageName: node
   linkType: hard
 
@@ -2342,128 +2342,135 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-android-arm-eabi@npm:4.28.0":
-  version: 4.28.0
-  resolution: "@rollup/rollup-android-arm-eabi@npm:4.28.0"
+"@rollup/rollup-android-arm-eabi@npm:4.28.1":
+  version: 4.28.1
+  resolution: "@rollup/rollup-android-arm-eabi@npm:4.28.1"
   conditions: os=android & cpu=arm
   languageName: node
   linkType: hard
 
-"@rollup/rollup-android-arm64@npm:4.28.0":
-  version: 4.28.0
-  resolution: "@rollup/rollup-android-arm64@npm:4.28.0"
+"@rollup/rollup-android-arm64@npm:4.28.1":
+  version: 4.28.1
+  resolution: "@rollup/rollup-android-arm64@npm:4.28.1"
   conditions: os=android & cpu=arm64
   languageName: node
   linkType: hard
 
-"@rollup/rollup-darwin-arm64@npm:4.28.0":
-  version: 4.28.0
-  resolution: "@rollup/rollup-darwin-arm64@npm:4.28.0"
+"@rollup/rollup-darwin-arm64@npm:4.28.1":
+  version: 4.28.1
+  resolution: "@rollup/rollup-darwin-arm64@npm:4.28.1"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@rollup/rollup-darwin-x64@npm:4.28.0":
-  version: 4.28.0
-  resolution: "@rollup/rollup-darwin-x64@npm:4.28.0"
+"@rollup/rollup-darwin-x64@npm:4.28.1":
+  version: 4.28.1
+  resolution: "@rollup/rollup-darwin-x64@npm:4.28.1"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@rollup/rollup-freebsd-arm64@npm:4.28.0":
-  version: 4.28.0
-  resolution: "@rollup/rollup-freebsd-arm64@npm:4.28.0"
+"@rollup/rollup-freebsd-arm64@npm:4.28.1":
+  version: 4.28.1
+  resolution: "@rollup/rollup-freebsd-arm64@npm:4.28.1"
   conditions: os=freebsd & cpu=arm64
   languageName: node
   linkType: hard
 
-"@rollup/rollup-freebsd-x64@npm:4.28.0":
-  version: 4.28.0
-  resolution: "@rollup/rollup-freebsd-x64@npm:4.28.0"
+"@rollup/rollup-freebsd-x64@npm:4.28.1":
+  version: 4.28.1
+  resolution: "@rollup/rollup-freebsd-x64@npm:4.28.1"
   conditions: os=freebsd & cpu=x64
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-arm-gnueabihf@npm:4.28.0":
-  version: 4.28.0
-  resolution: "@rollup/rollup-linux-arm-gnueabihf@npm:4.28.0"
+"@rollup/rollup-linux-arm-gnueabihf@npm:4.28.1":
+  version: 4.28.1
+  resolution: "@rollup/rollup-linux-arm-gnueabihf@npm:4.28.1"
   conditions: os=linux & cpu=arm & libc=glibc
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-arm-musleabihf@npm:4.28.0":
-  version: 4.28.0
-  resolution: "@rollup/rollup-linux-arm-musleabihf@npm:4.28.0"
+"@rollup/rollup-linux-arm-musleabihf@npm:4.28.1":
+  version: 4.28.1
+  resolution: "@rollup/rollup-linux-arm-musleabihf@npm:4.28.1"
   conditions: os=linux & cpu=arm & libc=musl
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-arm64-gnu@npm:4.28.0":
-  version: 4.28.0
-  resolution: "@rollup/rollup-linux-arm64-gnu@npm:4.28.0"
+"@rollup/rollup-linux-arm64-gnu@npm:4.28.1":
+  version: 4.28.1
+  resolution: "@rollup/rollup-linux-arm64-gnu@npm:4.28.1"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-arm64-musl@npm:4.28.0":
-  version: 4.28.0
-  resolution: "@rollup/rollup-linux-arm64-musl@npm:4.28.0"
+"@rollup/rollup-linux-arm64-musl@npm:4.28.1":
+  version: 4.28.1
+  resolution: "@rollup/rollup-linux-arm64-musl@npm:4.28.1"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-powerpc64le-gnu@npm:4.28.0":
-  version: 4.28.0
-  resolution: "@rollup/rollup-linux-powerpc64le-gnu@npm:4.28.0"
+"@rollup/rollup-linux-loongarch64-gnu@npm:4.28.1":
+  version: 4.28.1
+  resolution: "@rollup/rollup-linux-loongarch64-gnu@npm:4.28.1"
+  conditions: os=linux & cpu=loong64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@rollup/rollup-linux-powerpc64le-gnu@npm:4.28.1":
+  version: 4.28.1
+  resolution: "@rollup/rollup-linux-powerpc64le-gnu@npm:4.28.1"
   conditions: os=linux & cpu=ppc64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-riscv64-gnu@npm:4.28.0":
-  version: 4.28.0
-  resolution: "@rollup/rollup-linux-riscv64-gnu@npm:4.28.0"
+"@rollup/rollup-linux-riscv64-gnu@npm:4.28.1":
+  version: 4.28.1
+  resolution: "@rollup/rollup-linux-riscv64-gnu@npm:4.28.1"
   conditions: os=linux & cpu=riscv64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-s390x-gnu@npm:4.28.0":
-  version: 4.28.0
-  resolution: "@rollup/rollup-linux-s390x-gnu@npm:4.28.0"
+"@rollup/rollup-linux-s390x-gnu@npm:4.28.1":
+  version: 4.28.1
+  resolution: "@rollup/rollup-linux-s390x-gnu@npm:4.28.1"
   conditions: os=linux & cpu=s390x & libc=glibc
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-x64-gnu@npm:4.28.0":
-  version: 4.28.0
-  resolution: "@rollup/rollup-linux-x64-gnu@npm:4.28.0"
+"@rollup/rollup-linux-x64-gnu@npm:4.28.1":
+  version: 4.28.1
+  resolution: "@rollup/rollup-linux-x64-gnu@npm:4.28.1"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-x64-musl@npm:4.28.0":
-  version: 4.28.0
-  resolution: "@rollup/rollup-linux-x64-musl@npm:4.28.0"
+"@rollup/rollup-linux-x64-musl@npm:4.28.1":
+  version: 4.28.1
+  resolution: "@rollup/rollup-linux-x64-musl@npm:4.28.1"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@rollup/rollup-win32-arm64-msvc@npm:4.28.0":
-  version: 4.28.0
-  resolution: "@rollup/rollup-win32-arm64-msvc@npm:4.28.0"
+"@rollup/rollup-win32-arm64-msvc@npm:4.28.1":
+  version: 4.28.1
+  resolution: "@rollup/rollup-win32-arm64-msvc@npm:4.28.1"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@rollup/rollup-win32-ia32-msvc@npm:4.28.0":
-  version: 4.28.0
-  resolution: "@rollup/rollup-win32-ia32-msvc@npm:4.28.0"
+"@rollup/rollup-win32-ia32-msvc@npm:4.28.1":
+  version: 4.28.1
+  resolution: "@rollup/rollup-win32-ia32-msvc@npm:4.28.1"
   conditions: os=win32 & cpu=ia32
   languageName: node
   linkType: hard
 
-"@rollup/rollup-win32-x64-msvc@npm:4.28.0":
-  version: 4.28.0
-  resolution: "@rollup/rollup-win32-x64-msvc@npm:4.28.0"
+"@rollup/rollup-win32-x64-msvc@npm:4.28.1":
+  version: 4.28.1
+  resolution: "@rollup/rollup-win32-x64-msvc@npm:4.28.1"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -3713,7 +3720,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"deep-equal@npm:^2.0.5":
+"deep-equal@npm:^2.2.3":
   version: 2.2.3
   resolution: "deep-equal@npm:2.2.3"
   dependencies:
@@ -6899,7 +6906,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"query-string@npm:^8.1.0":
+"query-string@npm:^8.2.0":
   version: 8.2.0
   resolution: "query-string@npm:8.2.0"
   dependencies:
@@ -7146,28 +7153,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:^4.28.0":
-  version: 4.28.0
-  resolution: "rollup@npm:4.28.0"
+"rollup@npm:^4.28.1":
+  version: 4.28.1
+  resolution: "rollup@npm:4.28.1"
   dependencies:
-    "@rollup/rollup-android-arm-eabi": "npm:4.28.0"
-    "@rollup/rollup-android-arm64": "npm:4.28.0"
-    "@rollup/rollup-darwin-arm64": "npm:4.28.0"
-    "@rollup/rollup-darwin-x64": "npm:4.28.0"
-    "@rollup/rollup-freebsd-arm64": "npm:4.28.0"
-    "@rollup/rollup-freebsd-x64": "npm:4.28.0"
-    "@rollup/rollup-linux-arm-gnueabihf": "npm:4.28.0"
-    "@rollup/rollup-linux-arm-musleabihf": "npm:4.28.0"
-    "@rollup/rollup-linux-arm64-gnu": "npm:4.28.0"
-    "@rollup/rollup-linux-arm64-musl": "npm:4.28.0"
-    "@rollup/rollup-linux-powerpc64le-gnu": "npm:4.28.0"
-    "@rollup/rollup-linux-riscv64-gnu": "npm:4.28.0"
-    "@rollup/rollup-linux-s390x-gnu": "npm:4.28.0"
-    "@rollup/rollup-linux-x64-gnu": "npm:4.28.0"
-    "@rollup/rollup-linux-x64-musl": "npm:4.28.0"
-    "@rollup/rollup-win32-arm64-msvc": "npm:4.28.0"
-    "@rollup/rollup-win32-ia32-msvc": "npm:4.28.0"
-    "@rollup/rollup-win32-x64-msvc": "npm:4.28.0"
+    "@rollup/rollup-android-arm-eabi": "npm:4.28.1"
+    "@rollup/rollup-android-arm64": "npm:4.28.1"
+    "@rollup/rollup-darwin-arm64": "npm:4.28.1"
+    "@rollup/rollup-darwin-x64": "npm:4.28.1"
+    "@rollup/rollup-freebsd-arm64": "npm:4.28.1"
+    "@rollup/rollup-freebsd-x64": "npm:4.28.1"
+    "@rollup/rollup-linux-arm-gnueabihf": "npm:4.28.1"
+    "@rollup/rollup-linux-arm-musleabihf": "npm:4.28.1"
+    "@rollup/rollup-linux-arm64-gnu": "npm:4.28.1"
+    "@rollup/rollup-linux-arm64-musl": "npm:4.28.1"
+    "@rollup/rollup-linux-loongarch64-gnu": "npm:4.28.1"
+    "@rollup/rollup-linux-powerpc64le-gnu": "npm:4.28.1"
+    "@rollup/rollup-linux-riscv64-gnu": "npm:4.28.1"
+    "@rollup/rollup-linux-s390x-gnu": "npm:4.28.1"
+    "@rollup/rollup-linux-x64-gnu": "npm:4.28.1"
+    "@rollup/rollup-linux-x64-musl": "npm:4.28.1"
+    "@rollup/rollup-win32-arm64-msvc": "npm:4.28.1"
+    "@rollup/rollup-win32-ia32-msvc": "npm:4.28.1"
+    "@rollup/rollup-win32-x64-msvc": "npm:4.28.1"
     "@types/estree": "npm:1.0.6"
     fsevents: "npm:~2.3.2"
   dependenciesMeta:
@@ -7191,6 +7199,8 @@ __metadata:
       optional: true
     "@rollup/rollup-linux-arm64-musl":
       optional: true
+    "@rollup/rollup-linux-loongarch64-gnu":
+      optional: true
     "@rollup/rollup-linux-powerpc64le-gnu":
       optional: true
     "@rollup/rollup-linux-riscv64-gnu":
@@ -7211,7 +7221,7 @@ __metadata:
       optional: true
   bin:
     rollup: dist/bin/rollup
-  checksum: 10c0/98d3bc2b784eff71b997cfc2be97c00e2f100ee38adc2f8ada7b9b9ecbbc96937f667a6a247a45491807b3f2adef3c73d1f5df40d71771bff0c2d8c0cca9b369
+  checksum: 10c0/2d2d0433b7cb53153a04c7b406f342f31517608dc57510e49177941b9e68c30071674b83a0292ef1d87184e5f7c6d0f2945c8b3c74963074de10c75366fe2c14
   languageName: node
   linkType: hard
 
