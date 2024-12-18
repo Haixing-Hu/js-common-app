@@ -7,7 +7,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 import axios from 'axios';
-import httpImpl from './impl/http-impl';
+import { httpImpl } from './impl/http-impl';
 
 /**
  * 一个自定义的 axios 实例。

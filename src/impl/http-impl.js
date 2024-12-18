@@ -8,7 +8,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 import { AxiosHeaders } from 'axios';
 import { Json } from '@haixing_hu/json';
-import Logger from '@haixing_hu/logging';
+import { Logger, Log } from '@haixing_hu/logging';
 import config from '@haixing_hu/config';
 import { isString } from '@haixing_hu/type-detect';
 import { loading, alert, confirm } from '@haixing_hu/common-ui';
@@ -76,10 +76,9 @@ const logger = Logger.getLogger('http');
 /**
  * The implementation of the `http` object.
  *
- * @namespace
  * @author Haixing Hu
  */
-const httpImpl = {
+class HttpImpl {
   /**
    * 设置所有HTTP请求头。
    *
@@ -92,6 +91,7 @@ const httpImpl = {
    * @private
    * @author 胡海星
    */
+  @Log
   fixRequestHeader(http, cfg) {
     logger.debug('HTTP headers before fixing:', cfg.headers);
     // 设置所有HTTP请求头默认的 Content-Type 和 Accept 键值
@@ -129,7 +129,7 @@ const httpImpl = {
     cfg.headers = cfgHeaders.toJSON();
     logger.debug('HTTP headers after fixing:', cfg.headers);
     return cfg;
-  },
+  }
 
   /**
    * 修改所有HTTP GET请求的参数，加上当前时间戳和随机数，防止浏览器缓存。
@@ -143,6 +143,7 @@ const httpImpl = {
    * @private
    * @author 胡海星
    */
+  @Log
   fixGetRequestParams(http, cfg) {
     if (cfg.method === 'get') {
       logger.debug('HTTP GET parameters before fixing:', cfg.params);
@@ -154,7 +155,7 @@ const httpImpl = {
       logger.debug('HTTP GET parameters before fixing:', cfg.params);
     }
     return cfg;
-  },
+  }
 
   /**
    * 检查此HTTP对象是否配置完整。
@@ -164,6 +165,7 @@ const httpImpl = {
    * @private
    * @author 胡海星
    */
+  @Log
   validateConfig(http) {
     if (!loading.getImpl()) {
       throw new Error('未设置`Loading`类的具体实现对象，必须调用`loading.setImpl()`方法设置');
@@ -220,7 +222,7 @@ const httpImpl = {
       config.set('login_page', DEFAULT_LOGIN_PAGE);
     }
     return true;
-  },
+  }
 
   /**
    * 转换请求数据。
@@ -234,6 +236,7 @@ const httpImpl = {
    * @private
    * @author 胡海星
    */
+  @Log
   transformRequestData(data, headers) {
     // 注意：headers 是一个 AxiosHeaders 对象，必须用 get 方法获取值，不能直接用下标，否则大小写不同的键名会被认为是不同的键
     const contentType = headers.get('Content-Type');
@@ -241,7 +244,7 @@ const httpImpl = {
       return Json.stringify(data);         // 使用自定义的JSON Stringifier重新序列化请求数据
     }
     return data;
-  },
+  }
 
   /**
    * 转换响应数据。
@@ -255,6 +258,7 @@ const httpImpl = {
    * @private
    * @author 胡海星
    */
+  @Log
   transformResponseData(data, headers) {
     // 注意：headers 是一个 AxiosHeaders 对象，必须用 get 方法获取值，不能直接用下标，否则大小写不同的键名会被认为是不同的键
     const contentType = headers.get('Content-Type');
@@ -268,7 +272,7 @@ const httpImpl = {
       }
     }
     return data;
-  },
+  }
 
   /**
    * 配置数据转换器。
@@ -280,6 +284,7 @@ const httpImpl = {
    * @return {object}
    *     修改后的配置对象。
    */
+  @Log
   fixDataTransformers(http, cfg) {
     cfg.transformRequest = [
       this.transformRequestData,
@@ -290,7 +295,7 @@ const httpImpl = {
       ...(cfg.transformResponse ?? []),
     ];
     return cfg;
-  },
+  }
 
   /**
    * 请求配置拦截器。
@@ -302,6 +307,7 @@ const httpImpl = {
    * @return {object}
    *     修改后的配置对象。
    */
+  @Log
   requestConfigInterceptor(http, cfg) {
     this.validateConfig(http);  // 检查HTTP对象是否配置完整
     logger.debug('Axios request configuration before fixing:', cfg);
@@ -312,7 +318,7 @@ const httpImpl = {
     this.fixDataTransformers(http, cfg);
     logger.debug('Axios request configuration after fixing:', cfg);
     return cfg;
-  },
+  }
 
   /**
    * 响应拦截器。
@@ -325,6 +331,7 @@ const httpImpl = {
    *     HTTP响应中解析出的JSON对象（即`response.data`），或者响应对象。当且仅当
    *     `response.config.returnResponse`为`true`时，返回响应对象。
    */
+  @Log
   responseSuccessInterceptor(http, response) {
     loading.clear();  // 清除载入提示遮盖层
     logger.debug('Request success: response =', response);
@@ -337,7 +344,7 @@ const httpImpl = {
       // 该数据应该已被在 transformResponse 中注册的函数转换过了
       return response.data ?? null;
     }
-  },
+  }
 
   /**
    * 让用户确认是否重新登录。
@@ -350,6 +357,7 @@ const httpImpl = {
    * @private
    * @author 胡海星
    */
+  @Log
   confirmLogin(http) {
     return confirm.info(
       '是否重新登录',
@@ -370,7 +378,7 @@ const httpImpl = {
       logger.info('Redirect to user login page:', loginPage);
       return router.push({ name: loginPage });
     });
-  },
+  }
 
   /**
    * 处理未知错误。
@@ -382,11 +390,12 @@ const httpImpl = {
    * @private
    * @author 胡海星
    */
+  @Log
   handleUnknownError(error) {
     const line1 = error.message ? `${error.message}：请与管理员联系` : '发生未知错误：请与管理员联系';
     const line2 = error.params ? `<br><br>错误参数为：${Json.stringify(error.params)}` : '';
     return alert.error('错误', `${line1}${line2}`).then(() => Promise.reject(error));
-  },
+  }
 
   /**
    * 处理请求错误。
@@ -401,6 +410,7 @@ const httpImpl = {
    * @private
    * @author 胡海星
    */
+  @Log
   handleResponseError(http, error) {
     logger.debug('Handle request error:', error);
     switch (error.code) {
@@ -430,7 +440,7 @@ const httpImpl = {
       default:                              // 其他错误代码，默认显示错误消息
         return this.handleUnknownError(error);
     }
-  },
+  }
 
   /**
    * 响应错误拦截器。
@@ -442,6 +452,7 @@ const httpImpl = {
    * @return {Promise<object>}
    *     一个reject的Promise对象，表示响应错误。
    */
+  @Log
   responseFailInterceptor(http, error) {
     loading.clear();  // 清除载入提示遮盖层
     logger.error('Request failed:', error);
@@ -468,7 +479,7 @@ const httpImpl = {
           .then(() => Promise.reject(errorInfo));
       }
     }
-  },
+  }
 
   /**
    * 下载指定的文件。
@@ -492,6 +503,7 @@ const httpImpl = {
    *    如果操作失败，则解析失败并返回一个`ErrorInfo`对象。如果操作成功且`autoDownload`
    *    设置为`true`，浏览器会自动开始下载文件。
    */
+  @Log
   download(url, params = {}, mimeType = null, autoDownload = true) {
     return this.get(url, {
       params,
@@ -531,8 +543,10 @@ const httpImpl = {
         mimeType: contentType,
       };
     });
-  },
-};
+  }
+}
+
+const httpImpl = new HttpImpl();
 
 export {
   DEFAULT_HTTP_TIMEOUT,
@@ -543,5 +557,3 @@ export {
   DEFAULT_LOGIN_PAGE,
   httpImpl,
 };
-
-export default httpImpl;
