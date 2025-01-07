@@ -7,11 +7,11 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 import { AxiosHeaders } from 'axios';
-import { Json } from '@haixing_hu/json';
-import { Logger, Log } from '@haixing_hu/logging';
-import config from '@haixing_hu/config';
-import { isString } from '@haixing_hu/type-detect';
-import { loading, alert, confirm } from '@haixing_hu/common-ui';
+import { Json } from '@qubit-ltd/json';
+import { Logger, Log } from '@qubit-ltd/logging';
+import config from '@qubit-ltd/config';
+import { isString } from '@qubit-ltd/type-detect';
+import { loading, alert, confirm } from '@qubit-ltd/common-ui';
 import extractContentDispositionFilename
   from './extract-content-disposition-filename';
 

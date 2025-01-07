@@ -6,9 +6,9 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import config from '@haixing_hu/config';
-import { Cookie, LocalStorage } from '@haixing_hu/storage';
-import { Log } from '@haixing_hu/logging';
+import config from '@qubit-ltd/config';
+import { Cookie, LocalStorage } from '@qubit-ltd/storage';
+import { Log } from '@qubit-ltd/logging';
 
 /**
  * 默认的访问令牌的过期时间（天数）。

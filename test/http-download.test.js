@@ -8,7 +8,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 import AxiosMockAdapter from 'axios-mock-adapter';
 import { AxiosHeaders } from 'axios';
-import Logger from '@haixing_hu/logging';
+import Logger from '@qubit-ltd/logging';
 import { http } from '../src';
 import HttpImplState from './impl/http-impl-state';
 

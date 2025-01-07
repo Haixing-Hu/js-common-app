@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import { AlertImpl } from '@haixing_hu/common-ui';
+import { AlertImpl } from '@qubit-ltd/common-ui';
 
 /**
  * A mock implementation of the {@link AlertImpl} class.

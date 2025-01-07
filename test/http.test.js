@@ -7,9 +7,9 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 import AxiosMockAdapter from 'axios-mock-adapter';
-import { Json } from '@haixing_hu/json';
-import Logger from '@haixing_hu/logging';
-import { alert, confirm } from '@haixing_hu/common-ui';
+import { Json } from '@qubit-ltd/json';
+import Logger from '@qubit-ltd/logging';
+import { alert, confirm } from '@qubit-ltd/common-ui';
 import { http } from '../src';
 import {
   DEFAULT_HTTP_HEADER_CONTENT_TYPE,

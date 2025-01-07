@@ -1560,259 +1560,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@haixing_hu/clone@npm:^1.12.2":
-  version: 1.12.2
-  resolution: "@haixing_hu/clone@npm:1.12.2"
-  peerDependencies:
-    "@babel/runtime": ^7.26.0
-    "@haixing_hu/naming-style": ^1.3.3
-    "@haixing_hu/typeinfo": ^3.1.2
-  checksum: 10c0/92609fed58aca809d20a0ee5e601b4986f3af7cc8a9bf984fa983122226eded0c09643d6732f5d25b4dbd1cdc25800360e83fb22728eb8f3cbacb4a87f6fc0c5
-  languageName: node
-  linkType: hard
-
-"@haixing_hu/common-app@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "@haixing_hu/common-app@workspace:."
-  dependencies:
-    "@babel/core": "npm:^7.26.0"
-    "@babel/eslint-parser": "npm:^7.25.9"
-    "@babel/plugin-proposal-decorators": "npm:^7.25.9"
-    "@babel/plugin-transform-runtime": "npm:^7.25.9"
-    "@babel/preset-env": "npm:^7.26.0"
-    "@babel/preset-typescript": "npm:^7.26.0"
-    "@babel/runtime": "npm:^7.26.0"
-    "@haixing_hu/clone": "npm:^1.12.2"
-    "@haixing_hu/common-ui": "npm:^1.6.2"
-    "@haixing_hu/common-util": "npm:^5.3.3"
-    "@haixing_hu/common-validation-rule": "npm:^1.4.3"
-    "@haixing_hu/config": "npm:^1.1.1"
-    "@haixing_hu/eslint-config": "npm:^1.3.3"
-    "@haixing_hu/jsdoc-minami": "npm:^1.5.1"
-    "@haixing_hu/json": "npm:^1.1.3"
-    "@haixing_hu/logging": "npm:^1.4.3"
-    "@haixing_hu/naming-style": "npm:^1.3.3"
-    "@haixing_hu/pinia-decorator": "npm:^3.3.1"
-    "@haixing_hu/rollup-builder": "npm:^1.8.3"
-    "@haixing_hu/storage": "npm:^1.3.2"
-    "@haixing_hu/type-detect": "npm:^1.2.2"
-    "@haixing_hu/typeinfo": "npm:^3.1.2"
-    "@haixing_hu/vue3-class-component": "npm:^2.3.1"
-    "@jest/core": "npm:^29.7.0"
-    "@rollup/plugin-alias": "npm:^5.1.1"
-    "@rollup/plugin-babel": "npm:^6.0.4"
-    "@rollup/plugin-commonjs": "npm:^25.0.8"
-    "@rollup/plugin-json": "npm:^6.1.0"
-    "@rollup/plugin-node-resolve": "npm:^15.3.0"
-    "@rollup/plugin-terser": "npm:^0.4.4"
-    axios: "npm:^1.7.9"
-    axios-mock-adapter: "npm:^2.1.0"
-    babel-plugin-transform-object-hasown: "npm:^1.1.0"
-    check-es-version: "npm:^1.5.0"
-    core-js: "npm:^3.39.0"
-    cross-env: "npm:^7.0.3"
-    dayjs: "npm:^1.11.13"
-    eslint: "npm:^8.57.1"
-    eslint-plugin-import: "npm:^2.31.0"
-    eslint-plugin-vue: "npm:^9.32.0"
-    jest: "npm:^29.7.0"
-    jest-environment-jsdom: "npm:^29.7.0"
-    jest-environment-jsdom-global: "npm:^4.0.0"
-    jest-extended: "npm:^4.0.2"
-    js-cookie: "npm:^3.0.5"
-    jsdoc: "npm:^4.0.4"
-    pinia: "npm:^2.3.0"
-    rollup: "npm:^4.28.1"
-    rollup-plugin-analyzer: "npm:^4.0.0"
-    rollup-plugin-visualizer: "npm:^5.12.0"
-    vue: "npm:^3.5.13"
-  peerDependencies:
-    "@babel/runtime": ^7.26.0
-    "@haixing_hu/common-ui": ^1.6.2
-    "@haixing_hu/config": ^1.1.1
-    "@haixing_hu/json": ^1.1.3
-    "@haixing_hu/logging": ^1.4.3
-    "@haixing_hu/pinia-decorator": ^3.3.1
-    "@haixing_hu/storage": ^1.3.2
-    "@haixing_hu/type-detect": ^1.2.2
-    axios: ^1.7.9
-  languageName: unknown
-  linkType: soft
-
-"@haixing_hu/common-ui@npm:^1.6.2":
-  version: 1.6.2
-  resolution: "@haixing_hu/common-ui@npm:1.6.2"
-  peerDependencies:
-    "@babel/runtime": ^7.26.0
-    "@haixing_hu/logging": ^1.4.3
-  checksum: 10c0/34eb099c82b1fbce9dd6cf9727bd48707c5fa0077db320826fc7bd0a9312e529553e6e4ee64611cca568a8740d79853dcd5da79eda2d62d576e56ab131304b5b
-  languageName: node
-  linkType: hard
-
-"@haixing_hu/common-util@npm:^5.3.3":
-  version: 5.3.3
-  resolution: "@haixing_hu/common-util@npm:5.3.3"
-  dependencies:
-    deep-equal: "npm:^2.2.3"
-    json-beautify: "npm:^1.1.1"
-    query-string: "npm:^8.2.0"
-  peerDependencies:
-    "@babel/runtime": ^7.26.0
-    "@haixing_hu/typeinfo": ^3.1.2
-  checksum: 10c0/92ff87e7161b3094b71a2f9e141d65d22c142d5688841b060eae6622c97bfa5eea3f5f21ea52253bc4119d72d6f656ddec8c83584a798c9975f15b2c4e8ffc82
-  languageName: node
-  linkType: hard
-
-"@haixing_hu/common-validation-rule@npm:^1.4.3":
-  version: 1.4.3
-  resolution: "@haixing_hu/common-validation-rule@npm:1.4.3"
-  dependencies:
-    email-validator: "npm:^2.0.4"
-    node-uri: "npm:^1.1.2"
-  peerDependencies:
-    "@babel/runtime": ^7.26.0
-  checksum: 10c0/5835f3348d9b1a264d362ed1d80563a5ea011f4068b2b12d175459ef3422b503832a27a44311250185d543cbeba38c094e291d6d8f954bb835aa27f27c8918e7
-  languageName: node
-  linkType: hard
-
-"@haixing_hu/config@npm:^1.1.1":
-  version: 1.1.1
-  resolution: "@haixing_hu/config@npm:1.1.1"
-  peerDependencies:
-    "@babel/runtime": ^7.26.0
-    "@haixing_hu/clone": ^1.12.2
-    "@haixing_hu/common-util": ^5.3.3
-    "@haixing_hu/common-validation-rule": ^1.4.3
-    "@haixing_hu/naming-style": ^1.3.3
-  checksum: 10c0/82a10231f37d6c95c401cf8055a8bf7c72f237c73824baa41f47f2e2b70dac7450e2cca47d88810bbfc2f5d691ee4fdd224f386c2f041bb2b0fd59b7006cc116
-  languageName: node
-  linkType: hard
-
-"@haixing_hu/eslint-config@npm:^1.3.3":
-  version: 1.3.3
-  resolution: "@haixing_hu/eslint-config@npm:1.3.3"
-  dependencies:
-    eslint: "npm:^8.12.0"
-    eslint-config-airbnb-base: "npm:^15.0.0"
-    eslint-plugin-import: "npm:^2.28.1"
-  checksum: 10c0/310cb805e12a221b92472d8070765b3a3616545c39f26e4d2a4464b823a5517973cdb7fe1f375820a1633419187fe5d56204f9b4c2b8f2ee392e2ede0b25bb06
-  languageName: node
-  linkType: hard
-
-"@haixing_hu/jsdoc-minami@npm:^1.5.1":
-  version: 1.5.1
-  resolution: "@haixing_hu/jsdoc-minami@npm:1.5.1"
-  dependencies:
-    jsdoc: "npm:^4.0.2"
-    taffydb: "npm:^2.7.3"
-  checksum: 10c0/025af1f9db7b50b0881f9e7f1fd8947ff950c8862ed6bd25b8d729d73e61ae16684073b45a754f6d943e4ec534c9b6b84c1a9222907c24f03d3454d2c9d194a5
-  languageName: node
-  linkType: hard
-
-"@haixing_hu/json@npm:^1.1.3":
-  version: 1.1.3
-  resolution: "@haixing_hu/json@npm:1.1.3"
-  dependencies:
-    json-custom-numbers: "npm:^3.1.1"
-  peerDependencies:
-    "@babel/runtime": ^7.26.0
-  checksum: 10c0/940042ee2748a77c3d3726dad844680abdd9e175bb7d4832226ab853841fbec76b4f3c61838c8ea3fecd4857f45ab9c792ee2db0eea93c342c2d0cd555407e0b
-  languageName: node
-  linkType: hard
-
-"@haixing_hu/logging@npm:^1.4.3":
-  version: 1.4.3
-  resolution: "@haixing_hu/logging@npm:1.4.3"
-  dependencies:
-    "@babel/runtime": "npm:^7.26.0"
-  checksum: 10c0/26c40d91a4cd26c2dc9e6b836b05030fd213399f283c6f1ca4f646624156fa3b88856da76012270ad21f98013944f99d9b4360211c40b4ba1346c168199b68dc
-  languageName: node
-  linkType: hard
-
-"@haixing_hu/naming-style@npm:^1.3.3":
-  version: 1.3.3
-  resolution: "@haixing_hu/naming-style@npm:1.3.3"
-  peerDependencies:
-    "@babel/runtime": ^7.26.0
-  checksum: 10c0/78e378908ed96f5ac9313843872be97cff4ac00ffd253311e4431bc5794dd48496c50c77d09db8027c07983869f7d22e924f0d7289ac58a81264189168af9b31
-  languageName: node
-  linkType: hard
-
-"@haixing_hu/pinia-decorator@npm:^3.3.1":
-  version: 3.3.1
-  resolution: "@haixing_hu/pinia-decorator@npm:3.3.1"
-  peerDependencies:
-    "@babel/runtime": ^7.26.0
-    "@haixing_hu/vue3-class-component": ^2.3.1
-    pinia: ^2.3.0
-    vue: ^3.5.13
-  checksum: 10c0/18791350ef885d7ccd48fcac53f3f408a7168b24a156a465f06de8e8847001c41b75d464f7ffeab44dcb564fbbec27d9aa3770ccad6999a59997ee5997332ccd
-  languageName: node
-  linkType: hard
-
-"@haixing_hu/rollup-builder@npm:^1.8.3":
-  version: 1.8.3
-  resolution: "@haixing_hu/rollup-builder@npm:1.8.3"
-  peerDependencies:
-    "@babel/core": ^7.23.2
-    "@babel/plugin-transform-runtime": ^7.23.2
-    "@babel/preset-env": ^7.23.2
-    "@babel/runtime": ^7.23.2
-    "@rollup/plugin-alias": ^5.0.1
-    "@rollup/plugin-babel": ^6.0.4
-    "@rollup/plugin-commonjs": ^25.0.7
-    "@rollup/plugin-json": ^6.1.0
-    "@rollup/plugin-node-resolve": ^15.2.3
-    "@rollup/plugin-terser": ^0.4.4
-    rollup: ^4.1.4
-    rollup-plugin-analyzer: ^4.0.0
-    rollup-plugin-visualizer: ^5.12.0
-  checksum: 10c0/6fee2000545331075b05f68cfcbe1f7717296fef1016a7be22752265861485a9ac68b79a1aaf03e71d63d013d7bf14cb57375ba14fa704a2a0e9519eeff899d1
-  languageName: node
-  linkType: hard
-
-"@haixing_hu/storage@npm:^1.3.2":
-  version: 1.3.2
-  resolution: "@haixing_hu/storage@npm:1.3.2"
-  dependencies:
-    js-cookie: "npm:^3.0.5"
-  peerDependencies:
-    "@babel/runtime": ^7.26.0
-    "@haixing_hu/json": ^1.1.3
-  checksum: 10c0/01eb259c6fd2851c7aef88dccc800285ff2d1b8c894545b31eee6f17011c232cf6cc9e96e97c406c481bdf1e0cea20d52472143a77f703da1eeca12983a5ac7d
-  languageName: node
-  linkType: hard
-
-"@haixing_hu/type-detect@npm:^1.2.2":
-  version: 1.2.2
-  resolution: "@haixing_hu/type-detect@npm:1.2.2"
-  peerDependencies:
-    "@babel/runtime": ^7.26.0
-  checksum: 10c0/909e16b0e4f6a2416e550244207021bda4da368a2fd15c5926392a586516bde6cbcfdae476206bdc7db4d963302109bc6ce40112c87baaf9a4c0926817db122d
-  languageName: node
-  linkType: hard
-
-"@haixing_hu/typeinfo@npm:^3.1.2":
-  version: 3.1.2
-  resolution: "@haixing_hu/typeinfo@npm:3.1.2"
-  peerDependencies:
-    "@babel/runtime": ^7.26.0
-    "@haixing_hu/type-detect": ^1.2.2
-  checksum: 10c0/5ab1bf2c16dd4aa00284d6d7030eac1b62b5efb6f7e6e411bf26a77cd3431225887dfb7a15dac346ac334489874e6dea5f4a14a19e776c71bfdc3a012691944d
-  languageName: node
-  linkType: hard
-
-"@haixing_hu/vue3-class-component@npm:^2.3.1":
-  version: 2.3.1
-  resolution: "@haixing_hu/vue3-class-component@npm:2.3.1"
-  peerDependencies:
-    "@babel/runtime": ^7.26.0
-    "@haixing_hu/clone": ^1.12.2
-    vue: ^3.5.13
-  checksum: 10c0/1451d111dd263898f12f647c8ff866c8aa4dca6aed2c8899a80760643ab35f0a8bb00b86ebc544111f4dc06d925ebcc1bb7f92e3528708fb3bbcd1420b66e14e
-  languageName: node
-  linkType: hard
-
 "@humanwhocodes/config-array@npm:^0.13.0":
   version: 0.13.0
   resolution: "@humanwhocodes/config-array@npm:0.13.0"
@@ -2228,6 +1975,259 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@qubit-ltd/clone@npm:^1.12.3":
+  version: 1.12.3
+  resolution: "@qubit-ltd/clone@npm:1.12.3::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40qubit-ltd%2Fclone%2F-%2Fclone-1.12.3.tgz"
+  peerDependencies:
+    "@babel/runtime": ^7.26.0
+    "@qubit-ltd/naming-style": ^1.3.4
+    "@qubit-ltd/typeinfo": ^3.1.4
+  checksum: 10c0/243a9b2e1cc272c8070588e25e96bd5ecde817a4ed4f1d49f67a9cf95189bbb52e4ff5595212954a94cc37020db96851cd8a480c3b4d925d729baa94e5e3ef17
+  languageName: node
+  linkType: hard
+
+"@qubit-ltd/common-app@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@qubit-ltd/common-app@workspace:."
+  dependencies:
+    "@babel/core": "npm:^7.26.0"
+    "@babel/eslint-parser": "npm:^7.25.9"
+    "@babel/plugin-proposal-decorators": "npm:^7.25.9"
+    "@babel/plugin-transform-runtime": "npm:^7.25.9"
+    "@babel/preset-env": "npm:^7.26.0"
+    "@babel/preset-typescript": "npm:^7.26.0"
+    "@babel/runtime": "npm:^7.26.0"
+    "@jest/core": "npm:^29.7.0"
+    "@qubit-ltd/clone": "npm:^1.12.3"
+    "@qubit-ltd/common-ui": "npm:^1.6.4"
+    "@qubit-ltd/common-util": "npm:^5.3.4"
+    "@qubit-ltd/common-validation-rule": "npm:^1.4.4"
+    "@qubit-ltd/config": "npm:^1.1.2"
+    "@qubit-ltd/eslint-config": "npm:^1.3.4"
+    "@qubit-ltd/jsdoc-minami": "npm:^1.5.2"
+    "@qubit-ltd/json": "npm:^1.1.4"
+    "@qubit-ltd/logging": "npm:^1.4.5"
+    "@qubit-ltd/naming-style": "npm:^1.3.4"
+    "@qubit-ltd/pinia-decorator": "npm:^3.3.2"
+    "@qubit-ltd/rollup-builder": "npm:^1.8.9"
+    "@qubit-ltd/storage": "npm:^1.3.3"
+    "@qubit-ltd/type-detect": "npm:^1.2.3"
+    "@qubit-ltd/typeinfo": "npm:^3.1.4"
+    "@qubit-ltd/vue3-class-component": "npm:^2.3.3"
+    "@rollup/plugin-alias": "npm:^5.1.1"
+    "@rollup/plugin-babel": "npm:^6.0.4"
+    "@rollup/plugin-commonjs": "npm:^28.0.2"
+    "@rollup/plugin-json": "npm:^6.1.0"
+    "@rollup/plugin-node-resolve": "npm:^16.0.0"
+    "@rollup/plugin-terser": "npm:^0.4.4"
+    axios: "npm:^1.7.9"
+    axios-mock-adapter: "npm:^2.1.0"
+    babel-plugin-transform-object-hasown: "npm:^1.1.0"
+    check-es-version: "npm:^1.5.0"
+    core-js: "npm:^3.39.0"
+    cross-env: "npm:^7.0.3"
+    dayjs: "npm:^1.11.13"
+    eslint: "npm:^8.57.1"
+    eslint-plugin-import: "npm:^2.31.0"
+    eslint-plugin-vue: "npm:^9.32.0"
+    jest: "npm:^29.7.0"
+    jest-environment-jsdom: "npm:^29.7.0"
+    jest-environment-jsdom-global: "npm:^4.0.0"
+    jest-extended: "npm:^4.0.2"
+    js-cookie: "npm:^3.0.5"
+    jsdoc: "npm:^4.0.4"
+    pinia: "npm:^2.3.0"
+    rollup: "npm:^4.30.1"
+    rollup-plugin-analyzer: "npm:^4.0.0"
+    rollup-plugin-visualizer: "npm:^5.14.0"
+    vue: "npm:^3.5.13"
+  peerDependencies:
+    "@babel/runtime": ^7.26.0
+    "@qubit-ltd/common-ui": ^1.6.2
+    "@qubit-ltd/config": ^1.1.1
+    "@qubit-ltd/json": ^1.1.3
+    "@qubit-ltd/logging": ^1.4.3
+    "@qubit-ltd/pinia-decorator": ^3.3.1
+    "@qubit-ltd/storage": ^1.3.2
+    "@qubit-ltd/type-detect": ^1.2.2
+    axios: ^1.7.9
+  languageName: unknown
+  linkType: soft
+
+"@qubit-ltd/common-ui@npm:^1.6.4":
+  version: 1.6.4
+  resolution: "@qubit-ltd/common-ui@npm:1.6.4::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40qubit-ltd%2Fcommon-ui%2F-%2Fcommon-ui-1.6.4.tgz"
+  peerDependencies:
+    "@babel/runtime": ^7.26.0
+    "@qubit-ltd/logging": ^1.4.5
+  checksum: 10c0/951ddf904dc241c4dc2db5d959d331f561131c7bf3c22f58983d98005b247b8bc23607e411a317b3069394f5d2ed70ba706e812982279525e0419e7eff10a810
+  languageName: node
+  linkType: hard
+
+"@qubit-ltd/common-util@npm:^5.3.4":
+  version: 5.3.4
+  resolution: "@qubit-ltd/common-util@npm:5.3.4::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40qubit-ltd%2Fcommon-util%2F-%2Fcommon-util-5.3.4.tgz"
+  dependencies:
+    deep-equal: "npm:^2.2.3"
+    json-beautify: "npm:^1.1.1"
+    query-string: "npm:^9.1.1"
+  peerDependencies:
+    "@babel/runtime": ^7.26.0
+    "@qubit-ltd/typeinfo": ^3.1.2
+  checksum: 10c0/f7a5ea14e0c4887a41ada48b017c54831494654aa2fe687ef9ccb5b5e51b29b68895fc39f765a7f24b4166d2e1925b566fbeaf20fc6b69e924904bdcbc834d25
+  languageName: node
+  linkType: hard
+
+"@qubit-ltd/common-validation-rule@npm:^1.4.4":
+  version: 1.4.4
+  resolution: "@qubit-ltd/common-validation-rule@npm:1.4.4::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40qubit-ltd%2Fcommon-validation-rule%2F-%2Fcommon-validation-rule-1.4.4.tgz"
+  dependencies:
+    email-validator: "npm:^2.0.4"
+    node-uri: "npm:^1.1.2"
+  peerDependencies:
+    "@babel/runtime": ^7.26.0
+  checksum: 10c0/e84b75710564f716c2b7a05539b0c3082ba8e90f7881133991120816cd30975e032da76da2978622f58fdfbe4e987fbb8f7136c6b2999a748de5cf8ef12b7966
+  languageName: node
+  linkType: hard
+
+"@qubit-ltd/config@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "@qubit-ltd/config@npm:1.1.2::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40qubit-ltd%2Fconfig%2F-%2Fconfig-1.1.2.tgz"
+  peerDependencies:
+    "@babel/runtime": ^7.26.0
+    "@qubit-ltd/clone": ^1.12.3
+    "@qubit-ltd/common-util": ^5.3.4
+    "@qubit-ltd/common-validation-rule": ^1.4.4
+    "@qubit-ltd/naming-style": ^1.3.4
+  checksum: 10c0/f3d4ed58dcd80f615498e13d1019d3c71116ea2e4961e60ce9c255b08d6e3be4d6d3657f22d1892cfb3ec9309f3c285d13b0b4be57c7ad5dc8d6952c452103f5
+  languageName: node
+  linkType: hard
+
+"@qubit-ltd/eslint-config@npm:^1.3.4":
+  version: 1.3.4
+  resolution: "@qubit-ltd/eslint-config@npm:1.3.4::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40qubit-ltd%2Feslint-config%2F-%2Feslint-config-1.3.4.tgz"
+  dependencies:
+    eslint: "npm:^8.12.0"
+    eslint-config-airbnb-base: "npm:^15.0.0"
+    eslint-plugin-import: "npm:^2.28.1"
+  checksum: 10c0/3327fcf3b65b9920586e34a3b20b6f7d9dab8b059ecff0bd9f2271c9454e863b92337dc113866ae774d7cd19b0e55907424030c88d74442563885585ab599ad0
+  languageName: node
+  linkType: hard
+
+"@qubit-ltd/jsdoc-minami@npm:^1.5.2":
+  version: 1.5.2
+  resolution: "@qubit-ltd/jsdoc-minami@npm:1.5.2::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40qubit-ltd%2Fjsdoc-minami%2F-%2Fjsdoc-minami-1.5.2.tgz"
+  dependencies:
+    jsdoc: "npm:^4.0.2"
+    taffydb: "npm:^2.7.3"
+  checksum: 10c0/d08e09e76793e17620ffd4c4bd2999e133d637fc8bd138819f521b1ad469539a1a0f303d590bd39dec0260b796218319c7d0459800432d60995e5f1f94f6e5c9
+  languageName: node
+  linkType: hard
+
+"@qubit-ltd/json@npm:^1.1.4":
+  version: 1.1.4
+  resolution: "@qubit-ltd/json@npm:1.1.4::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40qubit-ltd%2Fjson%2F-%2Fjson-1.1.4.tgz"
+  dependencies:
+    json-custom-numbers: "npm:^3.1.1"
+  peerDependencies:
+    "@babel/runtime": ^7.26.0
+  checksum: 10c0/a6cdc86af0b73655bab9c9c067bf415bbf552ccdc88307b8ef64649976110c464d611e171f61cc35d478bfc1db8f982998bb0bcac1d7ae57c27467469872778e
+  languageName: node
+  linkType: hard
+
+"@qubit-ltd/logging@npm:^1.4.5":
+  version: 1.4.5
+  resolution: "@qubit-ltd/logging@npm:1.4.5::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40qubit-ltd%2Flogging%2F-%2Flogging-1.4.5.tgz"
+  dependencies:
+    "@babel/runtime": "npm:^7.26.0"
+  checksum: 10c0/f171fb1b133fde333562d90d544b0234abfa30cb6c0509e06d9238601a5daafe7638b86c24f8deaacef75a6e3e06d0a8087b88a186fb675d543b0812c504542a
+  languageName: node
+  linkType: hard
+
+"@qubit-ltd/naming-style@npm:^1.3.4":
+  version: 1.3.4
+  resolution: "@qubit-ltd/naming-style@npm:1.3.4::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40qubit-ltd%2Fnaming-style%2F-%2Fnaming-style-1.3.4.tgz"
+  peerDependencies:
+    "@babel/runtime": ^7.26.0
+  checksum: 10c0/c8113c828aab04afad9215d731bd15c48a85f44a0d54b47ba638cd8af63f71b0b5148b22f2fab472fe728e3beda254685f1f4429b3a19e796b9ab277d5c4cdcf
+  languageName: node
+  linkType: hard
+
+"@qubit-ltd/pinia-decorator@npm:^3.3.2":
+  version: 3.3.2
+  resolution: "@qubit-ltd/pinia-decorator@npm:3.3.2::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40qubit-ltd%2Fpinia-decorator%2F-%2Fpinia-decorator-3.3.2.tgz"
+  peerDependencies:
+    "@babel/runtime": ^7.26.0
+    "@qubit-ltd/vue3-class-component": ^2.3.3
+    pinia: ^2.3.0
+    vue: ^3.5.13
+  checksum: 10c0/c8cb7a3937a6e627b80cccf65b4d9db3f86d15cd19eb908534641d7c6c75001f540aa65e7dbb943cc01b919c50694193dd18ce5a69cd34a071f9f046da516935
+  languageName: node
+  linkType: hard
+
+"@qubit-ltd/rollup-builder@npm:^1.8.9":
+  version: 1.8.9
+  resolution: "@qubit-ltd/rollup-builder@npm:1.8.9::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40qubit-ltd%2Frollup-builder%2F-%2Frollup-builder-1.8.9.tgz"
+  peerDependencies:
+    "@babel/core": ^7.26.0
+    "@babel/plugin-transform-runtime": ^7.25.9
+    "@babel/preset-env": ^7.26.0
+    "@babel/runtime": ^7.26.0
+    "@rollup/plugin-alias": ^5.1.1
+    "@rollup/plugin-babel": ^6.0.4
+    "@rollup/plugin-commonjs": ^28.0.2
+    "@rollup/plugin-json": ^6.1.0
+    "@rollup/plugin-node-resolve": ^16.0.0
+    "@rollup/plugin-terser": ^0.4.4
+    rollup: ^4.29.1
+    rollup-plugin-analyzer: ^4.0.0
+    rollup-plugin-visualizer: ^5.13.1
+  checksum: 10c0/c2f52e9d76f174aeced6b6681b6db1bf2a5d802a6fe34239a571cf750443461fae52cb0e8daf45bf3dd7378f9a33c20244631f815de232652b8c879cfa06c17a
+  languageName: node
+  linkType: hard
+
+"@qubit-ltd/storage@npm:^1.3.3":
+  version: 1.3.3
+  resolution: "@qubit-ltd/storage@npm:1.3.3::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40qubit-ltd%2Fstorage%2F-%2Fstorage-1.3.3.tgz"
+  dependencies:
+    js-cookie: "npm:^3.0.5"
+  peerDependencies:
+    "@babel/runtime": ^7.26.0
+    "@qubit-ltd/json": ^1.1.4
+  checksum: 10c0/68ddea668b56c3ccfc255203785908541eea419525d1045b22b00e58cdc41e7a7cfddfd39d4e7fc554d4ef8a599c386ddb19d6316051cc337d2667f4fab1cf8f
+  languageName: node
+  linkType: hard
+
+"@qubit-ltd/type-detect@npm:^1.2.3":
+  version: 1.2.3
+  resolution: "@qubit-ltd/type-detect@npm:1.2.3::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40qubit-ltd%2Ftype-detect%2F-%2Ftype-detect-1.2.3.tgz"
+  peerDependencies:
+    "@babel/runtime": ^7.26.0
+  checksum: 10c0/444e6229d515f2d7a85490a806fb0682ce1bf82b160f55a26c67dd04c7868c530911d9a1ea77179c1581a18941b195300bd76cf008553f390f91e228003a9f9e
+  languageName: node
+  linkType: hard
+
+"@qubit-ltd/typeinfo@npm:^3.1.4":
+  version: 3.1.4
+  resolution: "@qubit-ltd/typeinfo@npm:3.1.4::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40qubit-ltd%2Ftypeinfo%2F-%2Ftypeinfo-3.1.4.tgz"
+  peerDependencies:
+    "@babel/runtime": ^7.26.0
+    "@qubit-ltd/type-detect": ^1.2.3
+  checksum: 10c0/f7963a44dbaa62a027b96f9cf9da250ffd430711524b7c8b6d8735927642c6442b8c23793e36641f4d9e14506e522c84b5e3ea80d071416d2c46b00224d578ea
+  languageName: node
+  linkType: hard
+
+"@qubit-ltd/vue3-class-component@npm:^2.3.3":
+  version: 2.3.3
+  resolution: "@qubit-ltd/vue3-class-component@npm:2.3.3::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40qubit-ltd%2Fvue3-class-component%2F-%2Fvue3-class-component-2.3.3.tgz"
+  peerDependencies:
+    "@babel/runtime": ^7.26.0
+    "@qubit-ltd/clone": ^1.12.3
+    vue: ^3.5.13
+  checksum: 10c0/3e9dd208830e8fe453ade8e1bac1cd3ad7fcef17e4d7ace5146ba4a8e5355e2255b43cbce710cf42b3f4d32666e1da422c72d3fbab89316af66fdb4e23dc9070
+  languageName: node
+  linkType: hard
+
 "@rollup/plugin-alias@npm:^5.1.1":
   version: 5.1.1
   resolution: "@rollup/plugin-alias@npm:5.1.1"
@@ -2259,22 +2259,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/plugin-commonjs@npm:^25.0.8":
-  version: 25.0.8
-  resolution: "@rollup/plugin-commonjs@npm:25.0.8"
+"@rollup/plugin-commonjs@npm:^28.0.2":
+  version: 28.0.2
+  resolution: "@rollup/plugin-commonjs@npm:28.0.2"
   dependencies:
     "@rollup/pluginutils": "npm:^5.0.1"
     commondir: "npm:^1.0.1"
     estree-walker: "npm:^2.0.2"
-    glob: "npm:^8.0.3"
+    fdir: "npm:^6.2.0"
     is-reference: "npm:1.2.1"
     magic-string: "npm:^0.30.3"
+    picomatch: "npm:^4.0.2"
   peerDependencies:
     rollup: ^2.68.0||^3.0.0||^4.0.0
   peerDependenciesMeta:
     rollup:
       optional: true
-  checksum: 10c0/00d6fe41c33476dcb4b4ac3068f869b8537153646ea18f1fb9d0dfd5592792148567dd735d58ac15e2fdd4ed6c98453d20fe5343105f8cfa93d291198c9a90f5
+  checksum: 10c0/e90a443e63bfed567d5a4854960240d256818a0b3c69a45e95e196c40a755959406dabe4fbccb886eeb45d3445ddc8f966632563a7d590808be7eee8084384f1
   languageName: node
   linkType: hard
 
@@ -2292,9 +2293,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/plugin-node-resolve@npm:^15.3.0":
-  version: 15.3.0
-  resolution: "@rollup/plugin-node-resolve@npm:15.3.0"
+"@rollup/plugin-node-resolve@npm:^16.0.0":
+  version: 16.0.0
+  resolution: "@rollup/plugin-node-resolve@npm:16.0.0"
   dependencies:
     "@rollup/pluginutils": "npm:^5.0.1"
     "@types/resolve": "npm:1.20.2"
@@ -2306,7 +2307,7 @@ __metadata:
   peerDependenciesMeta:
     rollup:
       optional: true
-  checksum: 10c0/5f3b11f9f6d00fe9fd3fe1977cc71f6a99c2b13d0ee82ad6822c4c4ecfc98854791c5a505798762f7e2332d9d67568a561e89aa8268ed3b1668563be1845109e
+  checksum: 10c0/b63deb6fc14b37070ccaffacc8c10c9720f28ce7632f4fe2ee77064c0c79bcc3fe060fb77160e673c9fd847307252f25a2983030bd54f1888324063c69ae1399
   languageName: node
   linkType: hard
 
@@ -2342,135 +2343,135 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-android-arm-eabi@npm:4.28.1":
-  version: 4.28.1
-  resolution: "@rollup/rollup-android-arm-eabi@npm:4.28.1"
+"@rollup/rollup-android-arm-eabi@npm:4.30.1":
+  version: 4.30.1
+  resolution: "@rollup/rollup-android-arm-eabi@npm:4.30.1"
   conditions: os=android & cpu=arm
   languageName: node
   linkType: hard
 
-"@rollup/rollup-android-arm64@npm:4.28.1":
-  version: 4.28.1
-  resolution: "@rollup/rollup-android-arm64@npm:4.28.1"
+"@rollup/rollup-android-arm64@npm:4.30.1":
+  version: 4.30.1
+  resolution: "@rollup/rollup-android-arm64@npm:4.30.1"
   conditions: os=android & cpu=arm64
   languageName: node
   linkType: hard
 
-"@rollup/rollup-darwin-arm64@npm:4.28.1":
-  version: 4.28.1
-  resolution: "@rollup/rollup-darwin-arm64@npm:4.28.1"
+"@rollup/rollup-darwin-arm64@npm:4.30.1":
+  version: 4.30.1
+  resolution: "@rollup/rollup-darwin-arm64@npm:4.30.1"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@rollup/rollup-darwin-x64@npm:4.28.1":
-  version: 4.28.1
-  resolution: "@rollup/rollup-darwin-x64@npm:4.28.1"
+"@rollup/rollup-darwin-x64@npm:4.30.1":
+  version: 4.30.1
+  resolution: "@rollup/rollup-darwin-x64@npm:4.30.1"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@rollup/rollup-freebsd-arm64@npm:4.28.1":
-  version: 4.28.1
-  resolution: "@rollup/rollup-freebsd-arm64@npm:4.28.1"
+"@rollup/rollup-freebsd-arm64@npm:4.30.1":
+  version: 4.30.1
+  resolution: "@rollup/rollup-freebsd-arm64@npm:4.30.1"
   conditions: os=freebsd & cpu=arm64
   languageName: node
   linkType: hard
 
-"@rollup/rollup-freebsd-x64@npm:4.28.1":
-  version: 4.28.1
-  resolution: "@rollup/rollup-freebsd-x64@npm:4.28.1"
+"@rollup/rollup-freebsd-x64@npm:4.30.1":
+  version: 4.30.1
+  resolution: "@rollup/rollup-freebsd-x64@npm:4.30.1"
   conditions: os=freebsd & cpu=x64
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-arm-gnueabihf@npm:4.28.1":
-  version: 4.28.1
-  resolution: "@rollup/rollup-linux-arm-gnueabihf@npm:4.28.1"
+"@rollup/rollup-linux-arm-gnueabihf@npm:4.30.1":
+  version: 4.30.1
+  resolution: "@rollup/rollup-linux-arm-gnueabihf@npm:4.30.1"
   conditions: os=linux & cpu=arm & libc=glibc
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-arm-musleabihf@npm:4.28.1":
-  version: 4.28.1
-  resolution: "@rollup/rollup-linux-arm-musleabihf@npm:4.28.1"
+"@rollup/rollup-linux-arm-musleabihf@npm:4.30.1":
+  version: 4.30.1
+  resolution: "@rollup/rollup-linux-arm-musleabihf@npm:4.30.1"
   conditions: os=linux & cpu=arm & libc=musl
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-arm64-gnu@npm:4.28.1":
-  version: 4.28.1
-  resolution: "@rollup/rollup-linux-arm64-gnu@npm:4.28.1"
+"@rollup/rollup-linux-arm64-gnu@npm:4.30.1":
+  version: 4.30.1
+  resolution: "@rollup/rollup-linux-arm64-gnu@npm:4.30.1"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-arm64-musl@npm:4.28.1":
-  version: 4.28.1
-  resolution: "@rollup/rollup-linux-arm64-musl@npm:4.28.1"
+"@rollup/rollup-linux-arm64-musl@npm:4.30.1":
+  version: 4.30.1
+  resolution: "@rollup/rollup-linux-arm64-musl@npm:4.30.1"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-loongarch64-gnu@npm:4.28.1":
-  version: 4.28.1
-  resolution: "@rollup/rollup-linux-loongarch64-gnu@npm:4.28.1"
+"@rollup/rollup-linux-loongarch64-gnu@npm:4.30.1":
+  version: 4.30.1
+  resolution: "@rollup/rollup-linux-loongarch64-gnu@npm:4.30.1"
   conditions: os=linux & cpu=loong64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-powerpc64le-gnu@npm:4.28.1":
-  version: 4.28.1
-  resolution: "@rollup/rollup-linux-powerpc64le-gnu@npm:4.28.1"
+"@rollup/rollup-linux-powerpc64le-gnu@npm:4.30.1":
+  version: 4.30.1
+  resolution: "@rollup/rollup-linux-powerpc64le-gnu@npm:4.30.1"
   conditions: os=linux & cpu=ppc64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-riscv64-gnu@npm:4.28.1":
-  version: 4.28.1
-  resolution: "@rollup/rollup-linux-riscv64-gnu@npm:4.28.1"
+"@rollup/rollup-linux-riscv64-gnu@npm:4.30.1":
+  version: 4.30.1
+  resolution: "@rollup/rollup-linux-riscv64-gnu@npm:4.30.1"
   conditions: os=linux & cpu=riscv64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-s390x-gnu@npm:4.28.1":
-  version: 4.28.1
-  resolution: "@rollup/rollup-linux-s390x-gnu@npm:4.28.1"
+"@rollup/rollup-linux-s390x-gnu@npm:4.30.1":
+  version: 4.30.1
+  resolution: "@rollup/rollup-linux-s390x-gnu@npm:4.30.1"
   conditions: os=linux & cpu=s390x & libc=glibc
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-x64-gnu@npm:4.28.1":
-  version: 4.28.1
-  resolution: "@rollup/rollup-linux-x64-gnu@npm:4.28.1"
+"@rollup/rollup-linux-x64-gnu@npm:4.30.1":
+  version: 4.30.1
+  resolution: "@rollup/rollup-linux-x64-gnu@npm:4.30.1"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-x64-musl@npm:4.28.1":
-  version: 4.28.1
-  resolution: "@rollup/rollup-linux-x64-musl@npm:4.28.1"
+"@rollup/rollup-linux-x64-musl@npm:4.30.1":
+  version: 4.30.1
+  resolution: "@rollup/rollup-linux-x64-musl@npm:4.30.1"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@rollup/rollup-win32-arm64-msvc@npm:4.28.1":
-  version: 4.28.1
-  resolution: "@rollup/rollup-win32-arm64-msvc@npm:4.28.1"
+"@rollup/rollup-win32-arm64-msvc@npm:4.30.1":
+  version: 4.30.1
+  resolution: "@rollup/rollup-win32-arm64-msvc@npm:4.30.1"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@rollup/rollup-win32-ia32-msvc@npm:4.28.1":
-  version: 4.28.1
-  resolution: "@rollup/rollup-win32-ia32-msvc@npm:4.28.1"
+"@rollup/rollup-win32-ia32-msvc@npm:4.30.1":
+  version: 4.30.1
+  resolution: "@rollup/rollup-win32-ia32-msvc@npm:4.30.1"
   conditions: os=win32 & cpu=ia32
   languageName: node
   linkType: hard
 
-"@rollup/rollup-win32-x64-msvc@npm:4.28.1":
-  version: 4.28.1
-  resolution: "@rollup/rollup-win32-x64-msvc@npm:4.28.1"
+"@rollup/rollup-win32-x64-msvc@npm:4.30.1":
+  version: 4.30.1
+  resolution: "@rollup/rollup-win32-x64-msvc@npm:4.30.1"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -4408,6 +4409,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fdir@npm:^6.2.0":
+  version: 6.4.2
+  resolution: "fdir@npm:6.4.2"
+  peerDependencies:
+    picomatch: ^3 || ^4
+  peerDependenciesMeta:
+    picomatch:
+      optional: true
+  checksum: 10c0/34829886f34a3ca4170eca7c7180ec4de51a3abb4d380344063c0ae2e289b11d2ba8b724afee974598c83027fea363ff598caf2b51bc4e6b1e0d8b80cc530573
+  languageName: node
+  linkType: hard
+
 "file-entry-cache@npm:^6.0.1":
   version: 6.0.1
   resolution: "file-entry-cache@npm:6.0.1"
@@ -4669,19 +4682,6 @@ __metadata:
     once: "npm:^1.3.0"
     path-is-absolute: "npm:^1.0.0"
   checksum: 10c0/65676153e2b0c9095100fe7f25a778bf45608eeb32c6048cf307f579649bcc30353277b3b898a3792602c65764e5baa4f643714dfbdfd64ea271d210c7a425fe
-  languageName: node
-  linkType: hard
-
-"glob@npm:^8.0.3":
-  version: 8.1.0
-  resolution: "glob@npm:8.1.0"
-  dependencies:
-    fs.realpath: "npm:^1.0.0"
-    inflight: "npm:^1.0.4"
-    inherits: "npm:2"
-    minimatch: "npm:^5.0.1"
-    once: "npm:^1.3.0"
-  checksum: 10c0/cb0b5cab17a59c57299376abe5646c7070f8acb89df5595b492dba3bfb43d301a46c01e5695f01154e6553168207cb60d4eaf07d3be4bc3eb9b0457c5c561d0f
   languageName: node
   linkType: hard
 
@@ -6269,15 +6269,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimatch@npm:^5.0.1":
-  version: 5.1.6
-  resolution: "minimatch@npm:5.1.6"
-  dependencies:
-    brace-expansion: "npm:^2.0.1"
-  checksum: 10c0/3defdfd230914f22a8da203747c42ee3c405c39d4d37ffda284dac5e45b7e1f6c49aa8be606509002898e73091ff2a3bbfc59c2c6c71d4660609f63aa92f98e3
-  languageName: node
-  linkType: hard
-
 "minimatch@npm:^9.0.4":
   version: 9.0.5
   resolution: "minimatch@npm:9.0.5"
@@ -6766,6 +6757,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"picomatch@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "picomatch@npm:4.0.2"
+  checksum: 10c0/7c51f3ad2bb42c776f49ebf964c644958158be30d0a510efd5a395e8d49cb5acfed5b82c0c5b365523ce18e6ab85013c9ebe574f60305892ec3fa8eee8304ccc
+  languageName: node
+  linkType: hard
+
 "pinia@npm:^2.3.0":
   version: 2.3.0
   resolution: "pinia@npm:2.3.0"
@@ -6906,14 +6904,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"query-string@npm:^8.2.0":
-  version: 8.2.0
-  resolution: "query-string@npm:8.2.0"
+"query-string@npm:^9.1.1":
+  version: 9.1.1
+  resolution: "query-string@npm:9.1.1"
   dependencies:
     decode-uri-component: "npm:^0.4.1"
     filter-obj: "npm:^5.1.0"
     split-on-first: "npm:^3.0.0"
-  checksum: 10c0/ad78256d5464ec80a4c5723c5f134ec4aa341fcc71e1458d2b4d4663aa441c0b0bbe7dcdda60e7f09e81969fd725fb7d6f9ba4e77fd621e11ce4c3ecfb9cdec0
+  checksum: 10c0/16481f17754f660aec3cae7abb838a70e383dfcf152414d184e0d0f81fae426acf112b4d51bf754f9c256eaf83ba4241241ba907c8d58b6ed9704425e1712e8c
   languageName: node
   linkType: hard
 
@@ -7134,48 +7132,51 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup-plugin-visualizer@npm:^5.12.0":
-  version: 5.12.0
-  resolution: "rollup-plugin-visualizer@npm:5.12.0"
+"rollup-plugin-visualizer@npm:^5.14.0":
+  version: 5.14.0
+  resolution: "rollup-plugin-visualizer@npm:5.14.0"
   dependencies:
     open: "npm:^8.4.0"
-    picomatch: "npm:^2.3.1"
+    picomatch: "npm:^4.0.2"
     source-map: "npm:^0.7.4"
     yargs: "npm:^17.5.1"
   peerDependencies:
+    rolldown: 1.x
     rollup: 2.x || 3.x || 4.x
   peerDependenciesMeta:
+    rolldown:
+      optional: true
     rollup:
       optional: true
   bin:
     rollup-plugin-visualizer: dist/bin/cli.js
-  checksum: 10c0/0e44a641223377ebb472bb10f2b22efa773b5f6fbe8d54f197f07c68d7a432cbf00abad79a0aa1570f70c673c792f24700d926d663ed9a4d0ad8406ae5a0f4e4
+  checksum: 10c0/ec6ca9ed125bce9994ba49a340bda730661d8e8dc5c5dc014dc757185182e1eda49c6708f990cb059095e71a3741a5248f1e6ba0ced7056020692888e06b1ddf
   languageName: node
   linkType: hard
 
-"rollup@npm:^4.28.1":
-  version: 4.28.1
-  resolution: "rollup@npm:4.28.1"
+"rollup@npm:^4.30.1":
+  version: 4.30.1
+  resolution: "rollup@npm:4.30.1"
   dependencies:
-    "@rollup/rollup-android-arm-eabi": "npm:4.28.1"
-    "@rollup/rollup-android-arm64": "npm:4.28.1"
-    "@rollup/rollup-darwin-arm64": "npm:4.28.1"
-    "@rollup/rollup-darwin-x64": "npm:4.28.1"
-    "@rollup/rollup-freebsd-arm64": "npm:4.28.1"
-    "@rollup/rollup-freebsd-x64": "npm:4.28.1"
-    "@rollup/rollup-linux-arm-gnueabihf": "npm:4.28.1"
-    "@rollup/rollup-linux-arm-musleabihf": "npm:4.28.1"
-    "@rollup/rollup-linux-arm64-gnu": "npm:4.28.1"
-    "@rollup/rollup-linux-arm64-musl": "npm:4.28.1"
-    "@rollup/rollup-linux-loongarch64-gnu": "npm:4.28.1"
-    "@rollup/rollup-linux-powerpc64le-gnu": "npm:4.28.1"
-    "@rollup/rollup-linux-riscv64-gnu": "npm:4.28.1"
-    "@rollup/rollup-linux-s390x-gnu": "npm:4.28.1"
-    "@rollup/rollup-linux-x64-gnu": "npm:4.28.1"
-    "@rollup/rollup-linux-x64-musl": "npm:4.28.1"
-    "@rollup/rollup-win32-arm64-msvc": "npm:4.28.1"
-    "@rollup/rollup-win32-ia32-msvc": "npm:4.28.1"
-    "@rollup/rollup-win32-x64-msvc": "npm:4.28.1"
+    "@rollup/rollup-android-arm-eabi": "npm:4.30.1"
+    "@rollup/rollup-android-arm64": "npm:4.30.1"
+    "@rollup/rollup-darwin-arm64": "npm:4.30.1"
+    "@rollup/rollup-darwin-x64": "npm:4.30.1"
+    "@rollup/rollup-freebsd-arm64": "npm:4.30.1"
+    "@rollup/rollup-freebsd-x64": "npm:4.30.1"
+    "@rollup/rollup-linux-arm-gnueabihf": "npm:4.30.1"
+    "@rollup/rollup-linux-arm-musleabihf": "npm:4.30.1"
+    "@rollup/rollup-linux-arm64-gnu": "npm:4.30.1"
+    "@rollup/rollup-linux-arm64-musl": "npm:4.30.1"
+    "@rollup/rollup-linux-loongarch64-gnu": "npm:4.30.1"
+    "@rollup/rollup-linux-powerpc64le-gnu": "npm:4.30.1"
+    "@rollup/rollup-linux-riscv64-gnu": "npm:4.30.1"
+    "@rollup/rollup-linux-s390x-gnu": "npm:4.30.1"
+    "@rollup/rollup-linux-x64-gnu": "npm:4.30.1"
+    "@rollup/rollup-linux-x64-musl": "npm:4.30.1"
+    "@rollup/rollup-win32-arm64-msvc": "npm:4.30.1"
+    "@rollup/rollup-win32-ia32-msvc": "npm:4.30.1"
+    "@rollup/rollup-win32-x64-msvc": "npm:4.30.1"
     "@types/estree": "npm:1.0.6"
     fsevents: "npm:~2.3.2"
   dependenciesMeta:
@@ -7221,7 +7222,7 @@ __metadata:
       optional: true
   bin:
     rollup: dist/bin/rollup
-  checksum: 10c0/2d2d0433b7cb53153a04c7b406f342f31517608dc57510e49177941b9e68c30071674b83a0292ef1d87184e5f7c6d0f2945c8b3c74963074de10c75366fe2c14
+  checksum: 10c0/a318c57e2ca9741e1503bcd75483949c6e83edd72234a468010a3098a34248f523e44f7ad4fde90dc5c2da56abc1b78ac42a9329e1dbd708682728adbd8df7cc
   languageName: node
   linkType: hard
 

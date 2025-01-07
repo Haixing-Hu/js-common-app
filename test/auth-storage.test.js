@@ -7,7 +7,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 import CookieEngine from 'js-cookie';
-import config from '@haixing_hu/config';
+import config from '@qubit-ltd/config';
 import { AuthStorage } from '../src';
 
 const APP_CODE = 'auto-storage-test';

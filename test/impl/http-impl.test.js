@@ -7,9 +7,9 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 import { AxiosHeaders } from 'axios';
-import { Json } from '@haixing_hu/json';
-import config from '@haixing_hu/config';
-import { loading, alert, confirm } from '@haixing_hu/common-ui';
+import { Json } from '@qubit-ltd/json';
+import config from '@qubit-ltd/config';
+import { loading, alert, confirm } from '@qubit-ltd/common-ui';
 import { http } from '../../src';
 import {
   DEFAULT_HTTP_HEADER_CONTENT_TYPE,

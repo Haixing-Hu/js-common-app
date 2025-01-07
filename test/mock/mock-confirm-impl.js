@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import { ConfirmImpl } from '@haixing_hu/common-ui';
+import { ConfirmImpl } from '@qubit-ltd/common-ui';
 
 /**
  * A mock implementation of the {@link ConfirmImpl} class.

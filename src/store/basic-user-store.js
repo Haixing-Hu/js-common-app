@@ -6,10 +6,10 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import { Logger, Log } from '@haixing_hu/logging';
-import { RawField } from '@haixing_hu/pinia-decorator';
-import { confirm } from '@haixing_hu/common-ui';
-import config from '@haixing_hu/config';
+import { Logger, Log } from '@qubit-ltd/logging';
+import { RawField } from '@qubit-ltd/pinia-decorator';
+import { confirm } from '@qubit-ltd/common-ui';
+import config from '@qubit-ltd/config';
 import AuthStorage from '../auth-storage';
 import http from '../http';
 import { DEFAULT_LOGIN_PAGE } from '../impl/http-impl';

@@ -21,7 +21,7 @@ module.exports = {
     '\\.js$': 'babel-jest',
   },
   transformIgnorePatterns: [
-    '/node_modules/(?!@haixing_hu)',
+    '/node_modules/(?!@qubit-ltd)',
   ],
   setupFilesAfterEnv: [
     'jest-extended/all',

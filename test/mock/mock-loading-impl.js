@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import { LoadingImpl } from '@haixing_hu/common-ui';
+import { LoadingImpl } from '@qubit-ltd/common-ui';
 
 /**
  * A mock implementation of the {@link LoadingImpl} class.

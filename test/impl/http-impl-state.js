@@ -6,8 +6,8 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import config from '@haixing_hu/config';
-import { loading, alert, confirm } from '@haixing_hu/common-ui';
+import config from '@qubit-ltd/config';
+import { loading, alert, confirm } from '@qubit-ltd/common-ui';
 import MockLoadingImpl from '../mock/mock-loading-impl';
 import MockAlertImpl from '../mock/mock-alert-impl';
 import MockConfirmImpl from '../mock/mock-confirm-impl';
