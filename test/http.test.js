@@ -738,7 +738,7 @@ describe('http.interceptors.response', () => {
       expect(e).toEqual(error);
       expect(state.alertImpl.type).toBe('error');
       expect(state.alertImpl.title).toBe('错误');
-      expect(state.alertImpl.message).toBe('Unknown error occurred：请与管理员联系');
+      expect(state.alertImpl.message).toBe('Unknown error occurred');
       expect(state.resetAccessToken).not.toHaveBeenCalled();
       expect(state.getRouter).not.toHaveBeenCalled();
       expect(state.pushRouter).not.toHaveBeenCalled();
