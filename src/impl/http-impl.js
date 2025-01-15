@@ -398,6 +398,22 @@ class HttpImpl {
   }
 
   /**
+   * 处理已知错误。
+   *
+   * @param {object} error
+   *     服务器返回的错误信息对象。
+   * @return {Promise}
+   *     一个reject的Promise对象，表示处理失败。
+   * @private
+   * @author 胡海星
+   */
+  @Log
+  handleKnownError(error) {
+    const message = error.message ? `${error.message}` : '发生未知错误：请与管理员联系';
+    return alert.error('错误', message).then(() => Promise.reject(error));
+  }
+
+  /**
    * 处理请求错误。
    *
    * @param {Axios} http
@@ -438,7 +454,7 @@ class HttpImpl {
         return alert.error('错误', '当前应用未认证或令牌已过期，请与管理员联系')
           .then(() => Promise.reject(error));
       default:                              // 其他错误代码，默认显示错误消息
-        return this.handleUnknownError(error);
+        return this.handleKnownError(error);
     }
   }
 
