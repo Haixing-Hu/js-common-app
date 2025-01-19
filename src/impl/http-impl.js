@@ -509,6 +509,8 @@ class HttpImpl {
    * @param {boolean} autoDownload
    *    是否自动下载文件。默认值为`true`。如此参数为`false`，则返回一个包含下载的文件的信息
    *    的对象，详见返回值说明。
+   * @param {string} filename
+   *    下载的文件的名称。如不提供则自动从响应头中解析获取，或者使用默认值`downloaded_file`。
    * @return {Promise<object|ErrorInfo>}
    *    此HTTP请求的`Promise`对象。若操作成功，则解析成功，并返回一个包含下载的文件的信息的
    *    对象，其中包含以下属性：
@@ -520,7 +522,7 @@ class HttpImpl {
    *    设置为`true`，浏览器会自动开始下载文件。
    */
   @Log
-  download(url, params = {}, mimeType = null, autoDownload = true) {
+  download(url, params = {}, mimeType = null, autoDownload = true, filename = null) {
     return this.get(url, {
       params,
       returnResponse: true,    // 返回原始的响应对象而非解析后的数据
@@ -534,8 +536,7 @@ class HttpImpl {
       const contentType = mimeType ?? response.headers.get('Content-Type');
       // 从响应头中解析文件名（可选，后端需提供文件名）
       const contentDisposition = response.headers.get('Content-Disposition');
-      const filename = extractContentDispositionFilename(contentDisposition)
-        ?? 'downloaded_file';
+      filename = filename ?? extractContentDispositionFilename(contentDisposition) ?? 'downloaded_file';
       // 获取返回的 Blob 数据
       const blob = new Blob([response.data], { type: contentType });
       if (autoDownload) {

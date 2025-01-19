@@ -136,4 +136,21 @@ describe('http.download', () => {
     expect(state.alertImpl.title).toBe('错误');
     expect(state.alertImpl.message).toBe('网络请求发生未知错误: Request failed with status code 500');
   });
+
+  it('should use the specified filename', async () => {
+    mock.onGet(url).reply((cfg) => {
+      expect(cfg.headers.getAccept()).toBe('*/*');
+      return [200, response.data, response.headers];
+    });
+    const result = await http.download(url, params, null, true, 'foo.pdf');
+    expect(result).toEqual({
+      blob: response.data,
+      filename: 'foo.pdf',
+      mimeType,
+    });
+    expect(window.URL.createObjectURL).toHaveBeenCalledWith(response.data);
+    expect(window.URL.revokeObjectURL).toHaveBeenCalled();
+    expect(document.body.appendChild).toHaveBeenCalled();
+    expect(document.body.removeChild).toHaveBeenCalled();
+  });
 });
