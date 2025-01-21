@@ -546,7 +546,7 @@ class HttpImpl {
         const a = window.document.createElement('a');
         a.style.display = 'none';
         a.href = url;
-        a.download = decodeURIComponent(filename);
+        a.download = filename;
         // 将 <a> 元素添加到 DOM，触发点击事件，然后移除
         window.document.body.appendChild(a);
         a.click();

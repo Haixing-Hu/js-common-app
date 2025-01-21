@@ -153,4 +153,33 @@ describe('http.download', () => {
     expect(document.body.appendChild).toHaveBeenCalled();
     expect(document.body.removeChild).toHaveBeenCalled();
   });
+
+  it('should decode the URI encoded filename', async () => {
+    const url = '/file';
+    const params = { key: 'value' };
+    const mimeType = 'application/pdf';
+    const contentDisposition = 'attachment; filename*=UTF-8\'\'%E6%B5%99%E6%B1%9F%E4%B9%85%E7%AB%8B%E8%B4%A8%E4%BF%9D%E4%B9%A6.pdf\n';
+    const response = {
+      data: new Blob(['file content'], { type: mimeType }),
+      headers: {
+        'Content-Type': mimeType,
+        'Content-Disposition': contentDisposition,
+      },
+    };
+    mock.onGet(url).reply((cfg) => {
+      expect(cfg.headers.getAccept()).toBe('application/pdf');
+      return [200, response.data, response.headers];
+    });
+    const result = await http.download(url, params, mimeType, true);
+    console.log(result);
+    expect(result).toEqual({
+      blob: response.data,
+      filename: '浙江久立质保书.pdf',
+      mimeType,
+    });
+    expect(window.URL.createObjectURL).toHaveBeenCalledWith(response.data);
+    expect(window.URL.revokeObjectURL).toHaveBeenCalled();
+    expect(document.body.appendChild).toHaveBeenCalled();
+    expect(document.body.removeChild).toHaveBeenCalled();
+  });
 });

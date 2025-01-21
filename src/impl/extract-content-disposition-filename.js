@@ -22,12 +22,12 @@ function extractContentDispositionFilename(contentDisposition) {
   // 优先匹配 filename*=
   const filenameStarMatch = contentDisposition.match(/filename\*=(?:UTF-8'')?([^;]+)/);
   if (filenameStarMatch) {
-    return decodeURIComponent(filenameStarMatch[1]);
+    return decodeURIComponent(filenameStarMatch[1].trim());
   }
   // 如果 filename* 不存在，匹配 filename=
   const filenameMatch = contentDisposition.match(/filename="([^"]+)"/);
   if (filenameMatch) {
-    return filenameMatch[1];
+    return filenameMatch[1].trim();
   }
   return null;
 }
