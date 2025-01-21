@@ -534,9 +534,18 @@ class HttpImpl {
       // 获取返回的 Content-Type 头，注意，response.headers 是一个 AxiosHeaders 对象，
       // 必须用 get 方法获取值，不能直接用下标，否则大小写不同的键名会被认为是不同的键
       const contentType = mimeType ?? response.headers.get('Content-Type');
-      // 从响应头中解析文件名（可选，后端需提供文件名）
-      const contentDisposition = response.headers.get('Content-Disposition');
-      filename = filename ?? extractContentDispositionFilename(contentDisposition) ?? 'downloaded_file';
+      logger.debug('Content-Type:', contentType);
+      if (!filename) {
+        // 从响应头中解析文件名（可选，后端需提供文件名）
+        const contentDisposition = response.headers.get('content-disposition');
+        logger.debug('Content-Disposition:', contentDisposition);
+        filename = extractContentDispositionFilename(contentDisposition);
+        logger.debug('Extracted filename from Content-Disposition:', filename);
+      }
+      if (!filename) {
+        filename = 'downloaded_file';
+      }
+      logger.debug('The filename of downloaded file is:', filename);
       // 获取返回的 Blob 数据
       const blob = new Blob([response.data], { type: contentType });
       if (autoDownload) {

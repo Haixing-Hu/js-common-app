@@ -1,6 +1,6 @@
 {
   "name": "@qubit-ltd/common-app",
-  "version": "1.11.1",
+  "version": "1.11.6",
   "description": "A JavaScript library of utilities for developing web apps.",
   "author": "Haixing Hu (starfish.hu@gmail.com)",
   "license": "Apache-2.0",
