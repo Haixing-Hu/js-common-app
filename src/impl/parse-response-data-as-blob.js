@@ -78,7 +78,6 @@ function parseResponseDataAsBlob(response, contentType) {
     logger.error('Response data is null or undefined, creating empty blob');
     return new Blob([], { type: contentType });
   }
-
   // Case 1: Binary data
   if (typeof data !== 'string') {
     const dataType = typeof data;
@@ -87,6 +86,11 @@ function parseResponseDataAsBlob(response, contentType) {
       dataType,
       className,
       contentType || 'unknown');
+    // If data is already a Blob, return it directly
+    if (data instanceof Blob) {
+      logger.debug('Data is already a Blob, returning it directly');
+      return data;
+    }
     return new Blob([data], { type: contentType });
   }
 
@@ -99,18 +103,18 @@ function parseResponseDataAsBlob(response, contentType) {
     return tryConvertBase64ToBlob(base64Data, contentType);
   }
 
-  // Case 3: Base64 data (quoted)
-  if (/^"[A-Za-z0-9+/=]+"$/.test(data)) {
-    logger.debug('Processing base64 encoded data, length:', data.length);
-    const base64Content = data.substring(1, data.length - 1);
-    return tryConvertBase64ToBlob(base64Content, contentType);
-  }
+  // // Case 3: Base64 data (quoted)
+  // if (/^"[A-Za-z0-9+/=]+"$/.test(data)) {
+  //   logger.debug('Processing base64 encoded data, length:', data.length);
+  //   const base64Content = data.substring(1, data.length - 1);
+  //   return tryConvertBase64ToBlob(base64Content, contentType);
+  // }
 
-  // Case 4: Base64 data (unquoted)
-  if (/^[A-Za-z0-9+/=]+$/.test(data)) {
-    logger.debug('Processing base64 encoded data, length:', data.length);
-    return tryConvertBase64ToBlob(data, contentType);
-  }
+  // // Case 4: Base64 data (unquoted)
+  // if (/^[A-Za-z0-9+/=]+$/.test(data)) {
+  //   logger.debug('Processing base64 encoded data, length:', data.length);
+  //   return tryConvertBase64ToBlob(data, contentType);
+  // }
 
   // Case 5: Plain text
   logger.debug('Processing plain text data, length:', data.length);
