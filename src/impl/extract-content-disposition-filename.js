@@ -25,7 +25,7 @@ function extractContentDispositionFilename(contentDisposition) {
     return decodeURIComponent(filenameStarMatch[1].trim());
   }
   // 如果 filename* 不存在，匹配 filename=
-  const filenameMatch = contentDisposition.match(/filename="([^"]+)"/);
+  const filenameMatch = contentDisposition.match(/filename=['"]?([^"']+)['"]?/);
   if (filenameMatch) {
     return filenameMatch[1].trim();
   }

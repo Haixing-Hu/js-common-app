@@ -48,4 +48,22 @@ describe('extractContentDispositionFilename', () => {
     const result = extractContentDispositionFilename(contentDisposition);
     expect(result).toBe('example file.txt');
   });
+
+  it('returns the filename when Content-Disposition header contains filename without quote', () => {
+    const contentDisposition = 'attachment; filename=test.json';
+    const result = extractContentDispositionFilename(contentDisposition);
+    expect(result).toBe('test.json');
+  });
+
+  it('returns the filename when Content-Disposition header contains filename with single quote', () => {
+    const contentDisposition = 'attachment; filename=\'test.json\'';
+    const result = extractContentDispositionFilename(contentDisposition);
+    expect(result).toBe('test.json');
+  });
+
+  it('returns the filename when Content-Disposition header contains filename with double quote', () => {
+    const contentDisposition = 'attachment; filename="test.json"';
+    const result = extractContentDispositionFilename(contentDisposition);
+    expect(result).toBe('test.json');
+  });
 });
