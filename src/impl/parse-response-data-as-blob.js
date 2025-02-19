@@ -78,6 +78,11 @@ function parseResponseDataAsBlob(response, contentType) {
     logger.error('Response data is null or undefined, creating empty blob');
     return new Blob([], { type: contentType });
   }
+  // If data is already a Blob, return it directly
+  if (data instanceof Blob) {
+    logger.debug('Data is already a Blob, returning it directly');
+    return data;
+  }
   // Case 1: Binary data
   if (typeof data !== 'string') {
     const dataType = typeof data;
@@ -86,11 +91,6 @@ function parseResponseDataAsBlob(response, contentType) {
       dataType,
       className,
       contentType || 'unknown');
-    // If data is already a Blob, return it directly
-    if (data instanceof Blob) {
-      logger.debug('Data is already a Blob, returning it directly');
-      return data;
-    }
     return new Blob([data], { type: contentType });
   }
 
