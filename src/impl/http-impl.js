@@ -12,8 +12,10 @@ import { Logger, Log } from '@qubit-ltd/logging';
 import config from '@qubit-ltd/config';
 import { isString } from '@qubit-ltd/type-detect';
 import { loading, alert, confirm } from '@qubit-ltd/common-ui';
-import extractContentDispositionFilename
-  from './extract-content-disposition-filename';
+import getContentTypeFromResponse from './get-content-type-from-response';
+import getFilenameFromResponse from './get-filename-from-response';
+import parseResponseDataAsBlob from './parse-response-data-as-blob';
+import startAutoDownload from './start-auto-download';
 
 /**
  * 默认的 HTTP 请求头的 Content-Type 键值。
@@ -361,7 +363,7 @@ class HttpImpl {
   confirmLogin(http) {
     return confirm.info(
       '是否重新登录',
-      '您尚未登录或者已经登出，请选择重新登录，或者选择“放弃”停留在本页面',
+      '您尚未登录或者已经登出，请选择重新登录，或者选择"放弃"停留在本页面',
       '重新登录',
       '放弃',
     ).then(() => {
@@ -531,37 +533,13 @@ class HttpImpl {
         Accept: mimeType ?? '*/*',
       },
     }).then((response) => {
-      // 获取返回的 Content-Type 头，注意，response.headers 是一个 AxiosHeaders 对象，
-      // 必须用 get 方法获取值，不能直接用下标，否则大小写不同的键名会被认为是不同的键
-      const contentType = mimeType ?? response.headers.get('Content-Type');
-      logger.debug('Content-Type:', contentType);
-      if (!filename) {
-        // 从响应头中解析文件名（可选，后端需提供文件名）
-        const contentDisposition = response.headers.get('content-disposition');
-        logger.debug('Content-Disposition:', contentDisposition);
-        filename = extractContentDispositionFilename(contentDisposition);
-        logger.debug('Extracted filename from Content-Disposition:', filename);
-      }
-      if (!filename) {
-        filename = 'downloaded_file';
-      }
-      logger.debug('The filename of downloaded file is:', filename);
+      const contentType = getContentTypeFromResponse(response, mimeType);
+      filename = getFilenameFromResponse(response, filename);
       // 获取返回的 Blob 数据
-      const blob = new Blob([response.data], { type: contentType });
+      // 判断返回的数据是否为 base64 编码的数据
+      const blob = parseResponseDataAsBlob(response, contentType);
       if (autoDownload) {
-        // 创建一个临时 URL
-        const url = window.URL.createObjectURL(blob);
-        // 创建一个隐藏的 <a> 元素触发下载
-        const a = window.document.createElement('a');
-        a.style.display = 'none';
-        a.href = url;
-        a.download = filename;
-        // 将 <a> 元素添加到 DOM，触发点击事件，然后移除
-        window.document.body.appendChild(a);
-        a.click();
-        window.document.body.removeChild(a);
-        // 释放 URL
-        window.URL.revokeObjectURL(url);
+        startAutoDownload(blob, filename);
       }
       return {
         blob,
