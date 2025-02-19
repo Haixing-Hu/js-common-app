@@ -270,6 +270,7 @@ class HttpImpl {
       }
       if (contentType?.startsWith(JSON_CONTENT_TYPE_PREFIX)) {
         // 使用自定义的JSON Parser重新解析响应数据为 JSON 对象，从而提供对64位整数的支持
+        logger.debug('Transform response data to JSON object:', data);
         return Json.parse(data);
       }
     }

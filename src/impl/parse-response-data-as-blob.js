@@ -74,28 +74,42 @@ function tryConvertBase64ToBlob(data, contentType) {
  */
 function parseResponseDataAsBlob(response, contentType) {
   const data = response.data;
-  if (data === null || data === undefined) {  // 处理 null 和 undefined
+  if (data === null || data === undefined) {
     logger.error('Response data is null or undefined, creating empty blob');
     return new Blob([], { type: contentType });
   }
-  if (typeof data === 'string') {
-    if (data.startsWith('data:')) {
-      logger.debug('Decoding base64 data URL format');
-      const commaIndex = data.indexOf(',');
-      const base64Data = data.substring(commaIndex + 1);
-      logger.debug('Extracted base64 data from Data URL, length:', base64Data.length);
-      return tryConvertBase64ToBlob(base64Data, contentType);
-    } else if (/^[A-Za-z0-9+/=]+$/.test(data)) {
-      logger.debug('Decoding base64 encoded data, length:', data.length);
-      return tryConvertBase64ToBlob(data, contentType);
-    } else {
-      logger.debug('Found plain text data, length:', data.length);
-      return new Blob([data], { type: contentType });
-    }
-  } else {
-    logger.debug('Found binary data, MIME type:', contentType || 'unknown');
+
+  // Case 1: Binary data
+  if (typeof data !== 'string') {
+    logger.debug('Processing binary data, MIME type:', contentType || 'unknown');
     return new Blob([data], { type: contentType });
   }
+
+  // Case 2: Data URL format
+  if (data.startsWith('data:')) {
+    logger.debug('Processing Data URL format');
+    const commaIndex = data.indexOf(',');
+    const base64Data = data.substring(commaIndex + 1);
+    logger.debug('Extracted base64 data, length:', base64Data.length);
+    return tryConvertBase64ToBlob(base64Data, contentType);
+  }
+
+  // Case 3: Base64 data (quoted)
+  if (/^"[A-Za-z0-9+/=]+"$/.test(data)) {
+    logger.debug('Processing base64 encoded data, length:', data.length);
+    const base64Content = data.substring(1, data.length - 1);
+    return tryConvertBase64ToBlob(base64Content, contentType);
+  }
+
+  // Case 4: Base64 data (unquoted)
+  if (/^[A-Za-z0-9+/=]+$/.test(data)) {
+    logger.debug('Processing base64 encoded data, length:', data.length);
+    return tryConvertBase64ToBlob(data, contentType);
+  }
+
+  // Case 5: Plain text
+  logger.debug('Processing plain text data, length:', data.length);
+  return new Blob([data], { type: contentType });
 }
 
 export default parseResponseDataAsBlob;
