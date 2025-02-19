@@ -22,7 +22,9 @@ const logger = Logger.getLogger('http');
  * @private
  */
 function decodeBase64ToByteArrays(base64String) {
+  logger.debug('Starting base64 decoding, input data length:', base64String.length);
   const byteCharacters = atob(base64String); // 解码 base64 数据
+  logger.debug('Base64 decoded to raw bytes, length:', byteCharacters.length);
   const byteArrays = [];
   for (let offset = 0; offset < byteCharacters.length; offset += BUFFER_SIZE) {
     const slice = byteCharacters.slice(offset, offset + BUFFER_SIZE);
@@ -31,7 +33,9 @@ function decodeBase64ToByteArrays(base64String) {
       byteNumbers[i] = slice.charCodeAt(i);
     }
     byteArrays.push(new Uint8Array(byteNumbers));
+    logger.debug('Processed chunk', byteArrays.length, 'of size:', slice.length, 'bytes');
   }
+  logger.debug('Base64 decoding completed, total chunks:', byteArrays.length);
   return byteArrays;
 }
 
@@ -48,11 +52,12 @@ function decodeBase64ToByteArrays(base64String) {
  */
 function tryConvertBase64ToBlob(data, contentType) {
   try {
+    logger.debug('Converting base64 to blob, data length:', data.length);
     const byteArrays = decodeBase64ToByteArrays(data);
+    logger.debug('Base64 conversion successful, total byte arrays:', byteArrays.length);
     return new Blob(byteArrays, { type: contentType });
   } catch (e) {
-    logger.error('Failed to decode base64 data, treating as plain text:', e);
-    // 如果 base64 解码失败，将其作为普通文本处理
+    logger.error('Base64 conversion failed, falling back to plain text. Error:', e);
     return new Blob([data], { type: contentType });
   }
 }
@@ -75,20 +80,20 @@ function parseResponseDataAsBlob(response, contentType) {
   }
   if (typeof data === 'string') {
     if (data.startsWith('data:')) {
-      // 处理 data URL 格式的 base64 编码数据
+      logger.debug('Decoding base64 data URL format');
       const commaIndex = data.indexOf(',');
-      const base64Data = data.substring(commaIndex + 1); // 获取 base64 数据部分
+      const base64Data = data.substring(commaIndex + 1);
+      logger.debug('Extracted base64 data from Data URL, length:', base64Data.length);
       return tryConvertBase64ToBlob(base64Data, contentType);
     } else if (/^[A-Za-z0-9+/=]+$/.test(data)) {
-      // 处理纯 base64 编码的数据
-      logger.debug('Detected base64 encoded response data');
+      logger.debug('Decoding base64 encoded data, length:', data.length);
       return tryConvertBase64ToBlob(data, contentType);
     } else {
-      // 处理普通文本数据
+      logger.debug('Found plain text data, length:', data.length);
       return new Blob([data], { type: contentType });
     }
   } else {
-    // 对于直接的二进制数据，直接使用返回的 data（Blob）
+    logger.debug('Found binary data, MIME type:', contentType || 'unknown');
     return new Blob([data], { type: contentType });
   }
 }
