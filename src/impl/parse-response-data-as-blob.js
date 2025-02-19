@@ -81,7 +81,12 @@ function parseResponseDataAsBlob(response, contentType) {
 
   // Case 1: Binary data
   if (typeof data !== 'string') {
-    logger.debug('Processing binary data, MIME type:', contentType || 'unknown');
+    const dataType = typeof data;
+    const className = data?.constructor?.name ?? 'unknown';
+    logger.debug('Processing binary data - Type: %s, Class: %s, MIME type: %s',
+      dataType,
+      className,
+      contentType || 'unknown');
     return new Blob([data], { type: contentType });
   }
 
