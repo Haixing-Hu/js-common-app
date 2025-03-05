@@ -42,7 +42,7 @@
     "lint": "eslint ./src",
     "doc": "jsdoc -c jsdoc.json",
     "es5": "check-es-version -e 5 -s true",
-    "deploy": "npm run lint && npm run test && npm run build:all && npm publish --registry='https://registry.npmjs.com/' --access public"
+    "deploy": "npm run lint && npm run test && npm run build:all && npm publish --registry='https://npm.qubit.ltd/'"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.26.0",
