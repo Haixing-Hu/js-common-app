@@ -51,6 +51,7 @@ class AuthStorage {
     this.KEY_PRIVILEGES = `${appCode}.privileges`;
     this.KEY_ROLES = `${appCode}.roles`;
     this.KEY_ACCESS_TOKEN = `${appCode}.token`;
+    this.KEY_ORGANIZATION = `${appCode}.organization`;
   }
 
   @Log
@@ -186,6 +187,21 @@ class AuthStorage {
   @Log
   removeAvatar() {
     LocalStorage.remove(this.KEY_AVATAR);
+  }
+
+  @Log
+  loadOrganization() {
+    return LocalStorage.get(this.KEY_ORGANIZATION);
+  }
+
+  @Log
+  storeOrganization(organization) {
+    LocalStorage.set(this.KEY_ORGANIZATION, organization);
+  }
+
+  @Log
+  removeOrganization() {
+    LocalStorage.remove(this.KEY_ORGANIZATION);
   }
 
   /**
@@ -375,6 +391,7 @@ class AuthStorage {
       name: this.loadName(),
       gender: this.loadGender(),
       mobile: this.loadMobile(),
+      organization: this.loadOrganization(),
     };
   }
 
@@ -390,6 +407,7 @@ class AuthStorage {
     this.removeName();
     this.removeGender();
     this.removeMobile();
+    this.removeOrganization();
   }
 
   /**
@@ -411,6 +429,7 @@ class AuthStorage {
       this.storeToken(response.token);
       this.storePrivileges(response.privileges);
       this.storeRoles(response.roles);
+      this.storeOrganization(response.organization);
     }
   }
 
@@ -433,6 +452,7 @@ class AuthStorage {
       token: this.loadToken(),
       privileges: this.loadPrivileges(),
       roles: this.loadRoles(),
+      organization: this.loadOrganization(),
     };
   }
 
@@ -446,6 +466,7 @@ class AuthStorage {
     this.removeToken();
     this.removePrivileges();
     this.removeRoles();
+    this.removeOrganization();
   }
 }
 

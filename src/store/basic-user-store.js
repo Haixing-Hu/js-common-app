@@ -140,6 +140,13 @@ class BasicUserStore {
   roles = [];
 
   /**
+   * 当前用户的组织信息。
+   *
+   * @type {object}
+   */
+  organization = null;
+
+  /**
    * 构造一个新的`BasicUserStore`对象。
    *
    * 该函数需要一个用于处理登录认证的API对象和一个用于发送验证码的API对象。
@@ -182,6 +189,7 @@ class BasicUserStore {
     this.token = this._authStorage.loadToken() ?? null;
     this.privileges = this._authStorage.loadPrivileges() ?? [];
     this.roles = this._authStorage.loadRoles() ?? [];
+    this.organization = this._authStorage.loadOrganization() ?? null;
   }
 
   /**
@@ -232,6 +240,7 @@ class BasicUserStore {
   @Log
   resetState() {
     this.$reset();
+    this.organization = null;
     logger.debug('state was reset to:', this.$state);
   }
 
@@ -419,6 +428,22 @@ class BasicUserStore {
   }
 
   /**
+   * 设置用户组织信息。
+   *
+   * @param {object} organization
+   *     用户组织信息。
+   */
+  @Log
+  setOrganization(organization) {
+    this.organization = organization;
+    if (this.saveLogin) {
+      this._authStorage.storeOrganization(organization);
+    } else {
+      this._authStorage.removeOrganization();
+    }
+  }
+
+  /**
    * 设置用户登录后服务器返回的响应数据。
    *
    * 响应数据包括用户基本信息、Token、权限列表和角色列表。
@@ -433,6 +458,7 @@ class BasicUserStore {
     this.setToken(response.token);
     this.setPrivileges(response.privileges);
     this.setRoles(response.roles);
+    this.setOrganization(response.organization);
     this.refreshAvatar();
   }
 
@@ -485,6 +511,9 @@ class BasicUserStore {
       user.mobile = info.mobile;
     }
     this.refreshAvatar();
+    if (info.organization != null) {
+      user.organization = info.organization;
+    }
     if (this.saveLogin) {
       this._authStorage.storeUserInfo(user);
     }
