@@ -511,9 +511,6 @@ class BasicUserStore {
       user.mobile = info.mobile;
     }
     this.refreshAvatar();
-    if (info.organization != null) {
-      user.organization = info.organization;
-    }
     if (this.saveLogin) {
       this._authStorage.storeUserInfo(user);
     }
