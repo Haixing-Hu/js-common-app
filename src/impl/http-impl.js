@@ -336,7 +336,10 @@ class HttpImpl {
    */
   @Log
   responseSuccessInterceptor(http, response) {
-    loading.clear();  // 清除载入提示遮盖层
+    if (!response.config?.noAutoClearLoading) {
+      /* 若 response.config.noAutoClearLoading === false/null/undefined, 则会执行下面代码 */
+      loading.clear();  // 清除载入提示遮盖层
+    }
     logger.debug('Request success: response =', response);
     if (response.config?.returnResponse === true) {
       // 如果请求配置中设置了 returnResponse 为 true，则返回响应对象；注意此时
@@ -514,6 +517,8 @@ class HttpImpl {
    *    的对象，详见返回值说明。
    * @param {string} filename
    *    下载的文件的名称。如不提供则自动从响应头中解析获取，或者使用默认值`downloaded_file`。
+   * @param {object} options
+   *    额外的参数，会传递给`axios.get()`函数。
    * @return {Promise<object|ErrorInfo>}
    *    此HTTP请求的`Promise`对象。若操作成功，则解析成功，并返回一个包含下载的文件的信息的
    *    对象，其中包含以下属性：
@@ -525,7 +530,7 @@ class HttpImpl {
    *    设置为`true`，浏览器会自动开始下载文件。
    */
   @Log
-  download(url, params = {}, mimeType = null, autoDownload = true, filename = null) {
+  download(url, params = {}, mimeType = null, autoDownload = true, filename = null, options = {}) {
     return this.get(url, {
       params,
       returnResponse: true,    // 返回原始的响应对象而非解析后的数据
@@ -533,6 +538,7 @@ class HttpImpl {
       headers: {
         Accept: mimeType ?? '*/*',
       },
+      ...options,
     }).then((response) => {
       const contentType = getContentTypeFromResponse(response, mimeType);
       filename = getFilenameFromResponse(response, filename);

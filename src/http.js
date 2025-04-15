@@ -67,6 +67,8 @@ import { httpImpl } from './impl/http-impl';
  * - `returnResponse: boolean` 如果请求选项参数中设置了 `returnResponse` 为`true`，
  *    则直接返回包含响应数据的 Axios 响应对象；注意如果响应数据为 JSON 格式数据，它依然会
  *    被解析为 JavaScript 对象。
+ * - `noAutoClearLoading: boolean` 如果请求选项参数中设置了`noAutoClearLoading`为`true`，
+ *    则收到请求的响应后，不会自动调用`loading.clear()`清除载入的遮盖层。此参数默认值为`false`。
  *
  * @type axios
  * @author 胡海星
@@ -118,6 +120,8 @@ http.interceptors.response.use(
  * @param {boolean} autoDownload
  *     是否自动下载文件。默认值为`true`。如此参数为`false`，则返回一个包含下载的文件的信息
  *     的对象，详见返回值说明。
+ * @param {object} options
+ *    额外的参数，会传递给`axios.get()`函数。
  * @return {Promise<object|ErrorInfo>}
  *     此HTTP请求的`Promise`对象。若操作成功，则解析成功，并返回一个包含下载的文件的信息的
  *     对象，其中包含以下属性：
