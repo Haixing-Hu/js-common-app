@@ -182,4 +182,103 @@ describe('http.download', () => {
     expect(document.body.appendChild).toHaveBeenCalled();
     expect(document.body.removeChild).toHaveBeenCalled();
   });
+
+  it('should use options parameter when provided', async () => {
+    mock.onGet(url).reply((cfg) => {
+      expect(cfg.headers.getAccept()).toBe('application/pdf');
+      expect(cfg.skipAutoErrorHandling).toBe(true);
+      return [200, response.data, response.headers];
+    });
+    const options = {
+      skipAutoErrorHandling: true,
+    };
+    const result = await http.download(url, params, mimeType, true, null, options);
+    expect(result).toEqual({
+      blob: response.data,
+      filename: 'test.pdf',
+      mimeType,
+    });
+    expect(window.URL.createObjectURL).toHaveBeenCalledWith(response.data);
+    expect(window.URL.revokeObjectURL).toHaveBeenCalled();
+    expect(document.body.appendChild).toHaveBeenCalled();
+    expect(document.body.removeChild).toHaveBeenCalled();
+  });
+
+  it('should handle all download parameters combinations', async () => {
+    // 测试1: 所有参数为默认值, url是非空的
+    mock.onGet(url).reply(200, response.data, response.headers);
+    let result = await http.download(url);
+    expect(result).toEqual({
+      blob: response.data,
+      filename: 'test.pdf',
+      mimeType,
+    });
+    expect(window.URL.createObjectURL).toHaveBeenCalledWith(response.data);
+    window.URL.createObjectURL.mockClear();
+    window.URL.revokeObjectURL.mockClear();
+    document.body.appendChild.mockClear();
+    document.body.removeChild.mockClear();
+
+    // 测试2: 显式传递空的params
+    mock.onGet(url).reply(200, response.data, response.headers);
+    result = await http.download(url, {});
+    expect(result).toEqual({
+      blob: response.data,
+      filename: 'test.pdf',
+      mimeType,
+    });
+    expect(window.URL.createObjectURL).toHaveBeenCalledWith(response.data);
+    window.URL.createObjectURL.mockClear();
+    window.URL.revokeObjectURL.mockClear();
+    document.body.appendChild.mockClear();
+    document.body.removeChild.mockClear();
+
+    // 测试3: 显式传递null mimeType
+    mock.onGet(url).reply((cfg) => {
+      expect(cfg.headers.getAccept()).toBe('*/*');
+      return [200, response.data, response.headers];
+    });
+    result = await http.download(url, {}, null);
+    expect(result).toEqual({
+      blob: response.data,
+      filename: 'test.pdf',
+      mimeType,
+    });
+    expect(window.URL.createObjectURL).toHaveBeenCalledWith(response.data);
+    window.URL.createObjectURL.mockClear();
+    window.URL.revokeObjectURL.mockClear();
+    document.body.appendChild.mockClear();
+    document.body.removeChild.mockClear();
+
+    // 测试4: 显式传递false autoDownload
+    mock.onGet(url).reply(200, response.data, response.headers);
+    result = await http.download(url, {}, null, false);
+    expect(result).toEqual({
+      blob: response.data,
+      filename: 'test.pdf',
+      mimeType,
+    });
+    expect(window.URL.createObjectURL).not.toHaveBeenCalled();
+    window.URL.createObjectURL.mockClear();
+    window.URL.revokeObjectURL.mockClear();
+    document.body.appendChild.mockClear();
+    document.body.removeChild.mockClear();
+
+    // 测试5: 显式传递所有参数
+    mock.onGet(url).reply((cfg) => {
+      expect(cfg.headers.getAccept()).toBe('application/pdf');
+      expect(cfg.skipAutoErrorHandling).toBe(true);
+      return [200, response.data, response.headers];
+    });
+    const options = {
+      skipAutoErrorHandling: true,
+    };
+    result = await http.download(url, params, mimeType, false, 'custom.pdf', options);
+    expect(result).toEqual({
+      blob: response.data,
+      filename: 'custom.pdf',
+      mimeType,
+    });
+    expect(window.URL.createObjectURL).not.toHaveBeenCalled();
+  });
 });

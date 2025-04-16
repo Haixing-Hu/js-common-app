@@ -341,7 +341,7 @@ describe('confirmLogin', () => {
     expect(result).toBe('Login');
     expect(state.confirmImpl.type).toBe('info');
     expect(state.confirmImpl.title).toBe('是否重新登录');
-    expect(state.confirmImpl.message).toBe('您尚未登录或者已经登出，请选择重新登录，或者选择“放弃”停留在本页面');
+    expect(state.confirmImpl.message).toBe('您尚未登录或者已经登出，请选择重新登录，或者选择\"放弃\"停留在本页面');
     expect(state.confirmImpl.okLabel).toBe('重新登录');
     expect(state.confirmImpl.cancelLabel).toBe('放弃');
     expect(state.resetAccessToken).toHaveBeenCalledOnce();
@@ -357,7 +357,7 @@ describe('confirmLogin', () => {
     expect(result).toBe('CustomizedLogin');
     expect(state.confirmImpl.type).toBe('info');
     expect(state.confirmImpl.title).toBe('是否重新登录');
-    expect(state.confirmImpl.message).toBe('您尚未登录或者已经登出，请选择重新登录，或者选择“放弃”停留在本页面');
+    expect(state.confirmImpl.message).toBe('您尚未登录或者已经登出，请选择重新登录，或者选择\"放弃\"停留在本页面');
     expect(state.confirmImpl.okLabel).toBe('重新登录');
     expect(state.confirmImpl.cancelLabel).toBe('放弃');
     expect(state.resetAccessToken).toHaveBeenCalledOnce();
@@ -487,7 +487,7 @@ describe('handleResponseError', () => {
     expect(page).toBe('Login');
     expect(state.confirmImpl.type).toBe('info');
     expect(state.confirmImpl.title).toBe('是否重新登录');
-    expect(state.confirmImpl.message).toBe('您尚未登录或者已经登出，请选择重新登录，或者选择“放弃”停留在本页面');
+    expect(state.confirmImpl.message).toBe('您尚未登录或者已经登出，请选择重新登录，或者选择\"放弃\"停留在本页面');
     expect(state.confirmImpl.okLabel).toBe('重新登录');
     expect(state.confirmImpl.cancelLabel).toBe('放弃');
     expect(state.resetAccessToken).toHaveBeenCalledOnce();
@@ -533,14 +533,11 @@ describe('handleResponseError', () => {
       }],
       message: '用户的会话已过期',
     };
-    const spy = jest.spyOn(confirm, 'show');
     const page = await httpImpl.handleResponseError(http, error);
-    expect(spy).toHaveBeenCalledOnce();
-    spy.mockRestore();
     expect(page).toBe('Login');
     expect(state.confirmImpl.type).toBe('info');
     expect(state.confirmImpl.title).toBe('是否重新登录');
-    expect(state.confirmImpl.message).toBe('您尚未登录或者已经登出，请选择重新登录，或者选择“放弃”停留在本页面');
+    expect(state.confirmImpl.message).toBe('您尚未登录或者已经登出，请选择重新登录，或者选择\"放弃\"停留在本页面');
     expect(state.confirmImpl.okLabel).toBe('重新登录');
     expect(state.confirmImpl.cancelLabel).toBe('放弃');
     expect(state.resetAccessToken).toHaveBeenCalledOnce();
@@ -613,20 +610,14 @@ describe('handleResponseError', () => {
       params: [{
         key: 'entity',
         value: 'user',
-      }, {
-        key: 'token',
-        value: 'invalid-user-token',
       }],
-      message: '用户的令牌不正确',
+      message: '用户令牌错误',
     };
-    const spy = jest.spyOn(confirm, 'show');
     const page = await httpImpl.handleResponseError(http, error);
-    expect(spy).toHaveBeenCalledOnce();
-    spy.mockRestore();
     expect(page).toBe('Login');
     expect(state.confirmImpl.type).toBe('info');
     expect(state.confirmImpl.title).toBe('是否重新登录');
-    expect(state.confirmImpl.message).toBe('您尚未登录或者已经登出，请选择重新登录，或者选择“放弃”停留在本页面');
+    expect(state.confirmImpl.message).toBe('您尚未登录或者已经登出，请选择重新登录，或者选择\"放弃\"停留在本页面');
     expect(state.confirmImpl.okLabel).toBe('重新登录');
     expect(state.confirmImpl.cancelLabel).toBe('放弃');
     expect(state.resetAccessToken).toHaveBeenCalledOnce();

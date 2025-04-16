@@ -367,7 +367,7 @@ class HttpImpl {
   confirmLogin(http) {
     return confirm.info(
       '是否重新登录',
-      '您尚未登录或者已经登出，请选择重新登录，或者选择“放弃”停留在本页面',
+      '您尚未登录或者已经登出，请选择重新登录，或者选择"放弃"停留在本页面',
       '重新登录',
       '放弃',
     ).then(() => {
@@ -539,7 +539,6 @@ class HttpImpl {
       headers: {
         Accept: mimeType ?? '*/*',
       },
-      ...options,
       ...options,
     }).then((response) => {
       const contentType = getContentTypeFromResponse(response, mimeType);
