@@ -69,6 +69,8 @@ import { httpImpl } from './impl/http-impl';
  *    被解析为 JavaScript 对象。
  * - `noAutoClearLoading: boolean` 如果请求选项参数中设置了`noAutoClearLoading`为`true`，
  *    则收到请求的响应后，不会自动调用`loading.clear()`清除载入的遮盖层。此参数默认值为`false`。
+ * - `noAutoClearLoading: boolean` 如果请求选项参数中设置了`noAutoClearLoading`为`true`，
+ *    则收到请求的响应后，不会自动调用`loading.clear()`清除载入的遮盖层。此参数默认值为`false`。
  *
  * @type axios
  * @author 胡海星

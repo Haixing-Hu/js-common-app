@@ -37,35 +37,35 @@ Logger.getLogger('http').setLevel('info');
 
 describe('http.interceptors.request', () => {
   it('should stringify posted data with JSON stringifier supporting bigint', async () => {
-    const params = { id: 12345678901234567890n, name: 'John' };
+    const data = { id: 12345678901234567890n, name: 'John' };
     const response = { success: true, name: 'John Doe' };
     const spy = jest.spyOn(Json, 'stringify');
     mock.onPost('/data').reply((cfg) => {
-      expect(spy).toHaveBeenCalledWith(params);
+      expect(spy).toHaveBeenCalledWith(data);
       spy.mockRestore();
       expect(cfg.data).toEqual('{"id":12345678901234567890,"name":"John"}');
       return [200, response];  // 模拟成功响应
     });
-    const result = await http.post('/data', params);
+    const result = await http.post('/data', data);
     expect(result).toEqual(response);
   });
 
   it('should not stringify empty posted data', async () => {
-    const params = {};
+    const data = {};
     const response = { success: true, name: 'John Doe' };
     const spy = jest.spyOn(Json, 'stringify');
     mock.onPost('/data').reply((cfg) => {
-      expect(spy).toHaveBeenCalledWith(params);
+      expect(spy).toHaveBeenCalledWith(data);
       spy.mockRestore();
       expect(cfg.data).toEqual('{}');
       return [200, response];  // 模拟成功响应
     });
-    const result = await http.post('/data', params);
+    const result = await http.post('/data', data);
     expect(result).toEqual(response);
   });
 
   it('should not stringify posted data for non-JSON content-type', async () => {
-    const params = 'hello world';
+    const data = 'hello world';
     const response = { success: true, name: 'John Doe' };
     const spy = jest.spyOn(Json, 'stringify');
     mock.onPost('/data').reply((cfg) => {
@@ -74,14 +74,14 @@ describe('http.interceptors.request', () => {
       expect(cfg.data).toBe('hello world');
       return [200, response];  // 模拟成功响应
     });
-    const result = await http.post('/data', params, {
+    const result = await http.post('/data', data, {
       headers: { 'Content-Type': 'text/plain' },
     });
     expect(result).toEqual(response);
   });
 
   it('should add default HTTP request headers', async () => {
-    const params = { id: 12345678901234567890n, name: 'John' };
+    const data = { id: 12345678901234567890n, name: 'John' };
     const response = { success: true, name: 'John Doe' };
     mock.onPost('/data').reply((cfg) => {
       const headers = cfg.headers;
@@ -93,12 +93,12 @@ describe('http.interceptors.request', () => {
       expect(data).toBe('{"id":12345678901234567890,"name":"John"}');
       return [200, Json.stringify(response), { 'Content-Type': 'application/json' }];
     });
-    const result = await http.post('/data', params);
+    const result = await http.post('/data', data);
     expect(result).toEqual(response);
   });
 
   it('should successfully parse the response with lower-case content-type header', async () => {
-    const params = { id: 12345678901234567890n, name: 'John' };
+    const data = { id: 12345678901234567890n, name: 'John' };
     const response = { success: true, name: 'John Doe' };
     mock.onPost('/data').reply((cfg) => {
       const headers = cfg.headers;
@@ -110,14 +110,14 @@ describe('http.interceptors.request', () => {
       expect(data).toBe('{"id":12345678901234567890,"name":"John"}');
       return [200, Json.stringify(response), { 'content-type': 'application/json' }];
     });
-    const result = await http.post('/data', params);
+    const result = await http.post('/data', data);
     expect(result).toEqual(response);
   });
 });
 
 describe('http.interceptors.response', () => {
   it('should parse response with JSON stringifier supporting bigint', async () => {
-    const params = { id: 12345678901234567890n, name: 'John' };
+    const data = { id: 12345678901234567890n, name: 'John' };
     const response = { success: true, id: 12345678901234567890n, name: 'John Doe' };
     const responseText = '{"success":true,"id":12345678901234567890,"name":"John Doe"}';
     const responseHeaders = {
@@ -128,14 +128,14 @@ describe('http.interceptors.response', () => {
       expect(cfg.data).toEqual('{"id":12345678901234567890,"name":"John"}');
       return [200, responseText, responseHeaders];  // 模拟成功响应
     });
-    const result = await http.post('/data', params);
+    const result = await http.post('/data', data);
     expect(spy).toHaveBeenCalledWith(responseText);
     spy.mockRestore();
     expect(result).toEqual(response);
   });
 
   it('should return null for response of empty string', async () => {
-    const params = { id: 12345678901234567890n, name: 'John' };
+    const data = { id: 12345678901234567890n, name: 'John' };
     const responseText = '';
     const responseHeaders = {
       'Content-Type': DEFAULT_HTTP_HEADER_CONTENT_TYPE,
@@ -145,14 +145,14 @@ describe('http.interceptors.response', () => {
       expect(cfg.data).toEqual('{"id":12345678901234567890,"name":"John"}');
       return [200, responseText, responseHeaders];  // 模拟成功响应
     });
-    const result = await http.post('/data', params);
+    const result = await http.post('/data', data);
     expect(spy).not.toHaveBeenCalled();
     spy.mockRestore();
     expect(result).toBeNull();
   });
 
   it('should not parse response for non-JSON content-type', async () => {
-    const params = { id: 12345678901234567890n, name: 'John' };
+    const data = { id: 12345678901234567890n, name: 'John' };
     const responseText = '{"id":12345678901234567890,"name":"John Doe","success":true}';
     const responseHeaders = {
       'Content-Type': 'text/plain',
@@ -162,14 +162,14 @@ describe('http.interceptors.response', () => {
       expect(cfg.data).toEqual('{"id":12345678901234567890,"name":"John"}');
       return [200, responseText, responseHeaders];  // 模拟成功响应
     });
-    const result = await http.post('/data', params);
+    const result = await http.post('/data', data);
     expect(spy).not.toHaveBeenCalled();
     spy.mockRestore();
     expect(result).toEqual(responseText);
   });
 
   it('should handle LOGIN_REQUIRED error', async () => {
-    const params = { id: 12345678901234567890n, name: 'John' };
+    const data = { id: 12345678901234567890n, name: 'John' };
     const error = {
       type: 'AUTHENTICATION_ERROR',
       code: 'LOGIN_REQUIRED',
@@ -185,7 +185,7 @@ describe('http.interceptors.response', () => {
       expect(data).toBe('{"id":12345678901234567890,"name":"John"}');
       return [401, error];  // 模拟登录错误响应
     });
-    http.post('/data', params).catch((page) => {
+    http.post('/data', data).catch((page) => {
       expect(spy).toHaveBeenCalledOnce();
       spy.mockRestore();
       expect(page).toBe('Login');
@@ -203,7 +203,7 @@ describe('http.interceptors.response', () => {
   });
 
   it('should handle LOGIN_REQUIRED error, skipAutoErrorHandling is set', async () => {
-    const params = { id: 12345678901234567890n, name: 'John' };
+    const data = { id: 12345678901234567890n, name: 'John' };
     const error = {
       type: 'AUTHENTICATION_ERROR',
       code: 'LOGIN_REQUIRED',
@@ -220,7 +220,7 @@ describe('http.interceptors.response', () => {
       return [401, error];  // 模拟登录错误响应
     });
     try {
-      await http.post('/data', params, { skipAutoErrorHandling: true });
+      await http.post('/data', data, { skipAutoErrorHandling: true });
     } catch (e) {
       expect(spy).not.toHaveBeenCalled();
       spy.mockRestore();
@@ -229,7 +229,7 @@ describe('http.interceptors.response', () => {
   });
 
   it('should handle app SESSION_EXPIRED error', async () => {
-    const params = { id: 12345678901234567890n, name: 'John' };
+    const data = { id: 12345678901234567890n, name: 'John' };
     const error = {
       type: 'AUTHENTICATION_ERROR',
       code: 'SESSION_EXPIRED',
@@ -251,7 +251,7 @@ describe('http.interceptors.response', () => {
     });
     const spy = jest.spyOn(alert, 'show');
     try {
-      await http.post('/data', params);
+      await http.post('/data', data);
     } catch (e) {
       expect(spy).toHaveBeenCalledOnce();
       spy.mockRestore();
@@ -266,7 +266,7 @@ describe('http.interceptors.response', () => {
   });
 
   it('should handle app SESSION_EXPIRED error, skipAutoErrorHandling is set', async () => {
-    const params = { id: 12345678901234567890n, name: 'John' };
+    const data = { id: 12345678901234567890n, name: 'John' };
     const error = {
       type: 'AUTHENTICATION_ERROR',
       code: 'SESSION_EXPIRED',
@@ -288,7 +288,7 @@ describe('http.interceptors.response', () => {
     });
     const spy = jest.spyOn(alert, 'show');
     try {
-      await http.post('/data', params, { skipAutoErrorHandling: true });
+      await http.post('/data', data, { skipAutoErrorHandling: true });
     } catch (e) {
       expect(spy).not.toHaveBeenCalled();
       spy.mockRestore();
@@ -297,7 +297,7 @@ describe('http.interceptors.response', () => {
   });
 
   it('should handle user SESSION_EXPIRED error', async () => {
-    const params = { id: 12345678901234567890n, name: 'John' };
+    const data = { id: 12345678901234567890n, name: 'John' };
     const error = {
       type: 'AUTHENTICATION_ERROR',
       code: 'SESSION_EXPIRED',
@@ -319,7 +319,7 @@ describe('http.interceptors.response', () => {
     });
     const spy = jest.spyOn(alert, 'show');
     try {
-      await http.post('/data', params);
+      await http.post('/data', data);
     } catch (e) {
       expect(spy).toHaveBeenCalledOnce();
       spy.mockRestore();
@@ -334,7 +334,7 @@ describe('http.interceptors.response', () => {
   });
 
   it('should handle user SESSION_EXPIRED error, skipAutoErrorHandling is set', async () => {
-    const params = { id: 12345678901234567890n, name: 'John' };
+    const data = { id: 12345678901234567890n, name: 'John' };
     const error = {
       type: 'AUTHENTICATION_ERROR',
       code: 'SESSION_EXPIRED',
@@ -356,7 +356,7 @@ describe('http.interceptors.response', () => {
     });
     const spy = jest.spyOn(alert, 'show');
     try {
-      await http.post('/data', params, { skipAutoErrorHandling: true });
+      await http.post('/data', data, { skipAutoErrorHandling: true });
     } catch (e) {
       expect(spy).not.toHaveBeenCalled();
       spy.mockRestore();
@@ -365,7 +365,7 @@ describe('http.interceptors.response', () => {
   });
 
   it('should handle unknown SESSION_EXPIRED error', async () => {
-    const params = { id: 12345678901234567890n, name: 'John' };
+    const data = { id: 12345678901234567890n, name: 'John' };
     const error = {
       type: 'AUTHENTICATION_ERROR',
       code: 'SESSION_EXPIRED',
@@ -387,7 +387,7 @@ describe('http.interceptors.response', () => {
     });
     const spy = jest.spyOn(alert, 'show');
     try {
-      await http.post('/data', params);
+      await http.post('/data', data);
     } catch (e) {
       expect(spy).toHaveBeenCalledOnce();
       spy.mockRestore();
@@ -403,7 +403,7 @@ describe('http.interceptors.response', () => {
   });
 
   it('should handle unknown SESSION_EXPIRED error, skipAutoErrorHandling is set', async () => {
-    const params = { id: 12345678901234567890n, name: 'John' };
+    const data = { id: 12345678901234567890n, name: 'John' };
     const error = {
       type: 'AUTHENTICATION_ERROR',
       code: 'SESSION_EXPIRED',
@@ -425,7 +425,7 @@ describe('http.interceptors.response', () => {
     });
     const spy = jest.spyOn(alert, 'show');
     try {
-      await http.post('/data', params, { skipAutoErrorHandling: true });
+      await http.post('/data', data, { skipAutoErrorHandling: true });
     } catch (e) {
       expect(spy).not.toHaveBeenCalled();
       spy.mockRestore();
@@ -434,7 +434,7 @@ describe('http.interceptors.response', () => {
   });
 
   it('should handle app INVALID_TOKEN error', async () => {
-    const params = { id: 12345678901234567890n, name: 'John' };
+    const data = { id: 12345678901234567890n, name: 'John' };
     const error = {
       type: 'AUTHENTICATION_ERROR',
       code: 'INVALID_TOKEN',
@@ -459,7 +459,7 @@ describe('http.interceptors.response', () => {
     });
     const spy = jest.spyOn(alert, 'show');
     try {
-      await http.post('/data', params);
+      await http.post('/data', data);
     } catch (e) {
       expect(spy).toHaveBeenCalledOnce();
       spy.mockRestore();
@@ -474,7 +474,7 @@ describe('http.interceptors.response', () => {
   });
 
   it('should handle app INVALID_TOKEN error, skipAutoErrorHandling is set', async () => {
-    const params = { id: 12345678901234567890n, name: 'John' };
+    const data = { id: 12345678901234567890n, name: 'John' };
     const error = {
       type: 'AUTHENTICATION_ERROR',
       code: 'INVALID_TOKEN',
@@ -499,7 +499,7 @@ describe('http.interceptors.response', () => {
     });
     const spy = jest.spyOn(alert, 'show');
     try {
-      await http.post('/data', params, { skipAutoErrorHandling: true });
+      await http.post('/data', data, { skipAutoErrorHandling: true });
     } catch (e) {
       expect(spy).not.toHaveBeenCalled();
       spy.mockRestore();
@@ -508,7 +508,7 @@ describe('http.interceptors.response', () => {
   });
 
   it('should handle user INVALID_TOKEN error', async () => {
-    const params = { id: 12345678901234567890n, name: 'John' };
+    const data = { id: 12345678901234567890n, name: 'John' };
     const error = {
       type: 'AUTHENTICATION_ERROR',
       code: 'INVALID_TOKEN',
@@ -532,7 +532,7 @@ describe('http.interceptors.response', () => {
       return [401, error];  // 模拟登录错误响应
     });
     const spy = jest.spyOn(confirm, 'show');
-    http.post('/data', params).catch((page) => {
+    http.post('/data', data).catch((page) => {
       expect(spy).toHaveBeenCalledOnce();
       spy.mockRestore();
       expect(page).toBe('Login');
@@ -550,7 +550,7 @@ describe('http.interceptors.response', () => {
   });
 
   it('should handle user INVALID_TOKEN error, skipAutoErrorHandling is set', async () => {
-    const params = { id: 12345678901234567890n, name: 'John' };
+    const data = { id: 12345678901234567890n, name: 'John' };
     const error = {
       type: 'AUTHENTICATION_ERROR',
       code: 'INVALID_TOKEN',
@@ -575,7 +575,7 @@ describe('http.interceptors.response', () => {
     });
     const spy = jest.spyOn(confirm, 'show');
     try {
-      await http.post('/data', params, { skipAutoErrorHandling: true });
+      await http.post('/data', data, { skipAutoErrorHandling: true });
     } catch (e) {
       expect(spy).not.toHaveBeenCalled();
       spy.mockRestore();
@@ -584,7 +584,7 @@ describe('http.interceptors.response', () => {
   });
 
   it('should handle unknown INVALID_TOKEN error', async () => {
-    const params = { id: 12345678901234567890n, name: 'John' };
+    const data = { id: 12345678901234567890n, name: 'John' };
     const error = {
       type: 'AUTHENTICATION_ERROR',
       code: 'INVALID_TOKEN',
@@ -606,7 +606,7 @@ describe('http.interceptors.response', () => {
     });
     const spy = jest.spyOn(alert, 'show');
     try {
-      await http.post('/data', params);
+      await http.post('/data', data);
     } catch (e) {
       expect(spy).toHaveBeenCalledOnce();
       spy.mockRestore();
@@ -622,7 +622,7 @@ describe('http.interceptors.response', () => {
   });
 
   it('should handle unknown INVALID_TOKEN error, skipAutoErrorHandling is set', async () => {
-    const params = { id: 12345678901234567890n, name: 'John' };
+    const data = { id: 12345678901234567890n, name: 'John' };
     const error = {
       type: 'AUTHENTICATION_ERROR',
       code: 'INVALID_TOKEN',
@@ -644,7 +644,7 @@ describe('http.interceptors.response', () => {
     });
     const spy = jest.spyOn(alert, 'show');
     try {
-      await http.post('/data', params, { skipAutoErrorHandling: true });
+      await http.post('/data', data, { skipAutoErrorHandling: true });
     } catch (e) {
       expect(spy).not.toHaveBeenCalled();
       spy.mockRestore();
@@ -653,7 +653,7 @@ describe('http.interceptors.response', () => {
   });
 
   it('should handle unknown APP_AUTHENTICATION_REQUIRED error', async () => {
-    const params = { id: 12345678901234567890n, name: 'John' };
+    const data = { id: 12345678901234567890n, name: 'John' };
     const error = {
       type: 'AUTHENTICATION_ERROR',
       code: 'APP_AUTHENTICATION_REQUIRED',
@@ -671,7 +671,7 @@ describe('http.interceptors.response', () => {
     });
     const spy = jest.spyOn(alert, 'show');
     try {
-      await http.post('/data', params);
+      await http.post('/data', data);
     } catch (e) {
       expect(spy).toHaveBeenCalledOnce();
       spy.mockRestore();
@@ -686,7 +686,7 @@ describe('http.interceptors.response', () => {
   });
 
   it('should handle unknown APP_AUTHENTICATION_REQUIRED error, skipAutoErrorHandling is set', async () => {
-    const params = { id: 12345678901234567890n, name: 'John' };
+    const data = { id: 12345678901234567890n, name: 'John' };
     const error = {
       type: 'AUTHENTICATION_ERROR',
       code: 'APP_AUTHENTICATION_REQUIRED',
@@ -704,7 +704,7 @@ describe('http.interceptors.response', () => {
     });
     const spy = jest.spyOn(alert, 'show');
     try {
-      await http.post('/data', params, { skipAutoErrorHandling: true });
+      await http.post('/data', data, { skipAutoErrorHandling: true });
     } catch (e) {
       expect(spy).not.toHaveBeenCalled();
       spy.mockRestore();
@@ -713,7 +713,7 @@ describe('http.interceptors.response', () => {
   });
 
   it('should handle unknown error with message', async () => {
-    const params = { id: 12345678901234567890n, name: 'John' };
+    const data = { id: 12345678901234567890n, name: 'John' };
     const error = {
       type: 'SERVER_ERROR',
       code: 'UNKNOWN_ERROR',
@@ -731,7 +731,7 @@ describe('http.interceptors.response', () => {
     });
     const spy = jest.spyOn(alert, 'show');
     try {
-      await http.post('/data', params);
+      await http.post('/data', data);
     } catch (e) {
       expect(spy).toHaveBeenCalledOnce();
       spy.mockRestore();
@@ -746,7 +746,7 @@ describe('http.interceptors.response', () => {
   });
 
   it('should handle unknown error with message, skipAutoErrorHandling is set', async () => {
-    const params = { id: 12345678901234567890n, name: 'John' };
+    const data = { id: 12345678901234567890n, name: 'John' };
     const error = {
       type: 'SERVER_ERROR',
       code: 'UNKNOWN_ERROR',
@@ -764,7 +764,7 @@ describe('http.interceptors.response', () => {
     });
     const spy = jest.spyOn(alert, 'show');
     try {
-      await http.post('/data', params, { skipAutoErrorHandling: true });
+      await http.post('/data', data, { skipAutoErrorHandling: true });
     } catch (e) {
       expect(spy).not.toHaveBeenCalled();
       spy.mockRestore();
@@ -773,7 +773,7 @@ describe('http.interceptors.response', () => {
   });
 
   it('should handle unknown error without message', async () => {
-    const params = { id: 12345678901234567890n, name: 'John' };
+    const data = { id: 12345678901234567890n, name: 'John' };
     const error = {
       type: 'SERVER_ERROR',
       code: 'UNKNOWN_ERROR',
@@ -790,7 +790,7 @@ describe('http.interceptors.response', () => {
     });
     const spy = jest.spyOn(alert, 'show');
     try {
-      await http.post('/data', params);
+      await http.post('/data', data);
     } catch (e) {
       expect(spy).toHaveBeenCalledOnce();
       spy.mockRestore();
@@ -805,7 +805,7 @@ describe('http.interceptors.response', () => {
   });
 
   it('should handle unknown error without message, skipAutoErrorHandling is set', async () => {
-    const params = { id: 12345678901234567890n, name: 'John' };
+    const data = { id: 12345678901234567890n, name: 'John' };
     const error = {
       type: 'SERVER_ERROR',
       code: 'UNKNOWN_ERROR',
@@ -822,7 +822,7 @@ describe('http.interceptors.response', () => {
     });
     const spy = jest.spyOn(alert, 'show');
     try {
-      await http.post('/data', params, { skipAutoErrorHandling: true });
+      await http.post('/data', data, { skipAutoErrorHandling: true });
     } catch (e) {
       expect(spy).not.toHaveBeenCalled();
       spy.mockRestore();

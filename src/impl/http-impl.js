@@ -540,6 +540,7 @@ class HttpImpl {
         Accept: mimeType ?? '*/*',
       },
       ...options,
+      ...options,
     }).then((response) => {
       const contentType = getContentTypeFromResponse(response, mimeType);
       filename = getFilenameFromResponse(response, filename);
