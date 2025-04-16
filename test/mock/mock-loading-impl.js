@@ -21,9 +21,9 @@ class MockLoadingImpl extends LoadingImpl {
     console.log(`MockLoadingImpl.show: ${message}`);
   }
 
-  hind() {
+  hide() {
     this.message = undefined;
-    console.log('MockLoadingImpl.hind');
+    console.log('MockLoadingImpl.hide');
   }
 
   reset() {

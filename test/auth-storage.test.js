@@ -328,7 +328,7 @@ describe('Test AuthStorage', () => {
     const loaded = authStorage.loadUserInfo();
     expect(loaded).toEqual(userInfo);
     authStorage.removeUserInfo();
-    expect(localStorage.removeItem).toHaveBeenCalledTimes(7);
+    expect(localStorage.removeItem).toHaveBeenCalledTimes(8);
     expect(authStorage.loadUserInfo()).toEqual({
       value: undefined,
       createTime: undefined,
