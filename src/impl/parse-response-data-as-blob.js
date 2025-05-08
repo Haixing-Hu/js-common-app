@@ -91,11 +91,11 @@ function parseResponseDataAsBlob(response, contentType) {
       dataType,
       className,
       contentType || 'unknown');
-    
+
     try {
       // 如果传入的是特殊对象，不能直接传给Blob构造函数，先转换为标准的Uint8Array
       let safeData;
-      
+
       // 如果是ArrayBuffer或者TypedArray，直接使用
       if (data instanceof ArrayBuffer || ArrayBuffer.isView(data)) {
         safeData = data;
@@ -103,12 +103,11 @@ function parseResponseDataAsBlob(response, contentType) {
         // 尝试转换为数组形式
         let dataArray;
         try {
-          // 1. 尝试转换为数组
           if (Array.isArray(data)) {
+            // 1. 尝试转换为数组
             dataArray = data;
-          } 
-          // 2. 如果有length属性，尝试按照类数组对象处理
-          else if (data !== null && typeof data === 'object' && typeof data.length === 'number') {
+          } else if ((typeof data === 'object') && (typeof data.length === 'number')) {
+            // 2. 如果有length属性，尝试按照类数组对象处理
             dataArray = [];
             const length = data.length;
             for (let i = 0; i < length; i++) {
@@ -118,16 +117,15 @@ function parseResponseDataAsBlob(response, contentType) {
                 dataArray[i] = 0;
               }
             }
-          } 
-          // 3. 如果以上都失败，将对象转换为JSON字符串
-          else {
+          } else {
+            // 3. 如果以上都失败，将对象转换为JSON字符串
             dataArray = [JSON.stringify(data)];
           }
         } catch (e) {
           logger.error('Failed to convert data to array, using default array:', e);
           dataArray = [JSON.stringify(String(data))];
         }
-        
+
         // 确保数组元素都是数字或者处理JSON字符串情况
         if (dataArray.length === 1 && typeof dataArray[0] === 'string') {
           // 如果是字符串，直接返回字符串内容而不是尝试转换为数字数组
@@ -137,7 +135,7 @@ function parseResponseDataAsBlob(response, contentType) {
           const byteArray = new Uint8Array(dataArray.length);
           for (let i = 0; i < dataArray.length; i++) {
             const value = dataArray[i];
-            if (typeof value === 'number' && !isNaN(value)) {
+            if (typeof value === 'number' && !Number.isNaN(value)) {
               byteArray[i] = value;
             } else {
               byteArray[i] = 0;
@@ -146,7 +144,7 @@ function parseResponseDataAsBlob(response, contentType) {
           safeData = byteArray;
         }
       }
-      
+
       return new Blob([safeData], { type: contentType || '' });
     } catch (e) {
       logger.error('Failed to create Blob from binary data, falling back to empty Blob:', e);
