@@ -2095,7 +2095,7 @@ __metadata:
     "@jest/core": "npm:^29.7.0"
     "@qubit-ltd/clone": "npm:^1.13.0"
     "@qubit-ltd/common-ui": "npm:^1.14.2"
-    "@qubit-ltd/common-util": "npm:^5.4.1"
+    "@qubit-ltd/common-util": "npm:^5.4.2"
     "@qubit-ltd/common-validation-rule": "npm:^1.5.0"
     "@qubit-ltd/config": "npm:^1.2.1"
     "@qubit-ltd/eslint-config": "npm:^1.3.5"
@@ -2159,15 +2159,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@qubit-ltd/common-util@npm:^5.4.1":
-  version: 5.4.1
-  resolution: "@qubit-ltd/common-util@npm:5.4.1"
+"@qubit-ltd/common-util@npm:^5.4.2":
+  version: 5.4.2
+  resolution: "@qubit-ltd/common-util@npm:5.4.2"
   peerDependencies:
     "@babel/runtime": ^7.26.0
     "@qubit-ltd/json": ^1.2.1
     "@qubit-ltd/type-detect": ^2.2.0
     "@qubit-ltd/typeinfo": ^3.3.0
-  checksum: 10c0/f60f598ea1838b34a352e298df1850b385c3de542bca6797a2acd71c648fda0beda818e327bf3c518d62835f4e855b4fe37c8db2e0fca5bc496acf829b0c504b
+  checksum: 10c0/7674627567166269e363af375fa11c3cc06536fd7a8ecbeeb59e1701d42a1f497f4cc86dedf1aad90ed985d2cae2c6374ea6d0e5a2d0c02387534baa77cbf669
   languageName: node
   linkType: hard
 

@@ -7,6 +7,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 import axios from 'axios';
+import { queryString } from '@qubit-ltd/common-util';
 import { httpImpl } from './impl/http-impl';
 
 /**
@@ -87,6 +88,7 @@ const http = axios.create({
       'Content-Type': undefined,  // 必须设置默认的 Content-Type 头为 undefined，后面才能被拦截器修改
     },
   },
+  paramsSerializer: (params) => queryString.stringify(params, { arrayFormat: 'none' }),
 });
 
 /**

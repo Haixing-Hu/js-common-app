@@ -281,4 +281,32 @@ describe('http.download', () => {
     });
     expect(window.URL.createObjectURL).not.toHaveBeenCalled();
   });
+
+  it('should encode array params as repeated query params when downloading', async () => {
+    const url = '/file';
+    const params = { ids: [1, 2, 3] };
+    const mimeType = 'application/pdf';
+    const contentDisposition = 'attachment; filename="test.pdf"';
+    const response = {
+      data: new Blob(['file content'], { type: mimeType }),
+      headers: {
+        'Content-Type': mimeType,
+        'Content-Disposition': contentDisposition,
+      },
+    };
+    mock.onGet(url).reply((config) => {
+      // 检查编码
+      const t = config.params._t;
+      const r = config.params._r;
+      const fullUrl = http.getUri({ url, params: config.params });
+      expect(fullUrl).toBe(`/file?_r=${r}&_t=${t}&ids=1&ids=2&ids=3`);
+      return [200, response.data, response.headers];
+    });
+    const result = await http.download(url, params, mimeType, false);
+    expect(result).toEqual({
+      blob: response.data,
+      filename: 'test.pdf',
+      mimeType,
+    });
+  });
 });
