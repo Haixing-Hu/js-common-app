@@ -1,6 +1,6 @@
 {
   "name": "@qubit-ltd/common-app",
-  "version": "1.11.18",
+  "version": "1.11.19",
   "description": "A JavaScript library of utilities for developing web apps.",
   "author": "Haixing Hu (starfish.hu@gmail.com)",
   "license": "Apache-2.0",
@@ -91,6 +91,7 @@
     "axios-mock-adapter": "^2.1.0",
     "babel-plugin-transform-object-hasown": "^1.1.0",
     "check-es-version": "^1.5.1",
+    "clean-jsdoc-theme": "^4.3.0",
     "core-js": "^3.42.0",
     "cross-env": "^7.0.3",
     "dayjs": "^1.11.13",
