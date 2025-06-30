@@ -4,11 +4,12 @@
     "recurse": true,
     "verbose": true,
     "encoding": "utf8",
-    "template": "node_modules/clean-jsdoc-theme"
+    "template": "node_modules/clean-jsdoc-theme",
+    "tutorials": "./doc/tutorials"
   },
   "recurseDepth": 10,
   "source": {
-    "include": ["./src", "./README.md"],
+    "include": ["./README.zh_CN.md", "./src"],
     "includePattern": ".+\\.js(doc|x)?$",
     "excludePattern": "(^|\\/|\\\\)_"
   },

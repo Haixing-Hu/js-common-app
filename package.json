@@ -1,6 +1,6 @@
 {
   "name": "@qubit-ltd/common-app",
-  "version": "1.11.19",
+  "version": "1.11.20",
   "description": "A JavaScript library of utilities for developing web apps.",
   "author": "Haixing Hu (starfish.hu@gmail.com)",
   "license": "Apache-2.0",
@@ -34,13 +34,13 @@
     "README.zh_CN.md"
   ],
   "scripts": {
-    "clean": "rm -rvf dist doc",
+    "clean": "rm -rvf dist doc/api",
     "build": "cross-env NODE_ENV=production rollup -c rollup.config.mjs",
     "build:dev": "cross-env NODE_ENV=development rollup -c rollup.config.mjs",
     "build:all": "npm run clean && npm run doc && npm run build:dev && npm run build",
     "test": "jest --passWithNoTests",
     "lint": "eslint ./src",
-    "doc": "jsdoc -c jsdoc.json",
+    "doc": "jsdoc -c jsdoc.json && node scripts/add-mermaid-support.js",
     "es5": "check-es-version -e 5 -s true",
     "deploy": "npm run lint && npm run test && npm run build:all && npm publish --registry='https://npm.qubit.ltd/'"
   },
@@ -98,12 +98,14 @@
     "eslint": "^8.57.1",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-vue": "^9.33.0",
+    "glob": "^11.0.3",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "jest-environment-jsdom-global": "^4.0.0",
     "jest-extended": "^4.0.2",
     "js-cookie": "^3.0.5",
     "jsdoc": "^4.0.4",
+    "jsdoc-mermaid": "^1.0.0",
     "pinia": "^3.0.2",
     "rollup": "^4.40.2",
     "rollup-plugin-analyzer": "^4.0.0",
