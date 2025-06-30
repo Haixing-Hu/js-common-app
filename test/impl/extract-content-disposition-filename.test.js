@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import { extractContentDispositionFilename } from '../../src';
+import extractContentDispositionFilename from '../../src/impl/extract-content-disposition-filename';
 
 describe('extractContentDispositionFilename', () => {
   it('returns the filename when Content-Disposition header contains filename', () => {

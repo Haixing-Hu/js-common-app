@@ -14,6 +14,7 @@
  *     Content-Disposition 头的值。
  * @return {string|null}
  *     从Content-Disposition头中提取的文件名，如果提取失败，则返回`null`。
+ * @private
  */
 function extractContentDispositionFilename(contentDisposition) {
   if (!contentDisposition) {
