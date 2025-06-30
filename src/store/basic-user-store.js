@@ -19,6 +19,7 @@ const logger = Logger.getLogger('store.user');
 /**
  * 管理用户登录状态的 Pinia Store 类的基类。
  *
+ * @see {@tutorial basic-user-store}
  * @author 胡海星
  */
 class BasicUserStore {
@@ -599,6 +600,7 @@ class BasicUserStore {
    * @return {Promise<LoginResponse|ErrorInfo>}
    *     此 HTTP 请求的 Promise，若操作成功，解析成功并返回一个`LoginResponse`对象，包含
    *     了指定用户的登录信息；若操作失败，解析失败并返回一个`ErrorInfo`对象。
+   * @see {@tutorial basic-user-store}
    */
   @Log
   loginByUsername(username, password, saveLogin) {
@@ -625,6 +627,7 @@ class BasicUserStore {
    * @return {Promise<LoginResponse|ErrorInfo>}
    *     此 HTTP 请求的 Promise，若操作成功，解析成功并返回一个`LoginResponse`对象，包含
    *     了指定用户的登录信息；若操作失败，解析失败并返回一个`ErrorInfo`对象。
+   * @see {@tutorial basic-user-store}
    */
   @Log
   loginByMobile(mobile, verifyCode, saveLogin) {
@@ -754,6 +757,8 @@ class BasicUserStore {
 
   /**
    * 对于未登录用户，显示提示框提示其重新登录。
+   *
+   * @see {@tutorial basic-user-store}
    */
   @Log
   confirmLogin() {
