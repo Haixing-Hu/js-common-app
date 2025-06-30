@@ -42,7 +42,8 @@
     "lint": "eslint ./src",
     "doc": "jsdoc -c jsdoc.json && node scripts/add-mermaid-support.js",
     "es5": "check-es-version -e 5 -s true",
-    "deploy": "npm run lint && npm run test && npm run build:all && npm publish --registry='https://npm.qubit.ltd/'"
+    "deploy": "npm run lint && npm run test && npm run build:all && npm publish --registry='https://npm.qubit.ltd/'",
+    "deploy:all": "npm run deploy"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.27.1",
