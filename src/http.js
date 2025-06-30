@@ -16,6 +16,8 @@ import { httpImpl } from './impl/http-impl';
  * 使用该实例发送请求时，会自动在请求头中加上 App Token 和 Access Token，会自动处理服务器
  * 返回的错误信息，包括未授权错误、会话过期错误、令牌无效错误等。
  *
+ * @see {@tutorial http-features}
+ *
  * ### 使用前的配置
  *
  * 使用该实例前，需确保已完成下述配置：

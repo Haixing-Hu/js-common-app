@@ -78,6 +78,14 @@ const logger = Logger.getLogger('http');
 /**
  * The implementation of the `http` object.
  *
+ * 该类实现了 HTTP 对象的核心功能，包括：
+ * - 自动令牌管理
+ * - 长整数序列化处理
+ * - 智能错误处理
+ * - UI 抽象层集成
+ * - 文件下载功能
+ *
+ * @see {@tutorial http-features}
  * @author Haixing Hu
  */
 class HttpImpl {
@@ -229,12 +237,15 @@ class HttpImpl {
   /**
    * 转换请求数据。
    *
+   * 使用自定义的 JSON 序列化器处理请求数据，支持 64 位长整数的无损序列化。
+   *
    * @param {object} data
    *     待转换的请求数据。
    * @param {AxiosHeaders} headers
    *     请求头。
    * @return {any}
    *     转换后的请求数据。
+   * @see {@tutorial http-features}
    * @private
    * @author 胡海星
    */
@@ -251,12 +262,15 @@ class HttpImpl {
   /**
    * 转换响应数据。
    *
+   * 使用自定义的 JSON 解析器处理响应数据，支持 64 位长整数的无损解析。
+   *
    * @param {any} data
    *     待转换的响应数据。
    * @param {AxiosHeaders} headers
    *     响应头。
    * @return {any}
    *     转换后的响应数据。
+   * @see {@tutorial http-features}
    * @private
    * @author 胡海星
    */
@@ -422,6 +436,9 @@ class HttpImpl {
   /**
    * 处理请求错误。
    *
+   * 智能处理各种类型的错误，包括认证错误、会话过期、令牌无效等，
+   * 并与 UI 抽象层集成提供用户友好的交互。
+   *
    * @param {Axios} http
    *     待配置的 axios 对象。
    * @param {object} error
@@ -429,6 +446,7 @@ class HttpImpl {
    * @return {Promise}
    *     一个Promise对象，表示处理错误的结果，如果处理成功，则返回一个resolve的Promise对象，
    *     否则返回一个reject的Promise对象，表示处理失败。
+   * @see {@tutorial http-features}
    * @private
    * @author 胡海星
    */
@@ -507,6 +525,8 @@ class HttpImpl {
   /**
    * 下载指定的文件。
    *
+   * 内置文件下载功能，支持自动解析文件名和 MIME 类型，可选择自动下载或返回文件信息。
+   *
    * @param {string} url
    *    获取待下载文件的URL。函数将通过HTTP GET操作访问该URL。
    * @param {object|null|undefined} params
@@ -529,6 +549,7 @@ class HttpImpl {
    *
    *    如果操作失败，则解析失败并返回一个`ErrorInfo`对象。如果操作成功且`autoDownload`
    *    设置为`true`，浏览器会自动开始下载文件。
+   * @see {@tutorial http-features}
    */
   @Log
   download(url, params = {}, mimeType = null, autoDownload = true, filename = null, options = {}) {
