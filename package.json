@@ -1,6 +1,6 @@
 {
   "name": "@qubit-ltd/common-app",
-  "version": "1.11.22",
+  "version": "1.11.23",
   "description": "A JavaScript library of utilities for developing web apps.",
   "author": "Haixing Hu (starfish.hu@gmail.com)",
   "license": "Apache-2.0",
@@ -55,7 +55,7 @@
     "@qubit-ltd/pinia-decorator": "^3.4.4",
     "@qubit-ltd/storage": "^1.4.4",
     "@qubit-ltd/type-detect": "^2.2.3",
-    "axios": "^1.9.0"
+    "axios": "^1.12.2"
   },
   "devDependencies": {
     "@babel/core": "^7.28.4",
@@ -88,7 +88,7 @@
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-terser": "^0.4.4",
-    "axios": "^1.12.1",
+    "axios": "^1.12.2",
     "axios-mock-adapter": "^2.1.0",
     "babel-jest": "^29.7.0",
     "babel-plugin-transform-object-hasown": "^1.1.0",

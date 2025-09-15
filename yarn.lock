@@ -2415,7 +2415,7 @@ __metadata:
     "@rollup/plugin-json": "npm:^6.1.0"
     "@rollup/plugin-node-resolve": "npm:^16.0.1"
     "@rollup/plugin-terser": "npm:^0.4.4"
-    axios: "npm:^1.12.1"
+    axios: "npm:^1.12.2"
     axios-mock-adapter: "npm:^2.1.0"
     babel-jest: "npm:^29.7.0"
     babel-plugin-transform-object-hasown: "npm:^1.1.0"
@@ -2442,16 +2442,16 @@ __metadata:
     vue: "npm:^3.5.21"
     vue-eslint-parser: "npm:^10.2.0"
   peerDependencies:
-    "@babel/runtime": ^7.27.1
-    "@qubit-ltd/common-ui": ^1.14.2
-    "@qubit-ltd/common-util": ^5.4.2
-    "@qubit-ltd/config": ^1.2.1
-    "@qubit-ltd/json": ^1.2.1
-    "@qubit-ltd/logging": ^1.4.9
-    "@qubit-ltd/pinia-decorator": ^3.4.1
-    "@qubit-ltd/storage": ^1.4.1
-    "@qubit-ltd/type-detect": ^2.2.0
-    axios: ^1.9.0
+    "@babel/runtime": ^7.28.4
+    "@qubit-ltd/common-ui": ^1.15.2
+    "@qubit-ltd/common-util": ^5.4.7
+    "@qubit-ltd/config": ^1.2.4
+    "@qubit-ltd/json": ^1.2.4
+    "@qubit-ltd/logging": ^1.4.12
+    "@qubit-ltd/pinia-decorator": ^3.4.4
+    "@qubit-ltd/storage": ^1.4.4
+    "@qubit-ltd/type-detect": ^2.2.3
+    axios: ^1.12.2
   languageName: unknown
   linkType: soft
 
@@ -3687,14 +3687,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.12.1":
-  version: 1.12.1
-  resolution: "axios@npm:1.12.1"
+"axios@npm:^1.12.2":
+  version: 1.12.2
+  resolution: "axios@npm:1.12.2"
   dependencies:
     follow-redirects: "npm:^1.15.6"
     form-data: "npm:^4.0.4"
     proxy-from-env: "npm:^1.1.0"
-  checksum: 10c0/eda4dff56c02d13b950fd9487b678ac197ce5f21dfc98df73632df29e45d8dd24602a34e8d9b6e016d84a41ef7fd7fc4a7618060a72cc536b91cda1eaa9cd907
+  checksum: 10c0/80b063e318cf05cd33a4d991cea0162f3573481946f9129efb7766f38fde4c061c34f41a93a9f9521f02b7c9565ccbc197c099b0186543ac84a24580017adfed
   languageName: node
   linkType: hard
 
